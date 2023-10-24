@@ -41,7 +41,7 @@ try:
 
     for product in products:
         cursor.execute(f"""INSERT INTO products_product (title, description, price, image, created) 
-                       VALUES ('{product['title']}', '{product['description']}', 
+                       VALUES ('{product['title'].title()}', '{product['description']}', 
                        {product['price']}, 'no_image.jpg', '{datetime.now()}');""")
         print(product)
     print("Данные успешно переданы")

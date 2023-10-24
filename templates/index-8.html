@@ -91,7 +91,7 @@
                 <div class="item_version_2">
                     <a href="{% url 'product_detail' product.id %}">
                         <figure>
-                            <span>98</span>
+                            <span>{{ product.price }}</span>
                             <img src="{{ product.image.url }}" data-src="{{ product.image.url }}" alt="" class="owl-lazy" width="350" height="450">
                             <div class="info">
                                 <h3>{{ product.title }}</h3>

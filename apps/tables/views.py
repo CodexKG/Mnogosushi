@@ -13,20 +13,21 @@ from utils.iiko_menu import main
 def menu(request, table_uuid):
     table = Table.objects.get(number=table_uuid)
     setting = Setting.objects.latest('id')
+    products = Product.objects.all()
 
-    menu_data = main()
+    # menu_data = main()
 
-    # Получаем информацию о продуктах
-    items = menu_data.get('itemCategories', [])[0].get('items')
+    # # Получаем информацию о продуктах
+    # items = menu_data.get('itemCategories', [])[0].get('items')
 
-    products = []
-    for item in items:
-        if item['name'] and item['itemSizes'][0].get('prices')[0].get('price'):
-            item_info = {
-                'title': item['name'],
-                'price': item['itemSizes'][0].get('prices')[0].get('price'),
-            }
-            products.append(item_info)
+    # products = []
+    # for item in items:
+    #     if item['name'] and item['itemSizes'][0].get('prices')[0].get('price'):
+    #         item_info = {
+    #             'title': item['name'],
+    #             'price': item['itemSizes'][0].get('prices')[0].get('price'),
+    #         }
+    #         products.append(item_info)
 
     return render(request, 'menu/index.html', locals())
 
