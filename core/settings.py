@@ -42,12 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
 
-    #django auth
+    #django-allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
-    # 'allauth.socialaccount.providers.telegram',
     'allauth.socialaccount.providers.google',
 
     'rangefilter',
@@ -84,23 +82,24 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': [
             'profile',
             'email',
-            'openid',
-            'https://www.googleapis.com/auth/calendar.readonly'
         ],
-    },
-    'github': {
-        'SCOPE': [
-            'user',
-        ],
-    },
-    'telegram': {
-        'APP': {
-            'client_id': '6902530874',
-            'secret': TELEGRAM_BOT_TOKEN,
-        },
-        'AUTH_PARAMS': {'auth_date_validity': 30},
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
     }
 }
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Additional configuration settings
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 ROOT_URLCONF = 'core.urls'
 

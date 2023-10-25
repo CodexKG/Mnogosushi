@@ -33,6 +33,7 @@ urlpatterns = [
 
     #users
     path('logout/', LogoutView.as_view(next_page = 'index'), name = "logout"),
+    path('accounts/', include('allauth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
