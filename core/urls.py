@@ -18,14 +18,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #include
     path('', include('apps.settings.urls')),
     path('product/', include('apps.products.urls')),
     path('cart/', include('apps.carts.urls')),
     path('billing/', include('apps.billing.urls')),
-    path('menu/', include('apps.tables.urls'))
+    path('menu/', include('apps.tables.urls')),
+    path('user/', include('apps.users.urls')),
+
+    #users
+    path('logout/', LogoutView.as_view(next_page = 'index'), name = "logout"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

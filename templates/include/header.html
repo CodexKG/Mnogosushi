@@ -40,6 +40,21 @@
                 <li>
                     <a href="{% url 'cart' %}" target="_parent">Корзина</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'cart' %}" target="_parent">{{ request.user.username }}</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}" target="_parent">Выйти</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}" target="_parent">Войти</a>
+                </li>
+                <li>
+                    <a href="{% url 'register' %}" target="_parent">Регистрация</a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     </div>
