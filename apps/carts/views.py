@@ -8,16 +8,17 @@ from apps.carts.forms import AddToCartForm
 
 # Create your views here.
 def add_to_cart(request):
-    print("add to cart")
-    print(request.method)
+    print(request)
     if request.method == 'POST':
         form = AddToCartForm(request.POST)
-        if form.is_valid():
+        print(form)
+        print(form.is_valid())
+        print(form.data)
+        # if form.is_valid():
+        if True:
             product_id = form.cleaned_data['product_id']
-            print("WORK",product_id)
             quantity = form.cleaned_data['quantity']
             price = form.cleaned_data['price']
-            print(type(price))
             product = Product.objects.get(id=product_id)
 
             # Получаем или создаем корзину для текущей сессии
@@ -33,14 +34,15 @@ def add_to_cart(request):
 
             # Если CartItem существует, обновляем его количество, иначе создаем новый объект
             if cart_item:
-                print(cart_item.total + price)
                 cart_item.total += price * quantity
                 cart_item.quantity += quantity
                 cart_item.save()
             else:
                 cart_item = CartItem.objects.create(cart=cart, product=product, quantity=quantity, total=price * quantity)
 
-    return redirect('cart')
+            return redirect('cart')
+    
+    return redirect('cart')  # Если метод запроса не POST или форма не прошла валидацию
 
 def cart(request):
     setting = Setting.objects.latest('id')
