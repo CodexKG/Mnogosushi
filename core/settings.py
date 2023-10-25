@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.telegram',
 
     'rangefilter',
     'django.contrib.humanize',
@@ -60,8 +61,6 @@ INSTALLED_APPS = [
     'apps.telegram',
     'apps.users',
     'apps.tables',
-
-
 ]
 
 MIDDLEWARE = [
@@ -86,11 +85,19 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
+    },
+    'telegram': {
+        'APP': {
+            'client_id': '6441195070',
+            'secret': TELEGRAM_BOT_TOKEN,
+        },
+        'AUTH_PARAMS': {'auth_date_validity': 30},
     }
 }
 
 SITE_ID = 1
 
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
