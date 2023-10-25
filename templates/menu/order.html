@@ -30,7 +30,7 @@
 	
 	<main>
 
-		<div class="hero_in detail_page background-image" data-background="url({% static 'img/shushi1.jpg' %})">
+		<div class="hero_in detail_page background-image" data-background="url(https://tmint.co/wp-content/uploads/2019/09/Preview-Trifold-Menu-01-2.jpg)">
 			<div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 				
 				<div class="container">
@@ -38,7 +38,7 @@
 						<div class="row">
 							<div class="col-xl-4 col-lg-5 col-md-6">
 								<div class="head"><div class="score"><span>{{ setting.title }}<em>350 отзывов</em></span><strong>8.9</strong></div></div>
-								<h1>Заказы</h1>
+								<h1>Заказы из Menu</h1>
 								<a href="" target="blank">Заказы из меню</a>
 							</div>
 							
@@ -118,57 +118,13 @@
 										{% endif %}
 									</ul>
 									<ul class="clearfix">
-										<li>Предытог<span>{{ total_price }} KGS</span></li>
-										<li>Доставка<span>Бесплатно</span></li>
 										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
 										<input type="hidden" name="total_price" value="{{ total_price }}">
 									</ul>
 									{% if cart_items %}
-									<div class="row opt_order">
-										<div class="col-6">
-											<label class="container_radio">Доставка
-												<input type="radio" name="billing_receipt_type" value="Доставка" id="courier" checked="checked">
-												<span class="checkmark"></span>
-											</label>
-										</div>
-										<div class="col-6">
-											<label class="container_radio">Самовывоз
-												<input type="radio" name="billing_receipt_type" value="Самовывоз" id="pickup">
-												<span class="checkmark"></span>
-											</label>
-										</div>
-									</div>
 									
-									<div class="row opt_order">
-										<div class="col-6">
-											<label for="payment">Адрес доставки:</label>
-											<input type="text" placeholder="Бишкек, Чуйская 185" name="address">
-										</div>
-									</div>
 
-									<div class="row opt_order">
-										<div class="col-6">
-											<label for="payment">Ваш номер телефона:</label>
-											<input type="text" placeholder="0772343206" name="phone">
-										</div>
-									</div>
-
-									<!-- <div class="row opt_order">
-										<div class="custom_select clearfix">
-											<div class="col-6 mt-6">
-											<label>Выберите способ оплаты:</label>
-											
-											<div class="nice-select wide form-control" tabindex="0">
-												<span class="current">Наличные</span>
-												<ul class="list">
-													<li data-value="Наличные" class="option selected focus">Наличные</li>
-													<li data-value="Mbank" class="option">Mbank</li>
-													<li data-value="Optima" class="option">Optima</li>
-													<li data-value="О деньги" class="option">О деньги</li>
-												</ul>
-											</div>
-										</div>
-									</div> -->
+					
 
 									<div class="row opt_order">
 										<div class="col-6">
@@ -184,8 +140,8 @@
 
 										
 									<div class="btn_1_mobile">
-										<button type="submit" class="btn_1 gradient full-width mb_5">Оформить</button>
-										<div class="text-center"><small>После заказа, вам позвонят наши менеджера для уточнения</small></div>
+										<button type="submit" class="btn_1 gradient full-width mb_5">Заказать на столик</button>
+										<div class="text-center"><small>После заказа, к вашему столику придут наши официанты для уточнения заказа</small></div>
 									</div>
 									{% endif %}
 								</form>

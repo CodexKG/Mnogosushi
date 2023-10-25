@@ -113,7 +113,7 @@
 
 	        <div class="promo mb_30">
 	            <h3>Меню стола Doyobisan {{ table.number }}</h3>
-	            <p>Меню стола {{ table.number }}</p>
+	            <p>Меню стола ID: {{ table.number }}</p>
 	            <i class="icon-food_icon_delivery"></i>
 	        </div>
 	        <!-- /promo -->
@@ -125,7 +125,7 @@
 	                    <figure>
 	                        <span class="ribbon off">{{ setting.title }}</span>
 	                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" class="img-fluid lazy" alt="{{ product.title }}">
-	                        <a href="detail-restaurant.html" class="strip_info">
+	                        <a href="{% url 'product_detail' product.id %}" class="strip_info">
 	                            <small>{{ product.price }} KGS</small>
 	                            <div class="item_title">
 	                                <h3>{{ product.title }} {{ product.price }} KGS</h3>
@@ -140,7 +140,7 @@
 								<input type="hidden" name="price" value="{{ product.price }}">
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
-								<button type="submit" class="take yes">Заказать на стол {{ table.number }}</button>
+								<button type="submit" class="btn_1">Заказать на стол {{ table.number }}</button>
 							</form>
 	                        <li>
 	                            <div class="score"><strong>9.5</strong></div>

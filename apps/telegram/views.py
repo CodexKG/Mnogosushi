@@ -205,3 +205,13 @@ async def send_post_billing(id, products, payment_method, payment_code, address,
 Итого: {total_price} KGS
 Статус: Ожидание курьера""",
 reply_markup=billing_keyboard)
+    
+"""Функция для отправки биллинга меню в телеграм группу"""
+async def send_post_billing_menu(id, products, payment_method, payment_code, total_price):
+    await bot.send_message(-4063835118, f"""Биллинг #{id}
+Товары: {products}
+Способ оплаты: {payment_method}
+Код оплаты: {payment_code}
+Итого: {total_price} KGS
+Статус: Ожидание официанта""",
+reply_markup=billing_keyboard)

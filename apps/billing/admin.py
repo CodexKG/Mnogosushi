@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from django.db.models import Sum, Count, F
 from mptt.admin import MPTTModelAdmin
 
-from apps.billing.models import Billing, BillingProduct, SaleSummary
+from apps.billing.models import Billing, BillingProduct, SaleSummary, BillingMenu, BillingMenuProduct
 
 # Register your models here.
 class CustomDateFieldListFilter(admin.DateFieldListFilter):
@@ -100,5 +100,22 @@ class BillingAdmin(MPTTModelAdmin):
 
 @admin.register(BillingProduct)
 class BillingProductAdmin(admin.ModelAdmin):
+    list_display = ('billing', 'product', 'quantity', 'price', 'status')
+    list_filter = (('created', DateRangeFilter), ('created', CustomDateFieldListFilter),)  # Добавляем фильтр по дате
+
+class BillingProductTabularInline(admin.TabularInline):
+    model = BillingMenuProduct
+    extra = 0
+
+@admin.register(BillingMenu)
+class BillingMenuAdmin(MPTTModelAdmin):
+    list_display = ('id', 'total_price', 'payment_method', 'payment_code', 'created', 'status')
+    search_fields = ('id', 'total_price', 'payment_method', 'payment_code', 'created', 'status')
+    inlines = [BillingProductTabularInline]
+    list_filter = (('created', DateRangeFilter), ('created', CustomDateFieldListFilter),)  # Добавляем фильтр по дате
+
+
+@admin.register(BillingMenuProduct)
+class BillingMenuProductAdmin(admin.ModelAdmin):
     list_display = ('billing', 'product', 'quantity', 'price', 'status')
     list_filter = (('created', DateRangeFilter), ('created', CustomDateFieldListFilter),)  # Добавляем фильтр по дате
