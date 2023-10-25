@@ -206,6 +206,12 @@ async def send_post_billing(id, products, payment_method, payment_code, address,
 Статус: Ожидание курьера""",
 reply_markup=billing_keyboard)
     
+billing_menu_buttons = [
+    types.InlineKeyboardButton('Удалить', callback_data='not_work'),
+    types.InlineKeyboardButton("Потвердить заказ", callback_data='not_working')
+]
+billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_buttons)
+
 """Функция для отправки биллинга меню в телеграм группу"""
 async def send_post_billing_menu(id, products, payment_method, payment_code, total_price):
     await bot.send_message(-4063835118, f"""Биллинг #{id}

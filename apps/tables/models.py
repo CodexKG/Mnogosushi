@@ -47,8 +47,8 @@ class Table(models.Model):
         )
         print(qr)
         print("Hello World")
-        qr.add_data(f"https://doyobisan.webtm.ru/menu/{self.number}/")
-        print(f"https://doyobisan.webtm.ru/menu/{self.number}/")
+        qr.add_data(f"http://doyobisan.webtm.ru/menu/{self.number}/")
+        print(f"http://doyobisan.webtm.ru/menu/{self.number}/")
         qr.make(fit=True)
 
         buffer = BytesIO()
