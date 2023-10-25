@@ -204,35 +204,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Users
 AUTH_USER_MODEL = 'users.User'
-LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-# Sending Emails
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'kulmamatovz@yandex.ru'
-EMAIL_HOST_PASSWORD = 'jcfavmwnbgjlheym'
-EMAIL_USE_SSL = True
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'github': {
-        'SCOPE': [
-            'user',
-        ],
-    },
-    'telegram': {
-        'APP': {
-            'client_id': '6902530874',
-            'secret': TELEGRAM_BOT_TOKEN,
-        },
-        'AUTH_PARAMS': {'auth_date_validity': 30},
-    }
-}
