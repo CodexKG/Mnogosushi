@@ -138,6 +138,7 @@
 								{% csrf_token %}
 								<input type="hidden" name="product_id" value="{{ product.id }}">
 								<input type="hidden" name="price" value="{{ product.price }}">
+								<input type="hidden" name="table_uuid" value="{{ table.number }}">
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
 								<button type="submit" class="btn_1">Заказать на стол {{ table.number }}</button>

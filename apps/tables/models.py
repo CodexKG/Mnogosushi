@@ -64,6 +64,7 @@ class Table(models.Model):
         verbose_name_plural = "Столы"
 
 class TableOrder(models.Model):
+    menu_table = models.ForeignKey(Table, on_delete=models.SET_NULL, verbose_name="Стол", blank=True, null=True)
     session_key = models.CharField(max_length=40, unique=True, verbose_name="Ключ сессии")
     items = models.ManyToManyField(Product, through='TableOrderItem', verbose_name="Товары")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Дата формирования заказа")
@@ -82,7 +83,7 @@ class TableOrderItem(models.Model):
     total = models.PositiveBigIntegerField(default=0, verbose_name="Итоговая цена товаров")
 
     def __str__(self):
-        return f"{self.order}"
+        return f"{self.table}"
     
     class Meta:
         verbose_name = "Товар в корзине (меню)"
