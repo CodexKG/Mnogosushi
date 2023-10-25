@@ -213,11 +213,11 @@ billing_menu_buttons = [
 billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_buttons)
 
 """Функция для отправки биллинга меню в телеграм группу"""
-async def send_post_billing_menu(id, products, payment_method, payment_code, total_price):
-    await bot.send_message(-4063835118, f"""Биллинг #{id}
+async def send_post_billing_menu(id, table_uuid, products, payment_method, payment_code, total_price):
+    await bot.send_message(-4063835118, f"""Заказ на столик {table_uuid} #{id}
 Товары: {products}
 Способ оплаты: {payment_method}
 Код оплаты: {payment_code}
 Итого: {total_price} KGS
 Статус: Ожидание официанта""",
-reply_markup=billing_keyboard)
+reply_markup=billing_menu_keyboard)

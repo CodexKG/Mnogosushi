@@ -55,7 +55,7 @@
 		    <div class="container">
 		        <ul id="secondary_nav">
 		            <li><a href="{% url 'index' %}">Главная</a></li>
-		            <li><a href="{% url 'cart' %}">Заказы</a></li>
+		            <li><a href="{% url 'menu' order.menu_table.number  %}">Меню</a></li>
 		            
 		            <li><a href="{% url 'index' %}"><i class="icon_chat_alt"></i>Контакты</a></li>
 		        </ul>
@@ -101,7 +101,7 @@
 		            <!-- /col -->
 		            <div class="col-lg-4" id="sidebar_fixed">
 		                <div class="box_order mobile_fixed">
-							<form action="{% url 'create_billing' %}" method="post">
+							<form action="{% url 'create_billing_from_order' %}" method="post">
 								{% csrf_token %}
 								<div class="head">
 									<h3>Общая сумма</h3>

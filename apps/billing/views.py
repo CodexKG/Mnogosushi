@@ -86,7 +86,7 @@ def create_billing_from_cart(request):
 
         return redirect('confirm', billing.address, billing.phone, billing.payment_code)
     
-def create_billing_from_cart(request):
+def create_billing_from_order(request):
     user_order = request.POST.get('user_order')
     total_price = request.POST.get('total_price')
     payment_method = request.POST.get('payment_method')
@@ -131,6 +131,7 @@ def create_billing_from_cart(request):
         #Отправляем уведомление в группу telegram
         asyncio.run(send_post_billing_menu(
             id=billing.id,
+            table_uuid=None,
             products=item_names,
             payment_method=billing.payment_method,
             payment_code=billing.payment_code,
