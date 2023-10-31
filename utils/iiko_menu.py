@@ -12,11 +12,13 @@ def main():
 
     if token:
         organization_id = get_organization_id(f'{host}/api/1/organizations', token)
+        print(f"ID: {organization_id}")
         external_menu_id = get_menu(f"{host}/api/2/menu", token)
+        print(external_menu_id)
         get_detail_menu(f'{host}/api/1/nomenclature', token, organization_id)
         menu_by_id_url = f"{host}/api/2/menu/by_id"
         result_menu = get_menu_by_id(menu_by_id_url, token, external_menu_id, organization_id)
-        print(result_menu)
+        # print(result_menu)
         return result_menu
 
 def get_access_token_iiko(url):

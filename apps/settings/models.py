@@ -53,3 +53,29 @@ class Setting(models.Model):
     class Meta:
         verbose_name = "Настройка"
         verbose_name_plural = "Настройки"
+
+class Contact(models.Model):
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Имя"
+    )
+    phone = models.CharField(
+        max_length=100,
+        verbose_name="Номер телефона"
+    )
+    message = models.CharField(
+        max_length=500,
+        verbose_name="Сообщение",
+        blank=True, null=True
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания"
+    )
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name = "Контакт"
+        verbose_name_plural = "Контакты"
