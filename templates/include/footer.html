@@ -6,11 +6,11 @@
                 <h3 data-bs-target="#collapse_1">Страницы</h3>
                 <div class="collapse dont-collapse-sm links" id="collapse_1">
                     <ul>
-                        <li><a href="about.html">Главная</a></li>
-                        <li><a href="submit-restaurant.html">Еда</a></li>
-                        <li><a href="help.html">Отзывы</a></li>
-                        <li><a href="register.html">Контакты</a></li>
-                        <li><a href="blog.html">Корзина</a></li>
+                        <li><a href="{% url 'index' %}">Главная</a></li>
+                        <li><a href="{% url 'foods' %}">Еда</a></li>
+                        <li><a href="{% url 'check_order' %}">Отследить заказ</a></li>
+                        <li><a href="{% url 'contact' %}">Контакты</a></li>
+                        <li><a href="{% url 'cart' %}">Корзина</a></li>
                     </ul>
                 </div>
             </div>
@@ -19,19 +19,19 @@
                 <div class="collapse dont-collapse-sm links" id="collapse_2">
                     <ul>
                         {% for product in footer_products %}
-                        <li><a href="grid-listing-filterscol.html">{{ product.title }}</a></li>
+                        <li><a href="{% url 'product_detail' product.id %}">{{ product.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                    <h3 data-bs-target="#collapse_3">Конакты</h3>
+                    <h3 data-bs-target="#collapse_3">Контакты</h3>
                 <div class="collapse dont-collapse-sm contacts" id="collapse_3">
                     <ul>
                         <li><i class="icon_house_alt"></i>Кырызстан, Бишкек, ​Токтогула, 90​1 этаж​</li>
                         <li><i class="icon_mobile"></i>+996 550 03 00 40</li>
                         <li><i class="icon_mobile"></i>+996 700 03 00 40</li>
-                        <li><i class="icon_mail_alt"></i><a href="#0">doyobisan@gmail.com</a></li>
+                        <li><i class="icon_mail_alt"></i><a href="mailto:{{ setting.email }}">{{ setting.email }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <ul class="additional_links">
                     <li><a href="{% url 'index' %}">Условия использования</a></li>
                     <li><a href="{% url 'index' %}">Конфиденциальность</a></li>
-                    <li><span>Codex Studio</span></li>
+                    <li><a href="https://instagram.com/codexx_studio">Codex Studio</a></li>
                 </ul>
             </div>
         </div>

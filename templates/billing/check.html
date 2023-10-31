@@ -1,0 +1,164 @@
+{% extends 'include/homepage.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- SPECIFIC CSS -->
+    <link href="{% static 'css/order-sign_up.css' %}" rel="stylesheet">
+    <link href="{% static 'css/detail-page.css' %}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+				
+	{% include 'include/second_header.html' %}
+<!-- /header -->
+	
+	<main class="bg_gray">
+		
+		<div class="container margin_60_20">
+		    <div class="row justify-content-center">
+		        <div class="col-xl-6 col-lg-8">
+		        	<div class="box_order_form">
+					    <div class="head">
+					        <div class="title">
+					            <h3>Отследить заказ</h3>
+					        </div>
+					    </div>
+					    <!-- /head -->
+					    <div class="main">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>Код оплаты</label>
+                                    <input class="form-control" name="payment_code" value="{{ billing.payment_code }}" placeholder="Код оплаты">
+                                </div>
+                                <button type="submit" class="btn_1 gradient full-width mb_5">Проверить</button>
+                            </form>
+					    </div>
+					</div>
+					
+		        </div>
+		        <!-- /col -->
+                {% if billing and billing.title != 'Error' %}
+		        <div class="col-xl-4 col-lg-4" id="sidebar_fixed">
+		            <div class="box_order">
+		                <div class="head">
+		                    <h3>Детали вашего заказа</h3>
+		                    <div>Заказ ID: {{ billing.payment_code }}</div>
+		                </div>
+		                <!-- /head -->
+		                <div class="main">
+		                	<ul>
+		                		<li>Дата<span>{{ billing.created|date }}</span></li>
+		                		<li>Время<span>{{ billing.created|time }}</span></li>
+		                		<li>Тип заказа<span>{{ billing.billing_receipt_type }}</span></li>
+		                	</ul>
+		                	<hr>
+		                	<ul class="clearfix">
+                                {% for product in products %}
+		                		<li><a href="{% url 'product_detail' product.id %}">{{ product.product.title }}</a><span>{{ product.price }}KGS</span></li>
+		                		{% endfor %}
+		                	</ul>
+		                	
+		                	<ul class="clearfix">
+		                		<li>Доставка<span>0KGS</span></li>
+		                		<li class="total">Итого<span>{{ billing.total_price }}KGS</span></li>
+		                	</ul>
+		                    <!-- <a href="confirm.html" class="btn_1 gradient full-width mb_5">Order Now</a>
+		                    <div class="text-center"><small>Or Call Us at <strong>0432 48432854</strong></small></div> -->
+		                </div>
+		            </div>
+		            <!-- /box_booking -->
+		        </div>
+                {% endif %}
+                {% if billing.title == 'Error' %}
+                <div class="col-xl-8 col-lg-4" id="sidebar_fixed">
+		            <div class="box_order">
+		                <div class="head">
+		                    <h3>Такого заказа нету</h3>
+		                    <div>Проверьте пожалуйста правильно ли вы написать код оплаты</div>
+		                </div>
+		            </div>
+		            <!-- /box_booking -->
+		        </div>
+                {% endif %}
+		    </div>
+		    <!-- /row -->
+		</div>
+		<!-- /container -->
+		
+	</main>
+	<!-- /main -->
+
+	{% include 'include/footer.html' %}
+	<!--/footer-->
+
+	<div id="toTop"></div><!-- Back to top button -->
+	
+	<!-- Sign In Modal -->
+	<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+		<div class="modal_header">
+			<h3>Sign In</h3>
+		</div>
+		<form>
+			<div class="sign-in-wrapper">
+				<a href="#0" class="social_bt facebook">Login with Facebook</a>
+				<a href="#0" class="social_bt google">Login with Google</a>
+				<div class="divider"><span>Or</span></div>
+				<div class="form-group">
+					<label>Email</label>
+					<input type="email" class="form-control" name="email" id="email">
+					<i class="icon_mail_alt"></i>
+				</div>
+				<div class="form-group">
+					<label>Password</label>
+					<input type="password" class="form-control" name="password" id="password" value="">
+					<i class="icon_lock_alt"></i>
+				</div>
+				<div class="clearfix add_bottom_15">
+					<div class="checkboxes float-start">
+						<label class="container_check">Remember me
+						  <input type="checkbox">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="float-end"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
+				</div>
+				<div class="text-center">
+					<input type="submit" value="Log In" class="btn_1 full-width mb_5">
+					Don’t have an account? <a href="register.html">Sign up</a>
+				</div>
+				<div id="forgot_pw">
+					<div class="form-group">
+						<label>Please confirm login email below</label>
+						<input type="email" class="form-control" name="email_forgot" id="email_forgot">
+						<i class="icon_mail_alt"></i>
+					</div>
+					<p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
+					<div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
+				</div>
+			</div>
+		</form>
+		<!--form -->
+	</div>
+	<!-- /Sign In Modal -->
+	
+	<!-- COMMON SCRIPTS -->
+    <script src="{% static 'js/common_scripts.min.js' %}"></script>
+    <script src="{% static 'js/common_func.js' %}"></script>
+    <script src="{% static 'assets/validate.js' %}"></script>
+
+    <!-- SPECIFIC SCRIPTS -->
+    <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
+    <script>
+    	$('#sidebar_fixed').theiaStickySidebar({
+		    minWidth: 991,
+		    updateSidebarHeight: false,
+		    additionalMarginTop: 30
+		});
+    </script>
+
+{% endblock %}
