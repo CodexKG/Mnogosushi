@@ -92,7 +92,7 @@ class BillingDeliveryHistory(models.Model):
     )
 
     def __str__(self):
-        return f"{self.delivery} {self.message}"
+        return f"{self.created}"
     
     class Meta:
         verbose_name = "История доставки"

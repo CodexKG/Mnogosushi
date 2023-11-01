@@ -1,23 +1,16 @@
-from django.shortcuts import render
 from django.conf import settings
 from aiogram import Bot, Dispatcher, types, executor
-from asgiref.sync import sync_to_async
 from logging import basicConfig, INFO
+from asgiref.sync import sync_to_async
+from datetime import datetime
 
 from apps.telegram.models import TelegramUser, BillingDelivery, BillingDeliveryHistory
+from apps.telegram.keyboards import billing_keyboard, billing_menu_keyboard, on_road_keyboard, order_keyboard, profile_keyboard
 
 # Create your views here.
-print(settings.TELEGRAM_BOT_TOKEN)
 bot = Bot(settings.TELEGRAM_BOT_TOKEN)
 dp = Dispatcher(bot)
 basicConfig(level=INFO)
-
-profile_buttons = [
-    types.KeyboardButton('Профиль'),
-    types.KeyboardButton('Заказы'),
-    types.KeyboardButton('Поддержка'),
-]
-profile_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(*profile_buttons)
 
 """Функция для обработки комманды /start. Если пользователя нету в базе, 
 бот создаст его и даст ему поль пользователя.
@@ -31,7 +24,7 @@ async def start(message:types.Message):
         last_name=message.from_user.last_name,
         user_role="User"
     )
-    await message.answer(f"Привет {message.from_user.full_name}!")
+    await message.answer(f"Привет {message.from_user.full_name}!", reply_markup=profile_keyboard)
 
 """"Фукнция для показа профиля пользователя"""
 @dp.message_handler(text="Профиль")
@@ -43,24 +36,6 @@ async def get_user_profile(message:types.Message):
 Имя пользователя: @{user.username}
 ID: {message.from_user.id}
 Статус пользователя: {user.user_role}""")
-
-billing_buttons = [
-    types.InlineKeyboardButton('Удалить', callback_data='delete_order'),
-    types.InlineKeyboardButton("Такси", callback_data='taxi_order'),
-    types.InlineKeyboardButton("Взять заказ", callback_data='take_order')
-]
-billing_keyboard = types.InlineKeyboardMarkup().add(*billing_buttons)
-
-order_buttons = [
-    types.InlineKeyboardButton('В пути', callback_data="on_road"),
-    types.InlineKeyboardButton('Отменить заказ', callback_data="cancel_order"),
-]
-order_keyboard = types.InlineKeyboardMarkup().add(*order_buttons)
-
-on_road_buttons = [
-    types.InlineKeyboardButton('Завершить', callback_data="finish_order")
-]
-on_road_keyboard = types.InlineKeyboardMarkup().add(*on_road_buttons)
 
 """Функция для удаления заказа менеджерами"""
 @dp.callback_query_handler(lambda call: call.data == 'delete_order')
@@ -96,6 +71,11 @@ async def take_order_button(callback_query: types.CallbackQuery):
                 telegram_user_id = user.id,
                 delivery = "Accepted"
             )
+            delivery_history_create = await sync_to_async(BillingDeliveryHistory.objects.create)(
+                delivery = delivery_create,
+                message=f'Заказ принят курьером @{user.username} {datetime.now()}',
+                created=datetime.now()
+            )
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
                 message_id=callback_query.message.message_id,
@@ -106,7 +86,8 @@ async def take_order_button(callback_query: types.CallbackQuery):
             await bot.send_message(user.user_id, f"{callback_query.message.text}", reply_markup=order_keyboard)
         else:
             await bot.answer_callback_query(callback_query.id, text="Вы не можете взять заказ")
-    except:
+    except Exception as error:
+        print(error)
         await bot.answer_callback_query(callback_query.id, text="Зарегистрируйтесь в боте /start")
 
 from asgiref.sync import sync_to_async
@@ -126,6 +107,11 @@ async def delivery_on_road(callback_query: types.CallbackQuery):
         # Асинхронно получаем объект заказа
         order = await sync_to_async(BillingDelivery.objects.get)(billing_id=int(id_billing))
         order.delivery = "On way"
+        delivery_history_create = await sync_to_async(BillingDeliveryHistory.objects.create)(
+            delivery = order,
+            message=f'Заказ в пути курьером @{user.username} {datetime.now()}',
+            created=datetime.now()
+        )
         await sync_to_async(order.save)()
 
         await bot.edit_message_text(
@@ -151,6 +137,11 @@ async def delivery_cancel_order(callback_query: types.CallbackQuery):
         # Асинхронно получаем объект заказа
         order = await sync_to_async(BillingDelivery.objects.get)(billing_id=int(id_billing))
         order.delivery = "Cancelled"  # Измените статус на "Отменен"
+        delivery_history_create = await sync_to_async(BillingDeliveryHistory.objects.create)(
+            delivery = order,
+            message=f'Заказ отменен курьером @{user.username} {datetime.now()}',
+            created=datetime.now()
+        )
         await sync_to_async(order.save)()
 
         # Редактируем существующее сообщение
@@ -161,11 +152,6 @@ async def delivery_cancel_order(callback_query: types.CallbackQuery):
         await bot.send_message(-4013644681, f"Биллинг #{id_billing}\nСтатус: Отменен курьером @{user.username}")
         await bot.send_message(-4013644681, f"{callback_query.message.text }\nСтатус: Отменен курьером @{user.username}", reply_markup=billing_keyboard)
         await sync_to_async(order.delete)()
-        # await bot.edit_message_text(
-        #     chat_id=-4013644681,
-        #     message_id=cal
-        # )
-
         await bot.answer_callback_query(callback_query.id, text=f"Вы отменили заказ")
     else:
         await bot.answer_callback_query(callback_query.id, text=f"У вас нет прав, свяжитесь с менеджерами")
@@ -183,6 +169,11 @@ async def delivery_finish_order(callback_query: types.CallbackQuery):
         # Асинхронно получаем объект заказа
         order = await sync_to_async(BillingDelivery.objects.get)(billing_id=int(id_billing))
         order.delivery = "Delivered"
+        delivery_history_create = await sync_to_async(BillingDeliveryHistory.objects.create)(
+            delivery = order,
+            message=f'Заказ выполнен курьером @{user.username} {datetime.now()}',
+            created=datetime.now()
+        )
         await sync_to_async(order.save)()
 
         await bot.edit_message_text(
@@ -206,12 +197,6 @@ async def send_post_billing(id, products, payment_method, payment_code, address,
 Статус: Ожидание курьера""",
 reply_markup=billing_keyboard)
     
-billing_menu_buttons = [
-    types.InlineKeyboardButton('Удалить', callback_data='not_work'),
-    types.InlineKeyboardButton("Потвердить заказ", callback_data='not_working')
-]
-billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_buttons)
-
 """Функция для отправки биллинга меню в телеграм группу"""
 async def send_post_billing_menu(id, table_uuid, products, payment_method, payment_code, total_price):
     await bot.send_message(-4063835118, f"""Заказ на столик {table_uuid} #{id}
