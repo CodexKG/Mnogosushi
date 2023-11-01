@@ -4,45 +4,58 @@
 
 <!-- SPECIFIC CSS -->
 <link href="{% static 'css/detail-page.css' %}" rel="stylesheet">
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+</script>
 <style>
-    /* Стилизация выпадающего списка */
-    select {
-        padding: 10px; /* Расстояние внутри элемента */
-        font-size: 16px; /* Размер шрифта */
-        border: 1px solid #ccc; /* Граничная линия */
-        border-radius: 5px; /* Закругление углов */
-        width: 100%; /* Ширина элемента */
-    }
+	/* Стилизация выпадающего списка */
+	select {
+		padding: 10px;
+		/* Расстояние внутри элемента */
+		font-size: 16px;
+		/* Размер шрифта */
+		border: 1px solid #ccc;
+		/* Граничная линия */
+		border-radius: 5px;
+		/* Закругление углов */
+		width: 100%;
+		/* Ширина элемента */
+	}
+
 	input {
-        padding: 10px; /* Расстояние внутри элемента */
-        font-size: 16px; /* Размер шрифта */
-        border: 1px solid #ccc; /* Граничная линия */
-        border-radius: 5px; /* Закругление углов */
-        width: 120%; /* Ширина элемента */
-    }
+		padding: 10px;
+		/* Расстояние внутри элемента */
+		font-size: 16px;
+		/* Размер шрифта */
+		border: 1px solid #ccc;
+		/* Граничная линия */
+		border-radius: 5px;
+		/* Закругление углов */
+		width: 120%;
+		/* Ширина элемента */
+	}
 </style>
 
 <body data-spy="scroll" data-bs-target="#secondary_nav" data-offset="75">
-				
+
 	{% include 'include/header.html' %}
 	<!-- /header -->
-	
+
 	<main>
 
 		<div class="hero_in detail_page background-image" data-background="url({% static 'img/shushi1.jpg' %})">
 			<div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-				
+
 				<div class="container">
 					<div class="main_info">
 						<div class="row">
 							<div class="col-xl-4 col-lg-5 col-md-6">
-								<div class="head"><div class="score"><span>{{ setting.title }}<em>350 отзывов</em></span><strong>8.9</strong></div></div>
+								<div class="head">
+									<div class="score"><span>{{ setting.title }}<em>350
+												отзывов</em></span><strong>8.9</strong></div>
+								</div>
 								<h1>Корзина</h1>
 								<a href="" target="blank">Корзина товаров</a>
 							</div>
-							
+
 						</div>
 						<!-- /row -->
 					</div>
@@ -53,60 +66,65 @@
 		<!--/hero_in-->
 
 		<nav class="secondary_nav sticky_horizontal">
-		    <div class="container">
-		        <ul id="secondary_nav">
-		            <li><a href="{% url 'index' %}">Главная</a></li>
-		            <li><a href="{% url 'cart' %}">Корзина</a></li>
-		            
-		            <li><a href="{% url 'index' %}"><i class="icon_chat_alt"></i>Контакты</a></li>
-		        </ul>
-		    </div>
-		    <span></span>
+			<div class="container">
+				<ul id="secondary_nav">
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'cart' %}">Корзина</a></li>
+
+					<li><a href="{% url 'index' %}"><i class="icon_chat_alt"></i>Контакты</a></li>
+				</ul>
+			</div>
+			<span></span>
 		</nav>
 		<!-- /secondary_nav -->
 
 		<div class="bg_gray">
-		    <div class="container margin_detail">
-		        <div class="row">
-		            <div class="col-lg-8 list_menu">
-		                <section id="section-1">
-		                    <h4>Заказы</h4>
-		                    <div class="row">
-                           
-                                {% for item in cart_items %}
-		                        <div class="col-md-6">
-		                            <a class="menu_item modal_dialog" href="{% url 'product_detail' item.product.id  %}">
-		                                <figure><img src="{{ item.product.image.url }}" data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="lazy"></figure>
-		                                <h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
-		                                <p>Количество: {{ item.quantity }}</p>
-		                                <strong>{{ item.total_price }} KGS</strong>
-		                            </a>
-		                        </div>
+			<div class="container margin_detail">
+				<div class="row">
+					<div class="col-lg-8 list_menu">
+						<section id="section-1">
+							<h4>Заказы</h4>
+							<div class="row">
+
+								{% for item in cart_items %}
+								<div class="col-md-6">
+									<a class="menu_item modal_dialog"
+										href="{% url 'product_detail' item.product.id  %}">
+										<figure><img src="{{ item.product.image.url }}"
+												data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}"
+												class="lazy"></figure>
+										<h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
+										<p>Количество: {{ item.quantity }}</p>
+										<strong>{{ item.total_price }} KGS</strong>
+									</a>
+								</div>
 								{% empty %}
 								<div class="col-md-6">
-		                            <!-- <a class="menu_item modal_dialog" href="{% url 'cart' %}">
+									<!-- <a class="menu_item modal_dialog" href="{% url 'cart' %}">
 		                                <figure><img src="{% static 'img/thumb_detail_5.jpg' %}" data-src="{% static 'img/thumb_detail_5.jpg' %}" alt="Пустой" class="lazy"></figure>
 		                                <h3>Пусто</h3>
 		                                <p>Ваша корзина пуст</p>
 		                                <strong>0 KGS</strong>
 		                            </a> -->
 									<h1>Ваша корзина пуст</h1>
-		                        </div>
-                                {% endfor %}
-                               
-		                    </div>
-		                    <!-- /row -->
-		                </section>
-		                <!-- /section -->
-		            </div>
-		            <!-- /col -->
-		            <div class="col-lg-4" id="sidebar_fixed">
-		                <div class="box_order mobile_fixed">
+								</div>
+								{% endfor %}
+
+							</div>
+							<!-- /row -->
+						</section>
+						<!-- /section -->
+					</div>
+					<!-- /col -->
+
+					<div class="col-lg-4" id="sidebar_fixed">
+						<div class="box_order mobile_fixed">
 							<form action="{% url 'create_billing' %}" method="post">
 								{% csrf_token %}
 								<div class="head">
 									<h3>Общая сумма</h3>
-									<a href="{% url 'index' %}" class="close_panel_mobile"><i class="icon_close"></i></a>
+									<a href="{% url 'index' %}" class="close_panel_mobile"><i
+											class="icon_close"></i></a>
 								</div>
 								<!-- /head -->
 								<div class="main">
@@ -114,7 +132,9 @@
 										{% if cart_items %}
 										{% for item in cart_items %}
 										<!-- <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-from-cart"><i class="icon_close"></i> Удалить</a> -->
-										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{ item.total_price }} KGS</span></li>
+										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{
+												item.product.title }} {{ item.product.price }} KGS</a></span><span>{{
+												item.total_price }} KGS</span></li>
 										{% endfor %}
 										{% endif %}
 									</ul>
@@ -128,13 +148,15 @@
 									<div class="row opt_order">
 										<div class="col-6">
 											<label class="container_radio">Доставка
-												<input type="radio" name="billing_receipt_type" value="Доставка" id="courier" checked="checked">
+												<input type="radio" name="billing_receipt_type" value="Доставка"
+													id="courier" checked="checked">
 												<span class="checkmark"></span>
 											</label>
 										</div>
 										<div class="col-6">
 											<label class="container_radio">Самовывоз
-												<input type radio" name="billing_receipt_type" value="Самовывоз" id="pickup">
+												<input type radio" name="billing_receipt_type" value="Самовывоз"
+													id="pickup">
 												<span class="checkmark"></span>
 											</label>
 										</div>
@@ -169,44 +191,74 @@
 									<!-- Блок reCAPTCHA -->
 									<div class="row opt_order">
 										<div class="col-6">
-											<div class="g-recaptcha" data-sitekey="6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi"></div>
+											<div class="g-recaptcha" id="html_element"></div>
 										</div>
 									</div>
 
-									<!-- Скрипт проверки reCAPTCHA -->
-									<script>
-										function handleCaptchaResponse(response) {
-											if (response) {
-												// Отобразите кнопку "Оформить" после успешной проверки reCAPTCHA
-												document.getElementById('submit-button').style.display = 'block';
-											}
-										}
-									</script>
-									<script src="https://www.google.com/recaptcha/api.js"></script>
-									<script>
-										function onReCaptchaLoad() {
-											grecaptcha.ready(function() {
-												grecaptcha.execute('6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi', { action: 'submit' })
-													.then(handleCaptchaResponse);
-											});
-										}
-									</script>
-
 									<div class="btn_1_mobile">
-										<button type="submit" class="btn_1 gradient full-width mb_5" id="submit-button">Оформить</button>
-										<div class="text-center"><small>После заказа, вам позвонят наши менеджера для уточнения</small></div>
-									</div>
+										<div id="error-message" style="display: none;">Заполните обязательные поля: <span id="missing-fields"></span></div>
+										<button style="display: none;" type="submit" class="btn_1 gradient full-width mb_5" id="submit-button">Оформить</button>
+										<div class="text-center" id="submit-button-info" style="display: none;"><small>После заказа, вам позвонят наши менеджера для уточнения</small></div>
+									</div>									
+
 									{% endif %}
-								</form>
-		                    </div>
-		                </div>
-		                <!-- /box_order -->
-		                <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">View Basket</a></div>
-		            </div>
-		        </div>
-		        <!-- /row -->
-		    </div>
-		    <!-- /container -->
+							</form>
+
+							<!-- Скрипт проверки reCAPTCHA -->
+							<script>
+								var submitButton = document.getElementById('submit-button');
+								var submitButtonInfo = document.getElementById('submit-button-info');
+								var addressInput = document.querySelector('input[name="address"]');
+								var phoneInput = document.querySelector('input[name="phone"]');
+								var errorMessage = document.getElementById('error-message');
+								var missingFields = document.getElementById('missing-fields');
+							
+								function onResponse(res) {
+									var missing = [];
+							
+									if (addressInput.value.trim() === '') {
+										missing.push('Адрес доставки');
+									}
+									if (phoneInput.value.trim() === '') {
+										missing.push('Ваш номер телефона');
+									}
+							
+									if (missing.length > 0) {
+										errorMessage.style.display = 'block';
+										missingFields.textContent = missing.join(', ');
+										submitButton.style.display = 'none';
+										submitButtonInfo.style.display = 'none';
+									} else {
+										errorMessage.style.display = 'none';
+										missingFields.textContent = '';
+										submitButtonInfo.style.display = 'block';
+										
+										// Проверяем, есть ли отображенная кнопка после решения reCAPTCHA
+										if (submitButton.style.display !== 'block') {
+											submitButton.style.display = 'block';
+										}
+									}
+								}
+							
+								addressInput.addEventListener('input', onResponse);
+								phoneInput.addEventListener('input', onResponse);
+							
+								var onloadCallback = function () {
+									grecaptcha.render('html_element', {
+										'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
+										'callback': onResponse
+									});
+								};
+							</script>
+						</div>
+					</div>
+					<!-- /box_order -->
+					<div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">View Basket</a></div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
 		</div>
 		<!-- /bg_gray -->
 
@@ -215,128 +267,147 @@
 				<div class="col-lg-8 list_menu">
 					<section id="section-5">
 						<h4>Reviews</h4>
-					    <div class="row add_bottom_30 d-flex align-items-center reviews">
-					        <div class="col-md-3">
-					            <div id="review_summary">
-					                <strong>8.5</strong>
-					                <em>Superb</em>
-					                <small>Based on 4 reviews</small>
-					            </div>
-					        </div>
-					        <div class="col-md-9 reviews_sum_details">
-					            <div class="row">
-					                <div class="col-md-6">
-					                    <h6>Food Quality</h6>
-					                    <div class="row">
-					                        <div class="col-xl-10 col-lg-9 col-9">
-					                            <div class="progress">
-					                                <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-2 col-lg-3 col-3"><strong>9.0</strong></div>
-					                    </div>
-					                    <!-- /row -->
-					                    <h6>Service</h6>
-					                    <div class="row">
-					                        <div class="col-xl-10 col-lg-9 col-9">
-					                            <div class="progress">
-					                                <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-2 col-lg-3 col-3"><strong>9.5</strong></div>
-					                    </div>
-					                    <!-- /row -->
-					                </div>
-					                <div class="col-md-6">
-					                    <h6>Punctuality</h6>
-					                    <div class="row">
-					                        <div class="col-xl-10 col-lg-9 col-9">
-					                            <div class="progress">
-					                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong></div>
-					                    </div>
-					                    <!-- /row -->
-					                    <h6>Price</h6>
-					                    <div class="row">
-					                        <div class="col-xl-10 col-lg-9 col-9">
-					                            <div class="progress">
-					                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong></div>
-					                    </div>
-					                    <!-- /row -->
-					                </div>
-					            </div>
-					            <!-- /row -->
-					        </div>
-					    </div>
-					    <!-- /row -->
-					     <div id="reviews">
-					        <div class="review_card">
-					            <div class="row">
-					                <div class="col-md-2 user_info">
-					                    <figure><img src="img/avatar4.jpg" alt=""></figure>
-					                    <h5>Lukas</h5>
-					                </div>
-					                <div class="col-md-10 review_content">
-					                    <div class="clearfix add_bottom_15">
-					                        <span class="rating">8.5<small>/10</small> <strong>Rating average</strong></span>
-					                        <em>Published 54 minutes ago</em>
-					                    </div>
-					                    <h4>"Great Location!!"</h4>
-					                    <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.</p>
-					                    <ul>
-					                        <li><a href="#0"><i class="icon_like"></i><span>Useful</span></a></li>
-					                        <li><a href="#0"><i class="icon_dislike"></i><span>Not useful</span></a></li>
-					                        <li><a href="#0"><i class="arrow_back"></i> <span>Reply</span></a></li>
-					                    </ul>
-					                </div>
-					            </div>
-					            <!-- /row -->
-					        </div>
-					        <!-- /review_card -->
-					        <div class="review_card">
-					            <div class="row">
-					                <div class="col-md-2 user_info">
-					                    <figure><img src="img/avatar1.jpg" alt=""></figure>
-					                    <h5>Marika</h5>
-					                </div>
-					                <div class="col-md-10 review_content">
-					                    <div class="clearfix add_bottom_15">
-					                        <span class="rating">9.0<small>/10</small> <strong>Rating average</strong></span>
-					                        <em>Published 11 Oct. 2019</em>
-					                    </div>
-					                    <h4>"Really great dinner!!"</h4>
-					                    <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.</p>
-					                    <ul>
-					                        <li><a href="#0"><i class="icon_like"></i><span>Useful</span></a></li>
-					                        <li><a href="#0"><i class="icon_dislike"></i><span>Not useful</span></a></li>
-					                        <li><a href="#0"><i class="arrow_back"></i> <span>Reply</span></a></li>
-					                    </ul>
-					                </div>
-					            </div>
-					            <!-- /row -->
-					            <div class="row reply">
-					                <div class="col-md-2 user_info">
-					                    <figure><img src="img/avatar.jpg" alt=""></figure>
-					                </div>
-					                <div class="col-md-10">
-					                    <div class="review_content">
-					                        <strong>Reply from Foogra</strong>
-					                        <em>Published 3 minutes ago</em>
-					                        <p><br>Hi Monika,<br><br>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.<br><br>Thanks</p>
-					                    </div>
-					                </div>
-					            </div>
-					            <!-- /reply -->
-					        </div>
-					        <!-- /review_card -->
-					    </div>
-					    <!-- /reviews -->
-					    <div class="text-end"><a href="leave-review.html" class="btn_1 gradient">Leave a Review</a></div>
+						<div class="row add_bottom_30 d-flex align-items-center reviews">
+							<div class="col-md-3">
+								<div id="review_summary">
+									<strong>8.5</strong>
+									<em>Superb</em>
+									<small>Based on 4 reviews</small>
+								</div>
+							</div>
+							<div class="col-md-9 reviews_sum_details">
+								<div class="row">
+									<div class="col-md-6">
+										<h6>Food Quality</h6>
+										<div class="row">
+											<div class="col-xl-10 col-lg-9 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 90%"
+														aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-3 col-3"><strong>9.0</strong></div>
+										</div>
+										<!-- /row -->
+										<h6>Service</h6>
+										<div class="row">
+											<div class="col-xl-10 col-lg-9 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 95%"
+														aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-3 col-3"><strong>9.5</strong></div>
+										</div>
+										<!-- /row -->
+									</div>
+									<div class="col-md-6">
+										<h6>Punctuality</h6>
+										<div class="row">
+											<div class="col-xl-10 col-lg-9 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 60%"
+														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong></div>
+										</div>
+										<!-- /row -->
+										<h6>Price</h6>
+										<div class="row">
+											<div class="col-xl-10 col-lg-9 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 60%"
+														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong></div>
+										</div>
+										<!-- /row -->
+									</div>
+								</div>
+								<!-- /row -->
+							</div>
+						</div>
+						<!-- /row -->
+						<div id="reviews">
+							<div class="review_card">
+								<div class="row">
+									<div class="col-md-2 user_info">
+										<figure><img src="img/avatar4.jpg" alt=""></figure>
+										<h5>Lukas</h5>
+									</div>
+									<div class="col-md-10 review_content">
+										<div class="clearfix add_bottom_15">
+											<span class="rating">8.5<small>/10</small> <strong>Rating
+													average</strong></span>
+											<em>Published 54 minutes ago</em>
+										</div>
+										<h4>"Great Location!!"</h4>
+										<p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea.
+											Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere
+											fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer
+											petentium cu his. Tollit molestie suscipiantur his et.</p>
+										<ul>
+											<li><a href="#0"><i class="icon_like"></i><span>Useful</span></a></li>
+											<li><a href="#0"><i class="icon_dislike"></i><span>Not useful</span></a>
+											</li>
+											<li><a href="#0"><i class="arrow_back"></i> <span>Reply</span></a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- /row -->
+							</div>
+							<!-- /review_card -->
+							<div class="review_card">
+								<div class="row">
+									<div class="col-md-2 user_info">
+										<figure><img src="img/avatar1.jpg" alt=""></figure>
+										<h5>Marika</h5>
+									</div>
+									<div class="col-md-10 review_content">
+										<div class="clearfix add_bottom_15">
+											<span class="rating">9.0<small>/10</small> <strong>Rating
+													average</strong></span>
+											<em>Published 11 Oct. 2019</em>
+										</div>
+										<h4>"Really great dinner!!"</h4>
+										<p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea.
+											Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere
+											fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer
+											petentium cu his. Tollit molestie suscipiantur his et.</p>
+										<ul>
+											<li><a href="#0"><i class="icon_like"></i><span>Useful</span></a></li>
+											<li><a href="#0"><i class="icon_dislike"></i><span>Not useful</span></a>
+											</li>
+											<li><a href="#0"><i class="arrow_back"></i> <span>Reply</span></a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- /row -->
+								<div class="row reply">
+									<div class="col-md-2 user_info">
+										<figure><img src="img/avatar.jpg" alt=""></figure>
+									</div>
+									<div class="col-md-10">
+										<div class="review_content">
+											<strong>Reply from Foogra</strong>
+											<em>Published 3 minutes ago</em>
+											<p><br>Hi Monika,<br><br>Eos tollit ancillae ea, lorem consulatu qui ne, eu
+												eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo
+												veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent
+												fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his
+												et.<br><br>Thanks</p>
+										</div>
+									</div>
+								</div>
+								<!-- /reply -->
+							</div>
+							<!-- /review_card -->
+						</div>
+						<!-- /reviews -->
+						<div class="text-end"><a href="leave-review.html" class="btn_1 gradient">Leave a Review</a>
+						</div>
 					</section>
 					<!-- /section -->
 				</div>
@@ -350,9 +421,10 @@
 	{% include 'include/footer.html' %}
 	<!--/footer-->
 
-    <!-- SPECIFIC SCRIPTS -->
-    <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
-    <script src="{% static 'js/sticky-kit.min.js' %}"></script>
-    <script src="{% static 'js/specific_detail.js' %}"></script>
+	<!-- SPECIFIC SCRIPTS -->
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
+	<script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
+	<script src="{% static 'js/sticky-kit.min.js' %}"></script>
+	<script src="{% static 'js/specific_detail.js' %}"></script>
 
-{% endblock %}
+	{% endblock %}
