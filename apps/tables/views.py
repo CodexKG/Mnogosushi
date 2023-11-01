@@ -5,6 +5,7 @@ from apps.settings.models import Setting
 from apps.tables.models import Table, TableOrder, TableOrderItem
 from apps.tables.forms import AddToOrderForm
 from apps.products.models import Product
+from django.http import JsonResponse
 
 # Create your views here.
 def menu(request, table_uuid):
@@ -47,7 +48,9 @@ def add_to_order(request):
                 table_item.save()
             else:
                 table_item = TableOrderItem.objects.create(table=table, product=product, quantity=quantity, total=price * quantity)
-
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False})
     return redirect('order')
 
 def order(request):

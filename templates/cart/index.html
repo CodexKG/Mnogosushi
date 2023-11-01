@@ -49,8 +49,7 @@
 						<div class="row">
 							<div class="col-xl-4 col-lg-5 col-md-6">
 								<div class="head">
-									<div class="score"><span>{{ setting.title }}<em>350
-												отзывов</em></span><strong>8.9</strong></div>
+									<div class="score"><span>{{ setting.title }}<em>350 отзывов</em></span><strong>8.9</strong></div>
 								</div>
 								<h1>Корзина</h1>
 								<a href="" target="blank">Корзина товаров</a>
@@ -132,9 +131,7 @@
 										{% if cart_items %}
 										{% for item in cart_items %}
 										<!-- <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-from-cart"><i class="icon_close"></i> Удалить</a> -->
-										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{
-												item.product.title }} {{ item.product.price }} KGS</a></span><span>{{
-												item.total_price }} KGS</span></li>
+										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li>
 										{% endfor %}
 										{% endif %}
 									</ul>
@@ -148,15 +145,13 @@
 									<div class="row opt_order">
 										<div class="col-6">
 											<label class="container_radio">Доставка
-												<input type="radio" name="billing_receipt_type" value="Доставка"
-													id="courier" checked="checked">
+												<input type="radio" name="billing_receipt_type" value="Доставка" id="courier" checked="checked">
 												<span class="checkmark"></span>
 											</label>
 										</div>
 										<div class="col-6">
 											<label class="container_radio">Самовывоз
-												<input type radio" name="billing_receipt_type" value="Самовывоз"
-													id="pickup">
+												<input type="radio" name="billing_receipt_type" value="Самовывоз" id="pickup">
 												<span class="checkmark"></span>
 											</label>
 										</div>

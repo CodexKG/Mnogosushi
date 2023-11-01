@@ -118,40 +118,87 @@
 	        </div>
 	        <!-- /promo -->
 
-	        <div class="row isotope-wrapper">
-                {% for product in products %}
-	            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 isotope-item delivery">
-	                <div class="strip">
-	                    <figure>
-	                        <span class="ribbon off">{{ setting.title }}</span>
-	                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" class="img-fluid lazy" alt="{{ product.title }}">
-	                        <a href="{% url 'product_detail' product.id %}" class="strip_info">
-	                            <small>{{ product.price }} KGS</small>
-	                            <div class="item_title">
-	                                <h3>{{ product.title }} {{ product.price }} KGS</h3>
-	                                <small>{{ product.description|truncatewords:10 }}</small>
-	                            </div>
-	                        </a>
-	                    </figure>
-	                    <ul>
-							<form method="POST" action="{% url 'add_to_order' %}">
+	        <!-- Ваш HTML-код -->
+			<div class="row isotope-wrapper">
+				{% for product in products %}
+				<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 isotope-item delivery">
+					<div class="strip">
+						<figure>
+							<span class="ribbon off">{{ setting.title }}</span>
+							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" class="img-fluid lazy" alt="{{ product.title }}">
+							<a href="{% url 'product_detail' product.id %}" class="strip_info">
+								<small>{{ product.price }} KGS</small>
+								<div class="item_title">
+									<h3>{{ product.title }} {{ product.price }} KGS</h3>
+									<small>{{ product.description|truncatewords:10 }}</small>
+								</div>
+							</a>
+						</figure>
+						<ul>
+							<form method="POST" action="{% url 'add_to_order' %}" class="add-to-order-form">
 								{% csrf_token %}
 								<input type="hidden" name="product_id" value="{{ product.id }}">
 								<input type="hidden" name="price" value="{{ product.price }}">
 								<input type="hidden" name="table_uuid" value="{{ table.number }}">
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
-								<button type="submit" class="btn_1">Заказать на стол {{ table.number }}</button>
+								<button type="submit" class="btn_1" data-product-id="{{ product.id }}">Заказать на стол {{ table.number }}</button>
 							</form>
-	                        <li>
-	                            <div class="score"><strong>9.5</strong></div>
-	                        </li>
-	                    </ul>
-	                </div>
-	            </div>
-                {% endfor %}
-	            
-	        </div>
+							<li>
+								<div class="score"><strong>9.5</strong></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+
+			<!-- Подключение SweetAlert (CDN) -->
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+			<!-- JavaScript для AJAX и SweetAlert -->
+			<script>
+				// Обработчик события отправки формы
+				document.querySelectorAll('.add-to-order-form').forEach(function(form) {
+					form.addEventListener('submit', function(event) {
+						event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+						var productID = this.querySelector('button').getAttribute('data-product-id'); // Получаем ID продукта
+						var formData = new FormData(this);
+
+						// Отправляем AJAX-запрос
+						fetch(this.getAttribute('action'), {
+							method: 'POST',
+							body: formData
+						})
+						.then(function(response) {
+							return response.json(); // Ожидаем JSON-ответ
+						})
+						.then(function(data) {
+							if (data.success) {
+								Swal.fire({
+									icon: 'success',
+									title: 'Продукт добавлен в заказ!',
+									showConfirmButton: false,
+									timer: 1500 // Время отображения уведомления в миллисекундах
+								});
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Ошибка при добавлении продукта в заказ.',
+									showConfirmButton: false,
+									timer: 1500
+								});
+							}
+						})
+						.catch(function(error) {
+							console.error('Ошибка:', error);
+						});
+					});
+				});
+			</script>
+
 	        <!-- /strip row -->
 	        <div class="pagination_fg">
 	            <a href="#">&laquo;</a>
