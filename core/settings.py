@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rangefilter',
     'django.contrib.humanize',
     'mptt',
+    # 'captcha',
 
     #apps
     'apps.settings',
@@ -62,6 +63,9 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.tables',
 ]
+
+# RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+# RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
