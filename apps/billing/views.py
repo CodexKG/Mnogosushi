@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.db import transaction
-from django.db.models import F
 import asyncio
 
 from apps.settings.models import Setting
 from apps.carts.models import Cart, CartItem
 from apps.tables.models import TableOrder, TableOrderItem
-from apps.billing.models import Billing, BillingProduct, BillingMenu, BillingMenuProduct
+from apps.billing.models import Billing, BillingProduct
 from apps.telegram.views import send_post_billing, send_post_billing_menu
 
 # Create your views here.
@@ -92,8 +91,11 @@ def create_billing_from_order(request):
     payment_method = request.POST.get('payment_method')
     with transaction.atomic():
         # Создаем объект Billing
-        billing = BillingMenu.objects.create(
+        billing = Billing.objects.create(
+            billing_receipt_type='Меню',
             total_price=total_price,
+            address='​Токтогула 90 (Меню)',
+            phone='Заказ из меню',
             payment_method=payment_method
             # Другие поля Billing могут быть заполнены здесь
         )
@@ -113,7 +115,7 @@ def create_billing_from_order(request):
         billing_products = []
         table_products = TableOrderItem.objects.filter(table__session_key=session_key)
         for cart_item in table_products:
-            billing_product = BillingMenuProduct.objects.create(
+            billing_product = BillingProduct.objects.create(
                 billing=billing,
                 product=cart_item.product,
                 quantity=cart_item.quantity,

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from apps.settings.models import Setting, Contact
 from apps.products.models import Product
-from apps.billing.models import Billing, BillingProduct, BillingMenu
+from apps.billing.models import Billing, BillingProduct
 
 # Create your views here.
 def index(request):
