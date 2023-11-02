@@ -12,15 +12,15 @@
             <li><a href="#0" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
         </ul> -->
         <!-- /top_menu -->
-        <a href="#0" class="open_close">
+        <a href="{% url 'order' %}" class="open_close">
             <i class="icon_menu"></i><span>Menu</span>
         </a>
         <nav class="main-menu">
             <div id="header_menu">
-                <a href="#0" class="open_close">
+                <a href="{% url 'order' %}" class="open_close">
                     <i class="icon_close"></i><span>Menu</span>
                 </a>
-                <a href="index.html"><img src="img/logo.svg" width="162" height="35" alt=""></a>
+                <a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="10%" alt=""></a>
             </div>
             <ul>
                 <li class="submenu">

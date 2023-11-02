@@ -1,5 +1,12 @@
 from django.shortcuts import render, redirect
 from django.db import transaction
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from django.http import HttpResponse
+from io import BytesIO
+
+from django.http import HttpResponse
 import asyncio
 
 from apps.settings.models import Setting
@@ -142,3 +149,57 @@ def create_billing_from_order(request):
 
         # return redirect('confirm', billing.address, billing.phone, billing.payment_code)
         return redirect('confirm_menu', billing.payment_code)
+    
+def order_receipt(request, payment_code):
+    setting = Setting.objects.latest('id')
+    try:
+        billing = Billing.objects.get(payment_code=payment_code)
+        products = BillingProduct.objects.filter(billing=billing.id)
+    except Exception as error:
+        print(error)
+    return render(request, 'billing/order_receipt.html', locals())
+
+def generate_pdf(request, payment_code):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{payment_code}.pdf"'
+
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+    styles = getSampleStyleSheet()
+    elements = []
+
+    billing = Billing.objects.get(payment_code=payment_code)
+
+    # Добавляем изображение в PDF
+    image_path = '/home/binniev/Desktop/django_projects/DoyobisanDelivery/apps/billing/check.jpg'
+    image = Image(image_path, width=300, height=200)
+    elements.append(image)
+
+    # Создаем абзац для текста о биллинге
+    billing_text = f"""
+    Вид получения товара: {billing.billing_receipt_type}
+    Итоговая цена товаров: {billing.total_price} руб.
+    Адрес доставки: {billing.address}
+    Номер телефона: {billing.phone}
+    Способ оплаты: {billing.payment_method}
+    Код оплаты биллинга: {billing.payment_code}
+    Статус заказа: {billing.status}
+    Дата создания биллинга: {billing.created}
+    """.encode('utf-8')
+
+    billing_paragraph = Paragraph(billing_text, styles['Normal'])
+    elements.append(billing_paragraph)
+
+    # Создаем абзац для продуктов биллинга
+    products_text = "Продукты биллинга:\n"
+    for product in BillingProduct.objects.filter(billing=billing):
+        products_text += f"{product.product} - {product.quantity} шт.\n"
+    products_paragraph = Paragraph(products_text.encode('utf-8'), styles['Normal'])
+    elements.append(products_paragraph)
+
+    doc.build(elements)
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+
+    return response

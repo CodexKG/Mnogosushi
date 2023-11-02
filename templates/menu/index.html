@@ -12,27 +12,27 @@
 
 <body>
 				
-	{% include 'include/header.html' %}
 	<!-- /header -->
 	
 	<main>
-	    
-	    <div class="filters_full clearfix add_bottom_15">
-	        <div class="container">
-	            
+		
+		<div class="filters_full clearfix add_bottom_15">
+			<div class="container">
+				
 				<!-- /type_delivery -->
 	            <!-- <a class="btn_map mobile btn_filters" data-bs-toggle="collapse" href="#collapseMap"><i class="icon_pin_alt"></i></a>
-	            <a href="#collapseFilters" data-bs-toggle="collapse" class="btn_filters"><i class="icon_adjust-vert"></i><span>Filters</span></a> -->
-	        </div>
-	    </div>
-	    <!-- /filters_full -->
-	    <div class="collapse" id="collapseMap">
-			<!-- <div id="map" class="map"></div> -->
-		</div>
-		<!-- /Map -->
-
-	    <div class="collapse filters_2" id="collapseFilters">
-	        <div class="container margin_30_20">
+					<a href="#collapseFilters" data-bs-toggle="collapse" class="btn_filters"><i class="icon_adjust-vert"></i><span>Filters</span></a> -->
+				</div>
+				{% include 'include/second_header.html' %}
+			</div>
+			<!-- /filters_full -->
+			<div class="collapse" id="collapseMap">
+				<!-- <div id="map" class="map"></div> -->
+			</div>
+			<!-- /Map -->
+			
+			<div class="collapse filters_2" id="collapseFilters">
+				<div class="container margin_30_20">
 	            <div class="row">
 	                <div class="col-md-4">
 	                    <div class="filter_type">
@@ -143,6 +143,7 @@
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
 								<button type="submit" class="btn_1" data-product-id="{{ product.id }}">Заказать на стол {{ table.number }}</button>
+								<a href="{% url 'order' %}" class="btn_1">Мои заказы</a>
 							</form>
 							<li>
 								<div class="score"><strong>9.5</strong></div>
@@ -181,6 +182,7 @@
 								icon: 'success',
 								title: 'Продукт добавлен в заказ!',
 								showConfirmButton: false,
+								timer: 3000,
 								html: `
 									<p>Продукт добавлен в заказ!</p>
 									<a href="{% url 'order' %}" class="btn_1">Меню</a>

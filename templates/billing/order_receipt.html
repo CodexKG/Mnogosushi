@@ -1,0 +1,83 @@
+{% extends 'include/homepage.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- SPECIFIC CSS -->
+    <link href="{% static 'css/order-sign_up.css' %}" rel="stylesheet">
+    <link href="{% static 'css/detail-page.css' %}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+				
+	{% include 'include/second_header.html' %}
+<!-- /header -->
+	
+	<main class="bg_gray">
+		
+		<div class="container margin_60_20">
+		    <div class="row justify-content-center">
+		        <!-- /col -->
+		        <div class="col-xl-4 col-lg-4" id="sidebar_fixed">
+		            <div class="box_order">
+		                <div class="head">
+		                    <h3>Детали вашего заказа</h3>
+		                    <div>Заказ ID: {{ billing.payment_code }}</div>
+		                </div>
+		                <!-- /head -->
+		                <div class="main">
+		                	<ul>
+		                		<li>Дата<span>{{ billing.created|date }}</span></li>
+		                		<li>Время<span>{{ billing.created|time }}</span></li>
+		                		<li>Тип заказа<span>{{ billing.billing_receipt_type }}</span></li>
+		                	</ul>
+		                	<hr>
+		                	<ul class="clearfix">
+                                {% for product in products %}
+		                		<li><a href="{% url 'product_detail' product.id %}">{{ product.product.title }}</a><span>{{ product.price }}KGS</span></li>
+		                		{% endfor %}
+		                	</ul>
+		                	
+		                	<ul class="clearfix">
+		                		<li>Доставка<span>0KGS</span></li>
+		                		<li class="total">Итого<span>{{ billing.total_price }}KGS</span></li>
+		                	</ul>
+							<!-- <button type="submit" class="btn_1 gradient full-width mb_5">Чек заказа</button> -->
+							<a href="#0" class="btn_1 gradient medium">Чек заказа</a>
+							<a href="{% url 'generate_pdf' billing.payment_code %}" class="btn_1 gradient medium">Скачать чек</a>
+		                </div>
+		            </div>
+		            <!-- /box_booking -->
+		        </div>
+		    </div>
+		    <!-- /row -->
+		</div>
+		<!-- /container -->
+		
+	</main>
+	<!-- /main -->
+
+	{% include 'include/footer.html' %}
+	<!--/footer-->
+
+	<div id="toTop"></div><!-- Back to top button -->
+	
+	<!-- COMMON SCRIPTS -->
+    <script src="{% static 'js/common_scripts.min.js' %}"></script>
+    <script src="{% static 'js/common_func.js' %}"></script>
+    <script src="{% static 'assets/validate.js' %}"></script>
+
+    <!-- SPECIFIC SCRIPTS -->
+    <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
+    <script>
+    	$('#sidebar_fixed').theiaStickySidebar({
+		    minWidth: 991,
+		    updateSidebarHeight: false,
+		    additionalMarginTop: 30
+		});
+    </script>
+
+{% endblock %}

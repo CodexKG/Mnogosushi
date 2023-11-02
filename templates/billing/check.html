@@ -67,8 +67,9 @@
 		                		<li>Доставка<span>0KGS</span></li>
 		                		<li class="total">Итого<span>{{ billing.total_price }}KGS</span></li>
 		                	</ul>
-		                    <!-- <a href="confirm.html" class="btn_1 gradient full-width mb_5">Order Now</a>
-		                    <div class="text-center"><small>Or Call Us at <strong>0432 48432854</strong></small></div> -->
+							<!-- <button type="submit" class="btn_1 gradient full-width mb_5">Чек заказа</button> -->
+							<a href="{% url 'order_receipt' billing.payment_code %}" class="btn_1 gradient medium">Чек заказа</a>
+							<a href="{% url 'generate_pdf' billing.payment_code %}" class="btn_1 gradient medium">Скачать чек</a>
 		                </div>
 		            </div>
 		            <!-- /box_booking -->
