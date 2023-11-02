@@ -178,17 +178,20 @@
 						.then(function(data) {
 							if (data.success) {
 								Swal.fire({
-									icon: 'success',
-									title: 'Продукт добавлен в заказ!',
-									showConfirmButton: false,
-									timer: 1500 // Время отображения уведомления в миллисекундах
-								});
+								icon: 'success',
+								title: 'Продукт добавлен в заказ!',
+								showConfirmButton: false,
+								html: `
+									<p>Продукт добавлен в заказ!</p>
+									<a href="{% url 'order' %}" class="btn_1">Меню</a>
+								`
+							});
 							} else {
 								Swal.fire({
 									icon: 'error',
 									title: 'Ошибка при добавлении продукта в заказ.',
 									showConfirmButton: false,
-									timer: 1500
+									timer: 3000
 								});
 							}
 						})

@@ -122,10 +122,6 @@
 										<input type="hidden" name="total_price" value="{{ total_price }}">
 									</ul>
 									{% if cart_items %}
-									
-
-					
-
 									<div class="row opt_order">
 										<div class="col-6">
 											<label for="payment_method">Выберите способ оплаты:</label>
@@ -138,6 +134,12 @@
 										</div>
 									</div>
 
+									<!-- Блок reCAPTCHA -->
+									<div class="row opt_order">
+										<div class="col-6">
+											<div class="g-recaptcha" id="html_element"></div>
+										</div>
+									</div>
 										
 									<div class="btn_1_mobile">
 										<button type="submit" class="btn_1 gradient full-width mb_5">Заказать на столик</button>
@@ -145,6 +147,42 @@
 									</div>
 									{% endif %}
 								</form>
+
+								<!-- Скрипт проверки reCAPTCHA -->
+								<script>
+									var submitButton = document.getElementById('submit-button');
+									var submitButtonInfo = document.getElementById('submit-button-info');
+									var missingFields = document.getElementById('missing-fields');
+								
+									function onResponse(res) {
+										var missing = [];
+								
+			
+								
+										if (missing.length > 0) {
+											errorMessage.style.display = 'block';
+											missingFields.textContent = missing.join(', ');
+											submitButton.style.display = 'none';
+											submitButtonInfo.style.display = 'none';
+										} else {
+											errorMessage.style.display = 'none';
+											missingFields.textContent = '';
+											submitButtonInfo.style.display = 'block';
+											
+											// Проверяем, есть ли отображенная кнопка после решения reCAPTCHA
+											if (submitButton.style.display !== 'block') {
+												submitButton.style.display = 'block';
+											}
+										}
+									}
+								
+									var onloadCallback = function () {
+										grecaptcha.render('html_element', {
+											'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
+											'callback': onResponse
+										});
+									};
+								</script>
 		                    </div>
 		                </div>
 		                <!-- /box_order -->
@@ -298,6 +336,7 @@
 	<!--/footer-->
 
     <!-- SPECIFIC SCRIPTS -->
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
     <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
     <script src="{% static 'js/sticky-kit.min.js' %}"></script>
     <script src="{% static 'js/specific_detail.js' %}"></script>

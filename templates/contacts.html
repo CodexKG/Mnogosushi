@@ -2,21 +2,22 @@
 {% load static %}
 {% block content %}
 
-    <!-- SPECIFIC CSS -->
-    <link href="{% static 'css/contacts.css' %}" rel="stylesheet">
+<!-- SPECIFIC CSS -->
+<link href="{% static 'css/contacts.css' %}" rel="stylesheet">
 
-    <!-- YOUR CUSTOM CSS -->
-    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+<!-- YOUR CUSTOM CSS -->
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
 </head>
 
 <body>
-				
+
 	{% include 'include/header.html' %}
 	<!-- /header -->
-	
+
 	<main>
-		<div class="hero_single inner_pages background-image" data-background="url(https://images.unsplash.com/photo-1620325867502-221cfb5faa5f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600)">
+		<div class="hero_single inner_pages background-image"
+			data-background="url(https://images.unsplash.com/photo-1620325867502-221cfb5faa5f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600)">
 			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
 				<div class="container">
 					<div class="row justify-content-center">
@@ -33,67 +34,128 @@
 		<!-- /hero_single -->
 
 		<div class="bg_gray">
-		    <div class="container margin_60_40">
-		        <div class="row justify-content-center">
-		            <div class="col-lg-4">
-		                <div class="box_contacts">
-		                    <i class="icon_lifesaver"></i>
-		                    <h2>Наш номер</h2>
-		                    <a href="tel:{{ setting.phone }}">{{ setting.phone }}</a> - <a href="mailto:{{ setting.email }}">{{ setting.email }}</a>
-		                    <small>Каждый день 10:00 - 24:00</small>
-		                </div>
-		            </div>
-		            <div class="col-lg-4">
-		                <div class="box_contacts">
-		                    <i class="icon_pin_alt"></i>
-		                    <h2>Адрес</h2>
-		                    <div>{{ setting.address }}</div>
-		                    <small>Каждый день 10:00 - 24:00</small>
-		                </div>
-		            </div>
-		            <div class="col-lg-4">
-		                <div class="box_contacts">
-		                    <i class="icon_cloud-upload_alt"></i>
-		                    <h2>Коммерческое предложение</h2>
-		                    <a href="tel:{{ setting.phone }}">{{ setting.phone }}</a> - <a href="mailto:{{ setting.email }}">{{ setting.email }}</a>
-		                    <small>Каждый день 10:00 - 24:00</small>
-		                </div>
-		            </div>
-		        </div>
-		        <!-- /row -->
-		    </div>
-		    <!-- /container -->
+			<div class="container margin_60_40">
+				<div class="row justify-content-center">
+					<div class="col-lg-4">
+						<div class="box_contacts">
+							<i class="icon_lifesaver"></i>
+							<h2>Наш номер</h2>
+							<a href="tel:{{ setting.phone }}">{{ setting.phone }}</a> - <a
+								href="mailto:{{ setting.email }}">{{ setting.email }}</a>
+							<small>Каждый день 10:00 - 24:00</small>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="box_contacts">
+							<i class="icon_pin_alt"></i>
+							<h2>Адрес</h2>
+							<div>{{ setting.address }}</div>
+							<small>Каждый день 10:00 - 24:00</small>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="box_contacts">
+							<i class="icon_cloud-upload_alt"></i>
+							<h2>Коммерческое предложение</h2>
+							<a href="tel:{{ setting.phone }}">{{ setting.phone }}</a> - <a
+								href="mailto:{{ setting.email }}">{{ setting.email }}</a>
+							<small>Каждый день 10:00 - 24:00</small>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
 		</div>
 		<!-- /bg_gray -->
 
 		<div class="container margin_60_20">
-		    <h5 class="mb_5">Свяжитесь с нами</h5>
-		    <div class="row">
-		        <div class="col-lg-4 col-md-6 add_bottom_25">
-		            <div id="message-contact"></div>
-			            <form method="post">
-							{% csrf_token %}
-			                <div class="form-group">
-			                    <input class="form-control" name="name" type="text" placeholder="Имя">
-			                </div>
-			                <div class="form-group">
-			                    <input class="form-control" name="phone" type="text" placeholder="Номер">
-			                </div>
-			                <div class="form-group">
-			                    <textarea class="form-control" style="height: 150px;" placeholder="Сообщение" id="message_contact" name="message"></textarea>
-			                </div>
-			                
-			                <div class="form-group">
-			                    <input class="btn_1 gradient full-width" type="submit" value="Отправить">
-			                </div>
-			            </form>
-		        	</div>
-		            <div class="col-lg-8 col-md-6 add_bottom_25">
-		                <iframe class="map_contact" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.34090837571458!2d74.60871225092879!3d42.87165742169584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb713afe4a205%3A0xb2ebfaeff3290c6a!2z0JTQvtCB0LHQuCDQodCw0L0!5e0!3m2!1sru!2skg!4v1698749919545!5m2!1sru!2skg" allowfullscreen></iframe>
-		            </div>
-		        </div>
-		    </div>
-		    <!-- /row -->
+			<h5 class="mb_5">Свяжитесь с нами</h5>
+			<div class="row">
+				<div class="col-lg-4 col-md-6 add_bottom_25">
+					<form method="post">
+						{% csrf_token %}
+						<div class="form-group">
+							<input class="form-control" name="name" type="text" placeholder="Имя">
+						</div>
+						<div class="form-group">
+							<input class="form-control" name="phone" type="text" placeholder="Номер">
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" style="height: 150px;" placeholder="Сообщение" id="message_contact" name="message"></textarea>
+						</div>
+					
+						<!-- Блок reCAPTCHA -->
+						<div class="row opt_order">
+							<div class="col-6">
+								<div class="g-recaptcha" id="html_element"></div>
+							</div>
+						</div>
+					
+						<!-- Уведомление о необходимости заполнения полей -->
+						<div class="row opt_order">
+							<div class="col-6" id="missing-fields" style="display: none;"></div>
+						</div>
+					
+						<!-- Скрипт проверки reCAPTCHA -->
+						<script>
+							var submitButton = document.getElementById('submit-button');
+							var missingFields = document.getElementById('missing-fields');
+							var nameInput = document.querySelector('input[name="name"]');
+							var phoneInput = document.querySelector('input[name="phone"]');
+							var messageTextarea = document.querySelector('textarea[name="message"]');
+					
+							function onResponse(res) {
+								var missing = [];
+					
+								// Проверьте, заполнены ли поля, и если нет, добавьте их в список недостающих полей
+								if (nameInput.value.trim() === '' || phoneInput.value.trim() === '' || messageTextarea.value.trim() === '') {
+									missingFields.textContent = 'Заполните обязательные поля: ';
+									if (nameInput.value.trim() === '') {
+										missing.push('Имя');
+									}
+									if (phoneInput.value.trim() === '') {
+										missing.push('Номер');
+									}
+									if (messageTextarea.value.trim() === '') {
+										missing.push('Сообщение');
+									}
+									missingFields.textContent += missing.join(', ');
+									missingFields.style.display = 'block';
+									submitButton.style.display = 'none';
+								} else {
+									// Скрыть уведомление и показать кнопку "Отправить" после успешной проверки reCAPTCHA
+									missingFields.style.display = 'none';
+									submitButton.style.display = 'block';
+								}
+							}
+					
+							var onloadCallback = function () {
+								grecaptcha.render('html_element', {
+									'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
+									'callback': onResponse
+								});
+							};
+					
+							// Добавить обработчики событий для полей "Имя", "Номер" и "Сообщение"
+							nameInput.addEventListener('input', onResponse);
+							phoneInput.addEventListener('input', onResponse);
+							messageTextarea.addEventListener('input', onResponse);
+						</script>
+					
+						<div class="form-group">
+							<input class="btn_1 gradient full-width" style="display: none;" type="submit" id="submit-button" value="Отправить">
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-8 col-md-6 add_bottom_25">
+					<iframe class="map_contact"
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.34090837571458!2d74.60871225092879!3d42.87165742169584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb713afe4a205%3A0xb2ebfaeff3290c6a!2z0JTQvtCB0LHQuCDQodCw0L0!5e0!3m2!1sru!2skg!4v1698749919545!5m2!1sru!2skg"
+						allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
 		</div>
 		<!-- /container -->
 
@@ -101,10 +163,12 @@
 	<!-- /main -->
 
 	{% include 'include/footer.html' %}
-    <!--/footer-->
+	<!--/footer-->
 
 	<div id="toTop"></div><!-- Back to top button -->
-		
+
 	<!-- /Sign In Modal -->
-	
-{% endblock %}
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
+
+
+	{% endblock %}
