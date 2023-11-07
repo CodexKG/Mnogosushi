@@ -171,7 +171,7 @@ def generate_pdf(request, payment_code):
     billing = Billing.objects.get(payment_code=payment_code)
 
     # Добавляем изображение в PDF
-    image_path = '/home/binniev/Desktop/django_projects/DoyobisanDelivery/apps/billing/check.jpg'
+    image_path = 'https://img.freepik.com/premium-vector/blank-bank-check-checkbook-cheque-pay-template_8071-12524.jpg'
     image = Image(image_path, width=300, height=200)
     elements.append(image)
 

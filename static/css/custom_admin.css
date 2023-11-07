@@ -1,0 +1,48 @@
+#content-main{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.dashboard #content{
+    width: 100%;
+} 
+.module {
+    border: none;
+    margin-bottom: 30px;
+    background: var(--body-bg);
+    border: 1px solid #ccc;
+  
+   height: fit-content;
+    border-radius: 20px;
+}
+.module table {
+    width: 30vw;
+    border-collapse: collapse;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 300px;
+    border: 1px solid #ccc;
+}
+#content-related{
+    display: none;
+}
+tr{
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-around;
+   
+}
+tr th{
+width: 100%;
+}
+tr td{
+    width: 40%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #F5C423;
+    color: white;
+}
+
+
