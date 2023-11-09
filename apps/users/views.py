@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.views import LoginView
 
 from apps.settings.models import Setting
 from apps.users.models import User
@@ -60,3 +61,25 @@ def profile(request, username):
         'setting' : setting
     }
     return render(request, 'users/detail.html', context)
+
+class CustomLoginView(LoginView):
+    template_name = 'admin/custom_login.html'
+
+    def post(self, request, *args, **kwargs):
+        # Обработка POST-запроса, когда пользователь отправляет форму входа
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Вход выполнен успешно, можно перенаправить пользователя на нужную страницу
+            return redirect('admin:index')
+        else:
+            # Ошибка входа, выполните обработку ошибки
+            return render(request, self.template_name, {'error_message': 'Ошибка входа'})
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # Добавьте свои данные в контекст шаблона, если необходимо
+    #     context['custom_data'] = 'Custom data'
+    #     return context
