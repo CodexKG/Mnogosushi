@@ -47,11 +47,18 @@ class CustomAdminSite(AdminSite):
 
 custom_admin_site = CustomAdminSite(name='custom_admin')
 
+class CustomModelAdmin(admin.ModelAdmin):
+    change_form_template = 'admin/custom_change_form.html'  # Укажите путь к вашему шаблону
+    change_list_template = 'admin/custom_change_list_form.html'
+
 # Получение всех зарегистрированных моделей
 all_models = apps.get_models()
 
 # Регистрация каждой модели в custom_admin_site
+# for model in all_models:
+#     # Использование базового ModelAdmin, можно заменить на собственный класс
+#     admin_class = type('AdminClass', (admin.ModelAdmin,), {})
+#     custom_admin_site.register(model, admin_class)
+
 for model in all_models:
-    # Использование базового ModelAdmin, можно заменить на собственный класс
-    admin_class = type('AdminClass', (admin.ModelAdmin,), {})
-    custom_admin_site.register(model, admin_class)
+    custom_admin_site.register(model, CustomModelAdmin)

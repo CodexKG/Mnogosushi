@@ -1,18 +1,21 @@
 svg {
   -ms-touch-action: none;
-      touch-action: none;
+  touch-action: none;
 }
 
-image, text, .jvm-zoomin, .jvm-zoomout {
+image,
+text,
+.jvm-zoomin,
+.jvm-zoomout {
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .jvm-container {
   -ms-touch-action: none;
-      touch-action: none;
+  touch-action: none;
   position: relative;
   overflow: hidden;
   height: 100%;
