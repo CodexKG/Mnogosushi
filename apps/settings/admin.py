@@ -8,12 +8,6 @@ class SettingAdmin(admin.ModelAdmin):
     list_display = ('title', 'description')
     change_form_template = 'admin/settings.html'
 
-    class Media:
-        js = ('js/common_func.js',)
-        css = {
-            'all': ('css/admin.css',)
-        }
-
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'created')

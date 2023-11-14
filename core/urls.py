@@ -19,10 +19,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
+from apps.custom_admin.admin import custom_admin_site
 
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
+    path('custom/', custom_admin_site.urls),
 
     #include
     path('', include('apps.settings.urls')),

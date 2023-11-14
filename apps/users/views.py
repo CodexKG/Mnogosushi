@@ -77,9 +77,3 @@ class CustomLoginView(LoginView):
         else:
             # Ошибка входа, выполните обработку ошибки
             return render(request, self.template_name, {'error_message': 'Ошибка входа'})
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Добавьте свои данные в контекст шаблона, если необходимо
-    #     context['custom_data'] = 'Custom data'
-    #     return context
