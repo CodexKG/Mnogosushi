@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.apps import apps
+from apps.settings.models import Setting
 
 # Register your models here.
 class CustomAdminSite(AdminSite):
@@ -45,3 +46,12 @@ class CustomAdminSite(AdminSite):
         return super(CustomAdminSite, self).index(request, extra_context)
 
 custom_admin_site = CustomAdminSite(name='custom_admin')
+
+# Получение всех зарегистрированных моделей
+all_models = apps.get_models()
+
+# Регистрация каждой модели в custom_admin_site
+for model in all_models:
+    # Использование базового ModelAdmin, можно заменить на собственный класс
+    admin_class = type('AdminClass', (admin.ModelAdmin,), {})
+    custom_admin_site.register(model, admin_class)
