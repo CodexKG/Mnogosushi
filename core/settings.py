@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
 from dotenv import load_dotenv
 import os
 
@@ -79,6 +80,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
 ]
+
+CELERY_BEAT_SCHEDULE = {
+    'update-menu-every-minute': {
+        'task': 'apps.settings.tasks.update_menu_periodically',
+        'schedule': crontab(),  # Запуск каждую минуту
+    },
+}
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 

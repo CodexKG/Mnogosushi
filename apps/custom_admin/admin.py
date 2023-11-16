@@ -51,6 +51,35 @@ class CustomModelAdmin(admin.ModelAdmin):
     change_form_template = 'admin/custom_change_form.html'  # Укажите путь к вашему шаблону
     change_list_template = 'admin/custom_change_list_form.html'
 
+    def index(self, request, extra_context=None):
+        # Получаем список всех приложений и моделей
+        all_apps = apps.get_app_configs()
+        app_list = []
+        for app in all_apps:
+            models = app.get_models()
+            model_list = []
+            for model in models:
+                if model.__module__.startswith('apps.'):
+                    model_list.append({
+                        'name': model._meta.verbose_name_plural,
+                        'admin_url': f'/custom/{app.label}/{model._meta.model_name}/'
+                    })
+            if model_list:
+                app_list.append({
+                    'name': app.verbose_name,
+                    'models': model_list
+                })
+
+        # Если extra_context не передан, инициализируем его как пустой словарь
+        if extra_context is None:
+            extra_context = {}
+
+        # Добавляем app_list к extra_context
+        extra_context['app_list'] = app_list
+
+        # Вызываем оригинальный метод index с обновленным extra_context
+        return super(CustomAdminSite, self).index(request, extra_context)
+
 # Получение всех зарегистрированных моделей
 all_models = apps.get_models()
 
