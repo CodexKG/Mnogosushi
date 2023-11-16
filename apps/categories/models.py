@@ -9,6 +9,7 @@ class Category(models.Model):
     slug = models.SlugField(
         verbose_name="Slug"
     )
+    external_id = models.CharField(max_length=255, unique=True, null=True, verbose_name="Внешний ID")
 
     def __str__(self):
         return self.title 

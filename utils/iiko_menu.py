@@ -18,10 +18,10 @@ def main():
         get_detail_menu(f'{host}/api/1/nomenclature', token, organization_id)
         menu_by_id_url = f"{host}/api/2/menu/by_id"
         result_menu = get_menu_by_id(menu_by_id_url, token, external_menu_id, organization_id)
-        print(result_menu)
+        # print(result_menu)
         # Запись данных в файл
-        with open('menu.json', 'w', encoding='utf-8') as file:
-            json.dump(result_menu, file, ensure_ascii=False, indent=4)
+        # with open('menu.json', 'w', encoding='utf-8') as file:
+        #     json.dump(result_menu, file, ensure_ascii=False, indent=4)
         return result_menu
 
 def get_access_token_iiko(url):

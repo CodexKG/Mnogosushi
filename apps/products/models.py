@@ -1,7 +1,13 @@
 from django.db import models
+from apps.categories.models import Category
 
 # Create your models here.
 class Product(models.Model):
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL,
+        related_name="category_products",
+        blank=True, null=True
+    )
     title = models.CharField(
         max_length=300,
         verbose_name="Название"
@@ -19,6 +25,7 @@ class Product(models.Model):
         verbose_name="Фотография продукта",
         default='no_image.jpg'
     )
+    sku = models.CharField(max_length=255, unique=True, null=True, verbose_name="SKU")
     created = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Дата создания"

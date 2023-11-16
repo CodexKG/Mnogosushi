@@ -17,8 +17,8 @@ def get_cached_menu():
 
 def index(request):
     setting = Setting.objects.latest('id')
-    # products = Product.objects.all()
-    products = get_cached_menu()
+    products = Product.objects.all()
+    # products = get_cached_menu()
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     return render(request, 'index.html', locals())
 
