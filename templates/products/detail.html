@@ -51,7 +51,11 @@
 		                <section id="section-1">
 		                    <h4>Описание</h4>
                             <p>{{ product.description }}</p>
+							{% if product.image %}
                             <img src="{{ product.image.url }}" alt="{{ product.title }}">
+							{% else %}
+							<img src="{% static 'noimage.jpg' %}" alt="{{ product.title }}">
+							{% endif %}
 		                    <!-- /row -->
 		                </section>
 		                <!-- /section -->

@@ -92,7 +92,11 @@
                     <a href="{% url 'product_detail' product.id %}">
                         <figure>
                             <span>{{ product.price }}</span>
+                            {% if product.image %}
                             <img src="{{ product.image.url }}" data-src="{{ product.image.url }}" alt="" class="owl-lazy" width="350" height="450">
+                            {% else %}
+                            <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" alt="" class="owl-lazy" width="350" height="450">
+                            {% endif %}
                             <div class="info">
                                 <h3>{{ product.title }}</h3>
                                 <small>{{ product.price }} KGS</small>
@@ -108,54 +112,61 @@
 
         <div class="bg_gray">
             <div class="container margin_60_40">
-                <!-- Начало категории -->
-                <div class="main_title">
-                    <span><em></em></span>
-                    <h2>Напитки</h2>
-                    <p>Отзывы клиентов которые заказали у нас еду</p>
-                    <a href="{% url 'index' %}">Посмотреть все&rarr;</a>
-                </div>
-                <div class="row add_bottom_25">
-                    <div class="col-lg-6">
-                        <div class="list_home">
-                            <ul>
-                                <li>
-                                    <a href="{% url 'index' %}">
+                <div class="container margin_30_20">			
+                    <div class="row">
+                        <div class="col-lg-16">
+                            <div class="promo mb_30">
+                                <h3>Бесплатная доставка от 1500 сом!</h3>
+                                <p>Если вы закажете еду от 1500 сом, доставка бесплатная</p>
+                                <i class="icon-food_icon_delivery"></i>
+                            </div>
+                            <!-- /promo -->
+                            {% for category in categories %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h2 class="title_small">{{ category.title }}</h2>
+                                </div>
+                                {% for product in category.category_products.all %}
+                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                    <div class="strip">
                                         <figure>
-                                            <img src="https://img.championat.com/c/900x900/news/big/w/q/pochemu-sushi-vredny-dlja-figury_1590677088981164064.jpg" data-src="https://img.championat.com/c/900x900/news/big/w/q/pochemu-sushi-vredny-dlja-figury_1590677088981164064.jpg" alt="" class="lazy" width="350" height="233">
+                                            <span class="ribbon off">{{ category.title }}</span>
+                                            <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="">
+                                            <a href="{% url 'product_detail' product.id %}" class="strip_info">
+                                                <small>{{ product.price }}KGS</small>
+                                                <div class="item_title">
+                                                    <h3>{{ product.title }}</h3>
+                                                    <!-- <small>{{ setting.phone }}</small> -->
+                                                </div>
+                                            </a>
                                         </figure>
-                                        <div class="score"><strong>9.5</strong></div>
-                                        <em>25 сентября</em>
-                                        <h3>Токторов Курманбек</h3>
-                                        <small>Очень классная еда</small>
-                                       
-                                    </a>
-                                </li>
-                            </ul>
+                                        <ul>
+                                            <li><span class="take yes">В корзину</span> <span class="deliv yes">Заказать</span></li>
+                                            <li>
+                                                <div class="score"><strong>8.9</strong></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <!-- /strip grid -->
+                            </div>
+                            {% endfor %}
+                            <!-- /row -->
+                            <!-- <div class="pagination_fg">
+                              <a href="#">&laquo;</a>
+                              <a href="#" class="active">1</a>
+                              <a href="#">2</a>
+                              <a href="#">3</a>
+                              <a href="#">4</a>
+                              <a href="#">5</a>
+                              <a href="#">&raquo;</a>
+                            </div> -->
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="list_home">
-                            <ul>
-                                <li>
-                                    <a href="{% url 'index' %}">
-                                        <figure>
-                                            <img src="https://img.championat.com/c/900x900/news/big/w/q/pochemu-sushi-vredny-dlja-figury_1590677088981164064.jpg" data-src="https://img.championat.com/c/900x900/news/big/w/q/pochemu-sushi-vredny-dlja-figury_1590677088981164064.jpg" alt="" class="lazy" width="350" height="233">
-                                        </figure>
-                                        <div class="score"><strong>9.5</strong></div>
-                                        <em>25 сентября</em>
-                                        <h3>Залкар Кулмаматов</h3>
-                                        <small>Очень классная еда</small>
-                                        
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                        <!-- /col -->
+                    </div>		
                 </div>
-
-                <!-- Конец категории -->
-                <!-- /row -->
+                <!-- /container -->
                 <div class="banner lazy" data-bg="url('https://n1s1.hsmedia.ru/3b/b9/2e/3bb92eb5c0243f41c8f0fd14044619cd/1861x1387_0xac120003_1225909181634638355.jpeg')">
                     <div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.3)">
                         <div>
