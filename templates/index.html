@@ -92,10 +92,10 @@
                     <a href="{% url 'product_detail' product.id %}">
                         <figure>
                             <span>{{ product.price }}</span>
-                            {% if product.image %}
-                            <img src="{{ product.image.url }}" data-src="{{ product.image.url }}" alt="" class="owl-lazy" width="350" height="450">
+                            {% if product.iiko_image %}
+                            <img src="{{ product.iiko_image }}" data-src="{{ product.iiko_image }}" class="img-fluid lazy" alt="{{ category.title }}">
                             {% else %}
-                            <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" alt="" class="owl-lazy" width="350" height="450">
+                            <img src="{% static 'noimage.jpg' %}" alt="{{ product.title }}" class="owl-lazy"  width="300" height="300">
                             {% endif %}
                             <div class="info">
                                 <h3>{{ product.title }}</h3>
@@ -121,21 +121,24 @@
                                 <i class="icon-food_icon_delivery"></i>
                             </div>
                             <!-- /promo -->
-                            {% for category in categories %}
                             <div class="row">
                                 <div class="col-12">
-                                    <h2 class="title_small">{{ category.title }}</h2>
+                                    <h2 class="title_small">Категория товаров</h2>
                                 </div>
-                                {% for product in category.category_products.all %}
+                                {% for category in categories %}
                                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                     <div class="strip">
                                         <figure>
-                                            <span class="ribbon off">{{ category.title }}</span>
-                                            <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="">
-                                            <a href="{% url 'product_detail' product.id %}" class="strip_info">
-                                                <small>{{ product.price }}KGS</small>
+                                            <span class="ribbon off">{{ setting.title }}</span>
+                                            {% if category.iiko_image %}
+                                            <img src="{{ category.iiko_image }}" data-src="{{ category.iiko_image }}" class="img-fluid lazy" alt="{{ category.title }}">
+                                            {% else %}
+                                            <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="{{ category.title }}">
+                                            {% endif %}
+                                            <a href="{% url 'category_detail' category.slug %}" class="strip_info">
+                                                <small>ID: {{ category.id }}</small>
                                                 <div class="item_title">
-                                                    <h3>{{ product.title }}</h3>
+                                                    <h3>{{ category.title }}</h3>
                                                     <!-- <small>{{ setting.phone }}</small> -->
                                                 </div>
                                             </a>
@@ -151,7 +154,7 @@
                                 {% endfor %}
                                 <!-- /strip grid -->
                             </div>
-                            {% endfor %}
+                           
                             <!-- /row -->
                             <!-- <div class="pagination_fg">
                               <a href="#">&laquo;</a>

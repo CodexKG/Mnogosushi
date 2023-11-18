@@ -6,6 +6,16 @@ class Category(models.Model):
         max_length=255,
         verbose_name="Название"
     )
+    image = models.ImageField(
+        upload_to='category_image/',
+        verbose_name="Фотография категории",
+        blank=True, null=True
+    )
+    iiko_image = models.CharField(
+        max_length=500,
+        verbose_name="Фотография Iiko",
+        blank=True, null=True
+    )
     slug = models.SlugField(
         verbose_name="Slug"
     )

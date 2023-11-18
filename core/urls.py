@@ -33,6 +33,7 @@ urlpatterns = [
     path('billing/', include('apps.billing.urls')),
     path('menu/', include('apps.tables.urls')),
     path('user/', include('apps.users.urls')),
+    path('category/', include('apps.categories.urls')),
 
     #users
     path('logout/', LogoutView.as_view(next_page = 'index'), name = "logout"),

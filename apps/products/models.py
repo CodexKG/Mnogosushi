@@ -25,6 +25,11 @@ class Product(models.Model):
         verbose_name="Фотография продукта",
         default='no_image.jpg'
     )
+    iiko_image = models.CharField(
+        max_length=500,
+        verbose_name="Фотография Iiko",
+        blank=True, null=True
+    )
     sku = models.CharField(max_length=255, unique=True, null=True, verbose_name="SKU")
     created = models.DateTimeField(
         auto_now_add=True,

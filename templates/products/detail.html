@@ -49,10 +49,11 @@
 		        <div class="row">
 		            <div class="col-lg-8 list_menu">
 		                <section id="section-1">
-		                    <h4>Описание</h4>
+		                    <h4>Описание:</h4>
+							<p>{{ product.title }}</p>
                             <p>{{ product.description }}</p>
-							{% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+							{% if product.iiko_image %}
+                            <img src="{{ product.iiko_image }}" alt="{{ product.title }}" width="50%">
 							{% else %}
 							<img src="{% static 'noimage.jpg' %}" alt="{{ product.title }}">
 							{% endif %}

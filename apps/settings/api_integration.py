@@ -1,4 +1,5 @@
-from django.utils.text import slugify
+# from django.utils.text import slugify
+from slugify import slugify
 import logging
 
 from apps.products.models import Product
@@ -18,7 +19,8 @@ def update_menu_from_api():
             external_id=category_data['id'],
             defaults={
                 'title': category_data['name'],
-                'slug': slugify(category_data['name'])
+                'slug': slugify(category_data['name']),
+                'iiko_image': category_data['buttonImageUrl']
             }
         )
 
@@ -38,7 +40,7 @@ def update_menu_from_api():
                         'description': description,
                         'price': str(price),
                         'category': category,
-                        'image': image_url  # Загрузка изображений может потребовать дополнительной обработки
+                        'iiko_image': image_url  # Загрузка изображений может потребовать дополнительной обработки
                     }
                 )
 
@@ -46,5 +48,6 @@ def update_menu_from_api():
                     logger.info(f"Добавлен новый продукт: {product.title}")
                 else:
                     logger.info(f"Обновлен продукт: {product.title}")
+        logger.info(f"SLUG: {slugify(category_data['name'], allow_unicode=False)}")
 
     logger.info("Обновление базы данных завершено")
