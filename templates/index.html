@@ -81,30 +81,43 @@
         <div class="container margin_60">
             <div class="main_title center">
                 <span><em></em></span>
-                <h2>Товары и услуги</h2>
-                <p>Товары и услуги {{ setting.title }}</p>
+                <h2>Самое популярное</h2>
+                <p>Вам может понравиться</p>
             </div>
             <!-- /main_title -->
 
-            <div class="owl-carousel owl-theme categories_carousel">
-                {% for product in products %}
-                <div class="item_version_2">
-                    <a href="{% url 'product_detail' product.id %}">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="title_small">Вам может понравиться</h2>
+                </div>
+                {% for product in popular_products %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="strip">
                         <figure>
-                            <span>{{ product.price }}</span>
+                           
                             {% if product.iiko_image %}
-                            <img src="{{ product.iiko_image }}" data-src="{{ product.iiko_image }}" class="img-fluid lazy" alt="{{ category.title }}">
+                            <img src="{{ product.iiko_image }}" data-src="{{ product.iiko_image }}" class="img-fluid lazy" alt="{{ product.title }}">
                             {% else %}
-                            <img src="{% static 'noimage.jpg' %}" alt="{{ product.title }}" class="owl-lazy"  width="300" height="300">
+                            <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="{{ product.title }}">
                             {% endif %}
-                            <div class="info">
-                                <h3>{{ product.title }}</h3>
-                                <small>{{ product.price }} KGS</small>
-                            </div>
+                            <a href="{% url 'product_detail' product.id %}" class="strip_info">
+                                <small>{{ product.price }}KGS</small>
+                                <div class="item_title">
+                                    <h3>{{ product.title }}</h3>
+                                    <!-- <small>{{ setting.phone }}</small> -->
+                                </div>
+                            </a>
                         </figure>
-                    </a>
+                        <ul>
+                            <li><span class="take yes">В корзину</span> <span class="deliv yes">Заказать</span></li>
+                            <li>
+                                <div class="score"><strong>8.9</strong></div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 {% endfor %}
+                <!-- /strip grid -->
             </div>
             <!-- /carousel -->
         </div>
@@ -126,7 +139,7 @@
                                     <h2 class="title_small">Категория товаров</h2>
                                 </div>
                                 {% for category in categories %}
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                                     <div class="strip">
                                         <figure>
                                             <span class="ribbon off">{{ setting.title }}</span>

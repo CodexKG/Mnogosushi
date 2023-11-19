@@ -14,6 +14,11 @@ class Billing(MPTTModel):
     total_price = models.PositiveIntegerField(
         verbose_name="Итоговая цена товаров",
     )
+    delivery_price = models.CharField(
+        max_length=100,
+        verbose_name="Цена доставки",
+        default="Бесплатно"
+    )
     address = models.CharField(
         max_length=300,
         verbose_name="Адрес доставки"

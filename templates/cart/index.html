@@ -135,8 +135,12 @@
 										{% endif %}
 									</ul>
 									<ul class="clearfix">
-										<li>Предытог<span>{{ total_price }} KGS</span></li>
+										
+										{% if free_delivery == True %}
 										<li>Доставка<span>Бесплатно</span></li>
+										{% else %}
+										<li>Доставка<span>250 KGS</span></li>
+										{% endif %}
 										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
 										<input type="hidden" name="total_price" value="{{ total_price }}">
 									</ul>

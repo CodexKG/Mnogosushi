@@ -9,9 +9,10 @@ from apps.categories.models import Category
 # Create your views here.
 def index(request):
     setting = Setting.objects.latest('id')
-    categories = Category.objects.all().order_by("?")
+    categories = Category.objects.all()
     products = Product.objects.all()
     footer_products = Product.objects.filter(title__startswith='Крылышки')
+    popular_products = Product.objects.all().order_by("?")[:6]
     return render(request, 'index.html', locals())
 
 def contact(request):

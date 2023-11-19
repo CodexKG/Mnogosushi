@@ -49,14 +49,21 @@ def cart(request):
     session_key = request.session.session_key
     cart = Cart.objects.filter(session_key=session_key).first()
     cart_items = []
+    delivery_cost = 250  # стоимость доставки
     if cart:
         cart_items = CartItem.objects.filter(cart=cart).annotate(
             total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
         )
         total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+
+        if total_price < 1500:
+            total_price += delivery_cost  # Добавляем стоимость доставки, если сумма заказа меньше 1500 сом
+        else:
+            free_delivery = True
     else:
         cart_items = []
         total_price = 0
+        free_delivery = False
     # form = BillingForm()
     return render(request, 'cart/index.html', locals())
 
