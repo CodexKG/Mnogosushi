@@ -82,9 +82,9 @@ MIDDLEWARE = [
 ]
 
 CELERY_BEAT_SCHEDULE = {
-    'update-menu-every-minute': {
+    'update-menu-at-4am-bishkek-time': {
         'task': 'apps.settings.tasks.update_menu_periodically',
-        'schedule': crontab(),  # Запуск каждую минуту
+        'schedule': crontab(hour=22, minute=0),  # Запуск в 22:00 UTC, что соответствует 4:00 утра по Бишкекскому времени
     },
 }
 
