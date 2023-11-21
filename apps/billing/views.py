@@ -5,8 +5,6 @@ from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from django.http import HttpResponse
 from io import BytesIO
-
-from django.http import HttpResponse
 import asyncio
 
 from apps.settings.models import Setting

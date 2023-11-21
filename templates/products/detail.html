@@ -68,16 +68,13 @@
 		                    <!-- форма чек лист старт -->
 								<div class="head">
 									<h3>Общая сумма</h3>
-									<a href="{% url 'index' %}" class="close_panel_mobile"><i
-											class="icon_close"></i></a>
 								</div>
 								<!-- /head -->
 								<div class="main">
 									<ul class="clearfix">
 										{% if cart_items %}
 										{% for item in cart_items %}
-										<!-- <li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li> -->
-										<a href="{% url 'remove_from_cart' item.product.id %}" class="remove-from-cart"><i class="icon_close"></i> Удалить</a>
+										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li>
 										{% endfor %}
 										{% endif %}
 									</ul>

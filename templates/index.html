@@ -94,33 +94,78 @@
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <div class="strip">
                         <figure>
-                           
                             {% if product.iiko_image %}
                             <img src="{{ product.iiko_image }}" data-src="{{ product.iiko_image }}" class="img-fluid lazy" alt="{{ product.title }}">
                             {% else %}
                             <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="{{ product.title }}">
                             {% endif %}
                             <a href="{% url 'product_detail' product.id %}" class="strip_info">
-                                <small>{{ product.price }}KGS</small>
+                                <small>{{ product.price }} KGS</small>
                                 <div class="item_title">
                                     <h3>{{ product.title }}</h3>
-                                    <!-- <small>{{ setting.phone }}</small> -->
                                 </div>
                             </a>
                         </figure>
                         <ul>
                             <li>
-                                <span class="take yes">В корзину</span>
-                                <span class="deliv yes">Мои заказы</span>
-                            </li>
-                            <li>
-                               
+                                <form method="post" action="{% url 'add_to_cart' %}" class="add-to-order-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="price" value="{{ product.price }}">
+                                    <input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
+                                    <button type="submit" class="btn_1 gradient full-width" data-product-id="{{ product.id }}">В корзину</button>
+                                </form>
                             </li>
                         </ul>
                     </div>
                 </div>
                 {% endfor %}
-                <!-- /strip grid -->
+                <!-- SweetAlert (CDN) -->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                
+                <!-- JavaScript for AJAX and SweetAlert -->
+                <script>
+                    document.querySelectorAll('.add-to-order-form').forEach(function(form) {
+                        form.addEventListener('submit', function(event) {
+                            event.preventDefault();
+                
+                            var productID = this.querySelector('button').getAttribute('data-product-id');
+                            var formData = new FormData(this);
+                
+                            fetch(this.getAttribute('action'), {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(function(response) {
+                                return response.json();
+                            })
+                            .then(function(data) {
+                                if (data.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Товар добавлен',
+                                        text: 'Товар добавлен в вашу корзину',
+                                        timer: 1500
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Упс...',
+                                        text: 'Произошла ошибка.'
+                                    });
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error('Error:', error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Упс...',
+                                    text: 'Произошла ошибка!'
+                                });
+                            });
+                        });
+                    });
+                </script>
             </div>
             <!-- /carousel -->
         </div>

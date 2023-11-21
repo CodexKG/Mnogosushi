@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.core.cache import cache
 
 from apps.settings.models import Setting, Contact
 from apps.products.models import Product

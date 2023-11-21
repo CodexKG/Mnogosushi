@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
+from django.http import JsonResponse
 
 from apps.settings.models import Setting
 from apps.products.models import Product
@@ -40,7 +41,8 @@ def add_to_cart(request):
             else:
                 cart_item = CartItem.objects.create(cart=cart, product=product, quantity=quantity, total=price * quantity)
 
-            return redirect('cart')
+            # return redirect('cart')
+            return JsonResponse({'success': True})
     
     return redirect('cart')  # Если метод запроса не POST или форма не прошла валидацию
 

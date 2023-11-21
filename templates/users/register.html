@@ -16,7 +16,7 @@
 	<div id="register">
 		<aside>
 			<figure>
-				<a href="index.html"><img src="{{ setting.logo.url }}" width="20%" alt=""></a>
+				<a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="20%" alt=""></a>
 			</figure>
 			<div class="access_social">
 					<a href="{% provider_login_url 'google' %}" class="social_bt facebook">Регистрация с Telegram</a>
