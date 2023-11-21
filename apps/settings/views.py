@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 
 from apps.settings.models import Setting, Contact
 from apps.products.models import Product

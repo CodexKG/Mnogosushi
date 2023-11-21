@@ -113,7 +113,7 @@
                                     <input type="hidden" name="product_id" value="{{ product.id }}">
                                     <input type="hidden" name="price" value="{{ product.price }}">
                                     <input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
-                                    <button type="submit" class="btn_1 gradient full-width" data-product-id="{{ product.id }}">В корзину</button>
+                                    <button type="submit" class="btn_1 gradient full-width" data-product-id="{{ product.id }}" style="margin-right: 90px;">В корзину</button>
                                 </form>
                             </li>
                         </ul>
@@ -145,7 +145,11 @@
                                         icon: 'success',
                                         title: 'Товар добавлен',
                                         text: 'Товар добавлен в вашу корзину',
-                                        timer: 1500
+                                        timer: 1500,
+                                        html: `
+                                        <p>Продукт добавлен в заказ!</p>
+                                        <a href="{% url 'cart' %}" class="btn_1">Корзина</a>
+                                    `
                                     });
                                 } else {
                                     Swal.fire({
@@ -183,6 +187,7 @@
                             </div>
                             <!-- /promo -->
                             <div class="row">
+                                
                                 <div class="col-12">
                                     <h2 class="title_small">Категория товаров</h2>
                                 </div>

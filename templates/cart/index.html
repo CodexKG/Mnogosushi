@@ -83,27 +83,28 @@
 						<section id="section-1">
 							<h4>Заказы</h4>
 							<div class="row">
-
 								{% for item in cart_items %}
 								<div class="col-md-6">
-									<a class="menu_item modal_dialog"
-										href="{% url 'product_detail' item.product.id  %}">
-										<figure><img src="{{ item.product.image.url }}"
-												data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}"
-												class="lazy"></figure>
-										<h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
-										<p>Количество: {{ item.quantity }}</p>
-										<strong>{{ item.total_price }} KGS</strong>
-									</a>
+									<!-- Обновленный блок товара с тенью и кнопкой удаления -->
+									<div class="item-container">
+										<a class="menu_item modal_dialog" href="{% url 'product_detail' item.product.id  %}">
+											<figure><img src="{{ item.product.image.url }}" data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="lazy"></figure>
+											<div class="item-details">
+												<h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
+												<p>Количество: {{ item.quantity }}</p>
+												<strong>{{ item.total_price }} KGS</strong>
+											</div>
+										</a>
+										<!-- Кнопка удаления -->
+										
+										<a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger" style="margin-top: -30px;">Удалить</a>
+										<a type="submit" class="btn btn-danger" style="margin-top: -30px;">+</a>
+										<a type="submit" class="btn btn-danger" style="margin-top: -30px;">-</a>
+										
+									</div>
 								</div>
 								{% empty %}
 								<div class="col-md-6">
-									<!-- <a class="menu_item modal_dialog" href="{% url 'cart' %}">
-		                                <figure><img src="{% static 'img/thumb_detail_5.jpg' %}" data-src="{% static 'img/thumb_detail_5.jpg' %}" alt="Пустой" class="lazy"></figure>
-		                                <h3>Пусто</h3>
-		                                <p>Ваша корзина пуст</p>
-		                                <strong>0 KGS</strong>
-		                            </a> -->
 									<h1>Ваша корзина пуст</h1>
 								</div>
 								{% endfor %}

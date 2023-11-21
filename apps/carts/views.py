@@ -9,7 +9,7 @@ from apps.carts.forms import AddToCartForm
 
 # Create your views here.
 def add_to_cart(request):
-    print(request)
+    print(request.META.get('HTTP_REFERER'))
     if request.method == 'POST':
         form = AddToCartForm(request.POST)
         print(form)
@@ -41,8 +41,10 @@ def add_to_cart(request):
             else:
                 cart_item = CartItem.objects.create(cart=cart, product=product, quantity=quantity, total=price * quantity)
 
-            # return redirect('cart')
-            return JsonResponse({'success': True})
+            if 'product' in str(request.META.get('HTTP_REFERER')):
+                return redirect('cart')
+            else:
+                return JsonResponse({'success': True})
     
     return redirect('cart')  # Если метод запроса не POST или форма не прошла валидацию
 

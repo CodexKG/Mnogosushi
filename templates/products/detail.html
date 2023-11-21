@@ -66,50 +66,48 @@
 		            <div class="col-lg-4" id="sidebar_fixed">
 		                <div class="box_order mobile_fixed">
 		                    <!-- форма чек лист старт -->
-								<div class="head">
-									<h3>Общая сумма</h3>
-								</div>
-								<!-- /head -->
-								<div class="main">
-									<ul class="clearfix">
-										{% if cart_items %}
-										{% for item in cart_items %}
-										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li>
-										{% endfor %}
-										{% endif %}
-									</ul>
-									<ul class="clearfix">
+							<div class="head">
+								<h3>Общая сумма</h3>
+							</div>
+							<!-- /head -->
+							<div class="main">
+								<ul class="clearfix">
+									{% if cart_items %}
+									{% for item in cart_items %}
+									<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li>
+									{% endfor %}
+									{% endif %}
+								</ul>
+								<ul class="clearfix">
 										
-										{% if free_delivery == True %}
-										<li>Доставка<span>Бесплатно</span></li>
-										{% else %}
-										<li>Доставка<span>250 KGS</span></li>
-										{% endif %}
-										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
-										<input type="hidden" name="total_price" value="{{ total_price }}">
-									</ul>
-							<!-- форма чек лист конец -->
-							
-							<form method="post" action="{% url 'add_to_cart' %}">
-								<div class="btn_1_mobile" style="position: relative;">
-									{% csrf_token %}
-									<input type="hidden" name="product_id" value="{{ product.id }}">
-									<input type="hidden" name="price" value="{{ product.price }}">
-									<div class="row opt_order">
-										<div class="col-6">
-											<p>Количество товара</p>
-											<input class="js-result form-control" type="number" name="quantity" min="1" value="1">
-											<button type="button" class="btn_1 gradient js-minus" style="margin-top: 10px;">-</button>
-											<button type="button" class="btn_1 gradient js-plus">+</button>
-										</div>
-									</div>
-									<input class="btn_1 gradient full-width" type="submit" value="В корзину" style="margin-top: 10px;">
-								</div>
-							</form>
+									{% if free_delivery == True %}
+									<li>Доставка<span>Бесплатно</span></li>
+									{% else %}
+									<li>Доставка<span>250 KGS</span></li>
+									{% endif %}
+									<li class="total">Итого<span>{{ total_price }} KGS</span></li>
+									<input type="hidden" name="total_price" value="{{ total_price }}">
+								</ul>
 
+								<!-- форма чек лист конец -->
+								<form method="post" action="{% url 'add_to_cart' %}">
+									<div class="btn_1_mobile" style="position: relative;">
+										{% csrf_token %}
+										<input type="hidden" name="product_id" value="{{ product.id }}">
+										<input type="hidden" name="price" value="{{ product.price }}">
+										<div class="row opt_order">
+											<div class="col-6">
+												<p>Количество товара</p>
+												<input class="js-result form-control" type="number" name="quantity" min="1" value="1">
+												<button type="button" class="btn_1 gradient js-minus" style="margin-top: 10px;">-</button>
+												<button type="button" class="btn_1 gradient js-plus">+</button>
+											</div>
+										</div>
+										<input class="btn_1 gradient full-width" type="submit" value="В корзину" style="margin-top: 10px;">
+									</div>
+								</form>
+							</div>
 		                </div>
-		                <!-- /box_order -->
-		                <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">Send a Message</a></div>
 		            </div>
 		        </div>
 		        <!-- /row -->
