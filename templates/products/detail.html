@@ -31,7 +31,7 @@
 										<a href="{% static 'img/detail_2.jpg' %}" title="Photo title" data-effect="mfp-zoom-in"></a>
 										<a href="{% static 'img/detail_3.jpg' %}" title="Photo title" data-effect="mfp-zoom-in"></a>
 									</span>
-									<a href="{% url 'index' %}" class="btn_hero wishlist"><i class="icon_chat_alt"></i>В корзину</a>
+									
 								</div>
 							</div>
 						</div>
@@ -65,32 +65,33 @@
 		            <!-- /col -->
 		            <div class="col-lg-4" id="sidebar_fixed">
 		                <div class="box_order mobile_fixed">
-		                    <div class="head">
-		                        <h3>Связаться</h3>
-		                    	<small>Или позвоните на наш номер +996 772 34 32 06</small>
-		                        <a href="{% url 'index' %}" class="close_panel_mobile"><i class="icon_close"></i></a>
-		                    </div>
-		                    <!-- /head -->
-		                    <div class="main">
-		                         <div id="message-detail-contact"></div>
-				                    <form method="post" action="{% url 'contact' %}">
-										{% csrf_token %}
-				                    	<input type="text" name="restaurant_name" id="restaurant_name" value="Pizzeria Da Aldredo" hidden="hidden">
-				                    	<div class="form-group">
-				                    		<input type="text" name="name" class="form-control" placeholder="Имя">
-					                    </div>
-					                    <div class="form-group">
-					                    	<input type="text" name="phone" class="form-control" placeholder="Номер телефона">
-					                    </div>
-					                    <!-- <div class="form-group add_bottom_15">
-					                    	<textarea class="form-control" name="message_detail" id="message_detail" placeholder="Your message"></textarea>
-					                    </div> -->
-					                    <div class="btn_1_mobile" style="position: relative;">
-											<input class="btn_1 gradient full-width" type="submit" value="Отправить">
-						               </div>
-				                    </form>
-				                </div>
-							</div>
+		                    <!-- форма чек лист старт -->
+								<div class="head">
+									<h3>Общая сумма</h3>
+									<a href="{% url 'index' %}" class="close_panel_mobile"><i
+											class="icon_close"></i></a>
+								</div>
+								<!-- /head -->
+								<div class="main">
+									<ul class="clearfix">
+										{% if cart_items %}
+										{% for item in cart_items %}
+										<!-- <li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li> -->
+										<a href="{% url 'remove_from_cart' item.product.id %}" class="remove-from-cart"><i class="icon_close"></i> Удалить</a>
+										{% endfor %}
+										{% endif %}
+									</ul>
+									<ul class="clearfix">
+										
+										{% if free_delivery == True %}
+										<li>Доставка<span>Бесплатно</span></li>
+										{% else %}
+										<li>Доставка<span>250 KGS</span></li>
+										{% endif %}
+										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
+										<input type="hidden" name="total_price" value="{{ total_price }}">
+									</ul>
+							<!-- форма чек лист конец -->
 							
 							<form method="post" action="{% url 'add_to_cart' %}">
 								<div class="btn_1_mobile" style="position: relative;">
@@ -99,8 +100,9 @@
 									<input type="hidden" name="price" value="{{ product.price }}">
 									<div class="row opt_order">
 										<div class="col-6">
+											<p>Количество товара</p>
 											<input class="js-result form-control" type="number" name="quantity" min="1" value="1">
-											<button type="button" class="btn_1 gradient js-minus">-</button>
+											<button type="button" class="btn_1 gradient js-minus" style="margin-top: 10px;">-</button>
 											<button type="button" class="btn_1 gradient js-plus">+</button>
 										</div>
 									</div>

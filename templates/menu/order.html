@@ -141,52 +141,37 @@
 										</div>
 									</div>
 										
-									<div class="btn_1_mobile">
+									 <!-- Кнопка отправки (изначально скрыта) -->
+									<div class="btn_1_mobile" style="display: none;" id="submit-button">
 										<button type="submit" class="btn_1 gradient full-width mb_5">Заказать на столик</button>
-										<div class="text-center"><small>После заказа, к вашему столику придут наши официанты для уточнения заказа</small></div>
+										<div class="text-center">
+											<small>После заказа, к вашему столику придут наши официанты для уточнения заказа</small>
+										</div>
 									</div>
 									{% endif %}
-								</form>
+								</div>
+							</form>
 
-								<!-- Скрипт проверки reCAPTCHA -->
-								<script>
-									var submitButton = document.getElementById('submit-button');
-									var submitButtonInfo = document.getElementById('submit-button-info');
-									var missingFields = document.getElementById('missing-fields');
-								
-									function onResponse(res) {
-										var missing = [];
-								
-			
-								
-										if (missing.length > 0) {
-											errorMessage.style.display = 'block';
-											missingFields.textContent = missing.join(', ');
-											submitButton.style.display = 'none';
-											submitButtonInfo.style.display = 'none';
-										} else {
-											errorMessage.style.display = 'none';
-											missingFields.textContent = '';
-											submitButtonInfo.style.display = 'block';
-											
-											// Проверяем, есть ли отображенная кнопка после решения reCAPTCHA
-											if (submitButton.style.display !== 'block') {
-												submitButton.style.display = 'block';
-											}
-										}
+							<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+							<script>
+								function onResponse(res) {
+									// Проверка успешности reCAPTCHA
+									if (res) {
+										document.getElementById('submit-button').style.display = 'block';
 									}
-								
-									var onloadCallback = function () {
-										grecaptcha.render('html_element', {
-											'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
-											'callback': onResponse
-										});
-									};
-								</script>
+								}
+
+								var onloadCallback = function () {
+									grecaptcha.render('html_element', {
+										'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
+										'callback': onResponse
+									});
+								};
+							</script>
 		                    </div>
 		                </div>
 		                <!-- /box_order -->
-		                <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">View Basket</a></div>
+		                <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">Заказать на столик</a></div>
 		            </div>
 		        </div>
 		        <!-- /row -->

@@ -45,10 +45,7 @@ class Table(models.Model):
             box_size=10,
             border=4,
         )
-        print(qr)
-        print("Hello World")
-        qr.add_data(f"http://doyobisan.webtm.ru/menu/{self.number}/")
-        print(f"http://doyobisan.webtm.ru/menu/{self.number}/")
+        qr.add_data(f"http://mnogosushi.kg/menu/{self.number}/")
         qr.make(fit=True)
 
         buffer = BytesIO()

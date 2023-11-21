@@ -1,18 +1,27 @@
 from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
+from django.http import JsonResponse
 
 from apps.settings.models import Setting
 from apps.tables.models import Table, TableOrder, TableOrderItem
 from apps.tables.forms import AddToOrderForm
 from apps.products.models import Product
-from django.http import JsonResponse
+from apps.categories.models import Category
 
 # Create your views here.
 def menu(request, table_uuid):
     table = Table.objects.get(number=table_uuid)
     setting = Setting.objects.latest('id')
+    categories = Category.objects.all()
     products = Product.objects.all()
     return render(request, 'menu/index.html', locals())
+
+def category_menu_detail(request, table_uuid, category_slug):
+    table = Table.objects.get(number=table_uuid)
+    setting = Setting.objects.latest('id')
+    category = Category.objects.get(slug=category_slug)
+    products = Product.objects.filter(category=category)
+    return render(request, 'menu/category.html', locals())
 
 def add_to_order(request):
     print("add to order")

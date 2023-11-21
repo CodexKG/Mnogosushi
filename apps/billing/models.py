@@ -50,7 +50,7 @@ class Billing(MPTTModel):
     
     def save(self, *args, **kwargs):
         if not self.payment_code:
-            self.payment_code = str(uuid.uuid4().int)[:20]  # Генерируем UUID и оставляем только первые 20 цифр
+            self.payment_code = str(uuid.uuid4().int)[:10]  # Генерируем UUID и оставляем только первые 20 цифр
         super().save(*args, **kwargs)
     
     class Meta:
