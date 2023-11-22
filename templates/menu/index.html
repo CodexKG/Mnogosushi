@@ -180,7 +180,7 @@
 								timer: 1000,
 								html: `
 									<p>Продукт добавлен в заказ!</p>
-									<a href="{% url 'order' %}" class="btn_1">Меню</a>
+									<a href="{% url 'order' table.number %}" class="btn_1">Меню</a>
 								`
 							});
 							} else {

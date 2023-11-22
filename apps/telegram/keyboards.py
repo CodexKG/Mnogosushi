@@ -30,7 +30,7 @@ on_road_keyboard = types.InlineKeyboardMarkup().add(*on_road_buttons)
 #########################
 
 billing_menu_buttons = [
-    types.InlineKeyboardButton('Удалить', callback_data='not_work'),
-    types.InlineKeyboardButton("Потвердить заказ", callback_data='not_working')
+    types.InlineKeyboardButton('Удалить', callback_data='delete_menu_order'),
+    types.InlineKeyboardButton("Потвердить заказ", callback_data='confirm_menu_order')
 ]
 billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_menu_buttons)

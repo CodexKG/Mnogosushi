@@ -142,7 +142,7 @@
 								<input type="hidden" name="table_uuid" value="{{ table.number }}">
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
-								<button type="submit" class="btn_1" data-product-id="{{ product.id }}">Заказать на стол {{ table.number }}</button>
+								<button type="submit" class="btn_1" data-product-id="{{ product.id }}">В корзину {{ table.number }}</button>
 								<a href="{% url 'order' table.number %}" class="btn_1">Мои заказы</a>
 							</form>
 							

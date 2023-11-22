@@ -16,26 +16,37 @@ basicConfig(level=INFO)
 бот создаст его и даст ему поль пользователя.
 По желаю можно сделать его курьером"""
 @dp.message_handler(commands='start')
-async def start(message:types.Message):
-    user = await sync_to_async(TelegramUser.objects.get_or_create)(
-        username=message.from_user.username,
-        user_id=message.from_user.id,
-        first_name=message.from_user.first_name,
-        last_name=message.from_user.last_name,
-        user_role="User"
+async def start(message: types.Message):
+    user_id = message.from_user.id  # Уникальный ID пользователя
+
+    # Используйте только уникальный user_id для get_or_create
+    user, created = await sync_to_async(TelegramUser.objects.get_or_create)(
+        user_id=user_id,
+        defaults={
+            'username': message.from_user.username,
+            'first_name': message.from_user.first_name,
+            'last_name': message.from_user.last_name,
+            'user_role': "User"
+        }
     )
-    await message.answer(f"Привет {message.from_user.full_name}!", reply_markup=profile_keyboard)
+
+    if created:
+        # Если создан новый пользователь
+        await message.answer(f"Привет, новый пользователь {message.from_user.full_name}!", reply_markup=profile_keyboard)
+    else:
+        # Если пользователь уже существует
+        await message.answer(f"С возвращением, {message.from_user.full_name}!", reply_markup=profile_keyboard)
 
 """"Фукнция для показа профиля пользователя"""
 @dp.message_handler(text="Профиль")
 async def get_user_profile(message:types.Message):
     user = await sync_to_async(TelegramUser.objects.get)(user_id=message.from_user.id)
-    await message.answer(f"""ВОТ ВАШ ПРОФИЛЬ
-Имя: {user.first_name}
-Фамилия: {user.last_name}
-Имя пользователя: @{user.username}
-ID: {message.from_user.id}
-Статус пользователя: {user.user_role}""")
+    await message.answer(f"""<b>Вот ваш профиль</b>
+<b>Имя:</b> {user.first_name}
+<b>Фамилия:</b> {user.last_name}
+<b>Имя пользователя:</b> @{user.username}
+<b>ID:</b> {message.from_user.id}
+<b>Статус пользователя:</b> {user.user_role}""", parse_mode="HTML")
 
 """Функция для удаления заказа менеджерами"""
 @dp.callback_query_handler(lambda call: call.data == 'delete_order')
@@ -89,8 +100,6 @@ async def take_order_button(callback_query: types.CallbackQuery):
     except Exception as error:
         print(error)
         await bot.answer_callback_query(callback_query.id, text="Зарегистрируйтесь в боте /start")
-
-from asgiref.sync import sync_to_async
 
 """Функция delivery_on_road (В пути) используется курьером после получения заказа
 чтобы в базе отображалось что курбер в пути к заказчику"""
@@ -208,3 +217,25 @@ async def send_post_billing_menu(id, table_uuid, products, payment_method, payme
 <b>Итого:</b> {total_price} KGS
 <b>Статус:</b> Ожидание официанта""",
 reply_markup=billing_menu_keyboard, parse_mode='HTML')
+    
+@dp.callback_query_handler(lambda call: call.data == "confirm_menu_order")
+async def menu_order_conifirm_waiter(callback_query: types.CallbackQuery):
+    try:
+        user = await sync_to_async(TelegramUser.objects.get)(user_id=int(callback_query["from"]["id"]))
+        id_billing = callback_query.message.text.split()[1].replace('#', '')
+        print(id_billing)
+        print(user.id)
+        if user.user_role == "Waiter":
+            await bot.edit_message_text(
+                chat_id=callback_query.message.chat.id,
+                message_id=callback_query.message.message_id,
+                text=f"{callback_query.message.text }\nСтатус: Принят официантом @{user.username}",
+                # reply_markup=billing_keyboard  # Если вы хотите также обновить клавиатуру
+            )
+            await bot.answer_callback_query(callback_query.id, text=f"Вы успешно взяли заказ {id_billing}")
+            await bot.send_message(user.user_id, f"{callback_query.message.text}", reply_markup=order_keyboard)
+        else:
+            await bot.answer_callback_query(callback_query.id, text="Вы не можете взять заказ")
+    except Exception as error:
+        print(error)
+        await bot.answer_callback_query(callback_query.id, text="Зарегистрируйтесь в боте /start")
