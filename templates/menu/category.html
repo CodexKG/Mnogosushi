@@ -23,7 +23,7 @@
 	            <!-- <a class="btn_map mobile btn_filters" data-bs-toggle="collapse" href="#collapseMap"><i class="icon_pin_alt"></i></a>
 					<a href="#collapseFilters" data-bs-toggle="collapse" class="btn_filters"><i class="icon_adjust-vert"></i><span>Filters</span></a> -->
 				</div>
-				{% include 'include/second_header.html' %}
+				{% include 'include/menu_header.html' %}
 			</div>
 			<!-- /filters_full -->
 			<div class="collapse" id="collapseMap">
@@ -143,7 +143,7 @@
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
 								<button type="submit" class="btn_1" data-product-id="{{ product.id }}">Заказать на стол {{ table.number }}</button>
-								<a href="{% url 'order' %}" class="btn_1">Мои заказы</a>
+								<a href="{% url 'order' table.number %}" class="btn_1">Мои заказы</a>
 							</form>
 							
 						</ul>
@@ -183,7 +183,7 @@
 								timer: 1000,
 								html: `
 									<p>Продукт добавлен в заказ!</p>
-									<a href="{% url 'order' %}" class="btn_1">Меню</a>
+									<a href="{% url 'order' table.number %}" class="btn_1">Меню</a>
 								`
 							});
 							} else {

@@ -33,4 +33,4 @@ billing_menu_buttons = [
     types.InlineKeyboardButton('Удалить', callback_data='not_work'),
     types.InlineKeyboardButton("Потвердить заказ", callback_data='not_working')
 ]
-billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_buttons)
+billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_menu_buttons)

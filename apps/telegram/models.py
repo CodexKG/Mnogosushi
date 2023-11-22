@@ -7,7 +7,8 @@ class TelegramUser(models.Model):
     USER_ROLE_CHOICE = (
         ('User', 'Пользователь'),
         ('Delivery', 'Курьер'),
-        ('Manager', 'Менеджер')
+        ('Manager', 'Менеджер'),
+        ('Waiter', 'Официант')
     )
     username = models.CharField(
         max_length=200, verbose_name="Имя пользователя",

@@ -72,16 +72,70 @@
 							        </a>
 							    </figure>
 							    <ul>
-							        <li><span class="take yes">В корзину</span> <span class="deliv yes">Заказать</span></li>
-							        <li>
-							        	<div class="score">
-											
-										</div>
-							        </li>
-							    </ul>
+									<li>
+										<form method="post" action="{% url 'add_to_cart' %}" class="add-to-order-form">
+											{% csrf_token %}
+											<input type="hidden" name="product_id" value="{{ product.id }}">
+											<input type="hidden" name="price" value="{{ product.price }}">
+											<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
+											<button type="submit" class="btn_1 gradient full-width" style="float: left;" data-product-id="{{ product.id }}">В корзину</button>
+										</form>
+									</li>
+								</ul>
 							</div>
 						</div>
                         {% endfor %}
+						<!-- SweetAlert (CDN) -->
+						<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                
+						<!-- JavaScript for AJAX and SweetAlert -->
+						<script>
+							document.querySelectorAll('.add-to-order-form').forEach(function(form) {
+								form.addEventListener('submit', function(event) {
+									event.preventDefault();
+						
+									var productID = this.querySelector('button').getAttribute('data-product-id');
+									var formData = new FormData(this);
+						
+									fetch(this.getAttribute('action'), {
+										method: 'POST',
+										body: formData
+									})
+									.then(function(response) {
+										return response.json();
+									})
+									.then(function(data) {
+										if (data.success) {
+											Swal.fire({
+												icon: 'success',
+												title: 'Товар добавлен',
+												text: 'Товар добавлен в вашу корзину',
+												timer: 1500,
+												html: `
+												<p>Продукт добавлен в заказ!</p>
+												<a href="{% url 'cart' %}" class="btn_1">Корзина</a>
+											`
+											});
+										} else {
+											Swal.fire({
+												icon: 'error',
+												title: 'Упс...',
+												text: 'Произошла ошибка.'
+											});
+										}
+									})
+									.catch(function(error) {
+										console.error('Error:', error);
+										Swal.fire({
+											icon: 'error',
+											title: 'Упс...',
+											text: 'Произошла ошибка!'
+										});
+									});
+								});
+							});
+						</script>
+
 						<!-- /strip grid -->
 					</div>
 					<!-- /row -->

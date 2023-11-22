@@ -38,7 +38,7 @@
                     <a href="{% url 'contact' %}" target="_parent">Контакты</a>
                 </li>
                 <li>
-                    <a href="{% url 'cart' %}" target="_parent">Корзина</a>
+                    <a href="{% url 'cart' %}" target="_parent">Корзина ({{ cart_items_count }})</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li>

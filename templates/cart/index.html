@@ -88,7 +88,13 @@
 									<!-- Обновленный блок товара с тенью и кнопкой удаления -->
 									<div class="item-container">
 										<a class="menu_item modal_dialog" href="{% url 'product_detail' item.product.id  %}">
-											<figure><img src="{{ item.product.image.url }}" data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="lazy"></figure>
+											<figure>
+												{% if item.product.image.url %}
+												<img src="{{ item.product.image.url }}" data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="lazy">
+												{% else %}
+												<img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" alt="{{ item.product.title }}" class="lazy">
+												{% endif %}
+											</figure>
 											<div class="item-details">
 												<h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
 												<p>Количество: {{ item.quantity }}</p>
@@ -139,8 +145,10 @@
 										
 										{% if free_delivery == True %}
 										<li>Доставка<span>Бесплатно</span></li>
+										<input type="hidden" name="delivery_price" value="0">
 										{% else %}
 										<li>Доставка<span>250 KGS</span></li>
+										<input type="hidden" name="delivery_price" value="250">
 										{% endif %}
 										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
 										<input type="hidden" name="total_price" value="{{ total_price }}">

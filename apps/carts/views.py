@@ -84,3 +84,11 @@ def remove_from_cart(request, product_id):
         CartItem.objects.filter(cart__session_key=session_key, product__id=product_id).delete()
 
     return redirect('cart')
+
+def cart_items_count_processor(request):
+    session_key = request.session.session_key
+    if not session_key:
+        return {'cart_items_count': 0}
+
+    count = CartItem.objects.filter(cart__session_key=session_key).count()
+    return {'cart_items_count': count}

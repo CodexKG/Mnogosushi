@@ -34,6 +34,8 @@ def create_billing_from_cart(request):
     address = request.POST.get('address')
     phone = request.POST.get('phone')
     payment_method = request.POST.get('payment_method')
+    delivery_price = request.POST.get('delivery_price') or 0
+
     with transaction.atomic():
         # Создаем объект Billing
         billing = Billing.objects.create(
@@ -41,7 +43,8 @@ def create_billing_from_cart(request):
             total_price=total_price,
             address=address,
             phone=phone,
-            payment_method=payment_method
+            payment_method=payment_method,
+            delivery_price=delivery_price
             # Другие поля Billing могут быть заполнены здесь
         )
         # Получаем или создаем корзину для текущей сессии
@@ -74,26 +77,29 @@ def create_billing_from_cart(request):
         delete_cart = Cart.objects.get(session_key=session_key)
         delete_cart.delete()
 
-        #Товары в список
-        item_names = ", ".join([str(item.product) for item in billing_products])
+        # Товары в список
+        item_descriptions = [f"{item.product} ({item.quantity} шт)" for item in billing_products]
+        formatted_items = "\n".join(item_descriptions)
 
-        #Отправляем уведомление в группу telegram
+        # Отправляем уведомление в группу telegram
         asyncio.run(send_post_billing(
             id=billing.id,
-            products=item_names,
+            products=formatted_items,
             payment_method=billing.payment_method,
             payment_code=billing.payment_code,
             address=billing.address,
             phone=billing.phone,
+            delivery_price=billing.delivery_price,
             total_price=billing.total_price
         ))
 
         return redirect('confirm', billing.address, billing.phone, billing.payment_code)
     
 def create_billing_from_order(request):
-    user_order = request.POST.get('user_order')
     total_price = request.POST.get('total_price')
     payment_method = request.POST.get('payment_method')
+    table_uuid = request.POST.get('table_uuid')
+    print("TABLE:", table_uuid)
     with transaction.atomic():
         # Создаем объект Billing
         billing = Billing.objects.create(
@@ -132,14 +138,15 @@ def create_billing_from_order(request):
         delete_cart = TableOrder.objects.get(session_key=session_key)
         delete_cart.delete()
 
-        #Товары в список
-        item_names = ", ".join([str(item.product) for item in billing_products])
+        # Товары в список
+        item_descriptions = [f"{item.product} ({item.quantity} шт)" for item in billing_products]
+        formatted_items = "\n".join(item_descriptions)
 
         #Отправляем уведомление в группу telegram
         asyncio.run(send_post_billing_menu(
             id=billing.id,
-            table_uuid=None,
-            products=item_names,
+            table_uuid=table_uuid,
+            products=formatted_items,
             payment_method=billing.payment_method,
             payment_code=billing.payment_code,
             total_price=billing.total_price

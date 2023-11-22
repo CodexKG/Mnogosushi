@@ -186,23 +186,25 @@ async def delivery_finish_order(callback_query: types.CallbackQuery):
         await bot.answer_callback_query(callback_query.id, text=f"У вас нет прав, свяжитесь с менеджерами")
 
 """Функция для отправки биллинга в телеграм группу"""
-async def send_post_billing(id, products, payment_method, payment_code, address, phone, total_price):
-    await bot.send_message(-4013644681, f"""Биллинг #{id}
-Товары: {products}
-Способ оплаты: {payment_method}
-Код оплаты: {payment_code}
-Адрес: {address}
-Номер: {phone}
-Итого: {total_price} KGS
-Статус: Ожидание курьера""",
-reply_markup=billing_keyboard)
+async def send_post_billing(id, products, payment_method, payment_code, address, phone, delivery_price, total_price):
+    await bot.send_message(-4013644681, f"""<b>Биллинг #{id}</b>
+<b>Товары:</b> 
+{products}
+<b>Способ оплаты:</b> {payment_method}
+<b>Код оплаты:</b> {payment_code}
+<b>Адрес:</b> {address}
+<b>Номер:</b> {phone}
+<b>Доставка:</b> {delivery_price} KGS
+<b>Итого c доставкой:</b> {total_price} KGS
+<b>Статус:</b> Ожидание курьера""",
+reply_markup=billing_keyboard, parse_mode='HTML')
     
 """Функция для отправки биллинга меню в телеграм группу"""
 async def send_post_billing_menu(id, table_uuid, products, payment_method, payment_code, total_price):
-    await bot.send_message(-4063835118, f"""Заказ на столик {table_uuid} #{id}
-Товары: {products}
-Способ оплаты: {payment_method}
-Код оплаты: {payment_code}
-Итого: {total_price} KGS
-Статус: Ожидание официанта""",
-reply_markup=billing_menu_keyboard)
+    await bot.send_message(-1002071470870, f"""<b>Заказ на столик {table_uuid} #{id}</b>
+<b>Товары:</b> {products}
+<b>Способ оплаты:</b> {payment_method}
+<b>Код оплаты:</b> {payment_code}
+<b>Итого:</b> {total_price} KGS
+<b>Статус:</b> Ожидание официанта""",
+reply_markup=billing_menu_keyboard, parse_mode='HTML')

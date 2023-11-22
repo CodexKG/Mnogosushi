@@ -62,8 +62,9 @@ def add_to_order(request):
             return JsonResponse({'success': False})
     return redirect('order')
 
-def order(request):
+def order(request, table_uuid):
     setting = Setting.objects.latest('id')
+    table = Table.objects.get(number=table_uuid)
     session_key = request.session.session_key
     order = TableOrder.objects.filter(session_key=session_key).first()
     cart_items = []

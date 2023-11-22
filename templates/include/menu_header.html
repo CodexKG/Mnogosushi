@@ -1,23 +1,26 @@
 {% load static %}
-<header class="header clearfix element_to_stick">
+<header class="header_in clearfix">
     <div class="container">
         <div id="logo">
             <a href="{% url 'index' %}">
-                <img src="{{ setting.logo.url }}" width="10%" alt="{{ setting.title }}" class="logo_normal">
-                <img src="{{ setting.logo.url }}" width="10%" alt="{{ setting.title }}" class="logo_sticky">
+                <img src="{{ setting.logo.url }}" width="10%" alt="{{ setting.title }}">
             </a>
         </div>
         <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+        <!-- <ul id="top_menu">
+            <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+            <li><a href="#0" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+        </ul> -->
         <!-- /top_menu -->
-        <a href="{% url 'foods' %}" class="open_close">
+        <a href="{% url 'order' table.number %}" class="open_close">
             <i class="icon_menu"></i><span>Menu</span>
         </a>
-       <nav class="main-menu">
+        <nav class="main-menu">
             <div id="header_menu">
-                <a href="{% url 'foods' %}" class="open_close">
-                    <i class="icon_close"></i><span>Menu</span>
+                <a href="{% url 'order' table.number %}" class="open_close">
+                    <i class="icon_close"></i><span>Меню</span>
                 </a>
-                <a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="20%" alt="{{ setting.title }}"></a>
+                <a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="10%" alt=""></a>
             </div>
             <ul>
                 <li class="submenu">
@@ -28,9 +31,6 @@
                     <a href="{% url 'foods' %}" class="show-submenu">Еда</a>
                     
                 </li>
-                <!-- <li class="submenu">
-                    <a href="{% url 'index' %}" class="show-submenu">Отзывы</a>
-                </li> -->
                 <li class="submenu">
                     <a href="{% url 'check_order' %}" class="show-submenu">Отследить заказ</a>
                 </li>
@@ -38,7 +38,7 @@
                     <a href="{% url 'contact' %}" target="_parent">Контакты</a>
                 </li>
                 <li>
-                    <a href="{% url 'cart' %}" target="_parent">Корзина ({{ cart_items_count }})</a>
+                    <a href="{% url 'order' table.number %}" target="_parent">Корзина ({{ cart_items_count }})</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li>

@@ -92,8 +92,9 @@ class SaleSummaryAdmin(admin.ModelAdmin):
 
 @admin.register(Billing)
 class BillingAdmin(MPTTModelAdmin):
-    list_display = ('id', 'total_price', 'address', 'payment_method', 'phone', 'billing_receipt_type', 'payment_code', 'created', 'status')
-    search_fields = ('id', 'total_price', 'address', 'payment_method', 'phone', 'billing_receipt_type', 'payment_code', 'created', 'status')
+    list_display = ('id', 'total_price', 'address', 'payment_method', 'phone', 'delivery_price', 'billing_receipt_type', 'payment_code', 'created', 'status')
+    search_fields = ('id', 'total_price', 'address', 'payment_method', 'phone', 'delivery_price', 'billing_receipt_type', 'payment_code', 'created', 'status')
+    ordering = ('-created', )
     inlines = [ProductTabularInline]
     list_filter = (('created', DateRangeFilter), ('created', CustomDateFieldListFilter),)  # Добавляем фильтр по дате
 
