@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+import json
 
 from apps.settings.models import Setting
 from apps.tables.models import Table, TableOrder, TableOrderItem
@@ -79,16 +81,49 @@ def order(request, table_uuid):
     form = AddToOrderForm()
     return render(request, 'menu/order.html', locals())
 
-def clear_order(request):
+def table_update_cart_item(request):
+    try:
+        data = json.loads(request.body)
+        productId = data['productId']
+        action = data['action']
+
+        cart = TableOrder.objects.filter(session_key=request.session.session_key).first()
+        if not cart:
+            return JsonResponse({'error': 'Cart not found'}, status=404)
+
+        cartItem = TableOrderItem.objects.get(table=cart, product_id=productId)
+
+        if action == "increase":
+            cartItem.quantity += 1
+        elif action == "decrease" and cartItem.quantity > 1:
+            cartItem.quantity -= 1
+
+        cartItem.save()
+        return JsonResponse({'success': True})
+
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Item not found in cart'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def table_clear_cart(request):
     session_key = request.session.session_key
     if session_key:
-        TableOrderItem.objects.filter(cart__session_key=session_key).delete()
+        TableOrderItem.objects.filter(table__session_key=session_key).delete()
 
     return redirect('cart')
 
-def remove_from_order(request, product_id):
+def table_remove_from_cart(request, product_id, table_uuid):
     session_key = request.session.session_key
     if session_key:
-        TableOrderItem.objects.filter(cart__session_key=session_key, product__id=product_id).delete()
+        TableOrderItem.objects.filter(table__session_key=session_key, product__id=product_id).delete()
 
-    return redirect('cart')
+    return redirect('order', table_uuid)
+
+def table_cart_items_count_processor(request):
+    session_key = request.session.session_key
+    if not session_key:
+        return {'cart_items_count': 0}
+
+    count = TableOrderItem.objects.filter(table__session_key=session_key).count()
+    return {'cart_items_count': count}
