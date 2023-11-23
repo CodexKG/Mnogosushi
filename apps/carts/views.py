@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+import json
 
 from apps.settings.models import Setting
 from apps.products.models import Product
@@ -68,8 +70,32 @@ def cart(request):
         cart_items = []
         total_price = 0
         free_delivery = False
-    # form = BillingForm()
     return render(request, 'cart/index.html', locals())
+
+def update_cart_item(request):
+    try:
+        data = json.loads(request.body)
+        productId = data['productId']
+        action = data['action']
+
+        cart = Cart.objects.filter(session_key=request.session.session_key).first()
+        if not cart:
+            return JsonResponse({'error': 'Cart not found'}, status=404)
+
+        cartItem = CartItem.objects.get(cart=cart, product_id=productId)
+
+        if action == "increase":
+            cartItem.quantity += 1
+        elif action == "decrease" and cartItem.quantity > 1:
+            cartItem.quantity -= 1
+
+        cartItem.save()
+        return JsonResponse({'success': True})
+
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Item not found in cart'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 def clear_cart(request):
     session_key = request.session.session_key

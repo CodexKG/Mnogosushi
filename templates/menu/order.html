@@ -55,7 +55,7 @@
 		    <div class="container">
 		        <ul id="secondary_nav">
 		            <li><a href="{% url 'index' %}">Главная</a></li>
-		            <li><a href="{% url 'menu' order.menu_table.number  %}">Меню</a></li>
+		            <li><a href="{% url 'menu' table.number  %}">Меню</a></li>
 		            
 		            <li><a href="{% url 'index' %}"><i class="icon_chat_alt"></i>Контакты</a></li>
 		        </ul>
@@ -82,7 +82,8 @@
 		                        </div>
 								{% empty %}
 								<div class="col-md-6">
-									<h1>Ваша заказы из меню пуст, отсканируйте заново QR код и выберите нужный товар</h1>
+									<h1>Ваша заказы из меню пуст</h1>
+									<a href="{% url 'menu' table.number %}" class="btn_1">Назад</a>
 		                        </div>
                                 {% endfor %}
                                

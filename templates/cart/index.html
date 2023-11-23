@@ -101,12 +101,61 @@
 												<strong>{{ item.total_price }} KGS</strong>
 											</div>
 										</a>
+
 										<!-- Кнопка удаления -->
-										
 										<a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger" style="margin-top: -30px;">Удалить</a>
-										<a type="submit" class="btn btn-danger" style="margin-top: -30px;">+</a>
-										<a type="submit" class="btn btn-danger" style="margin-top: -30px;">-</a>
-										
+
+										<!-- Кнопка добавления и убавления количества товара -->
+										<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="increase" style="margin-top: -30px;">+</a>
+										<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="decrease" style="margin-top: -30px;">-</a>
+
+										<script>
+											var updateBtns = document.getElementsByClassName('update-cart');
+
+											for (var i = 0; i < updateBtns.length; i++) {
+												updateBtns[i].addEventListener('click', function(e){
+													e.preventDefault();
+													var productId = this.dataset.productId;
+													var action = this.dataset.action;
+													updateCart(productId, action);
+												})
+											}
+
+											function updateCart(productId, action) {
+												// Отправляем AJAX запрос
+												fetch('/cart/update_item/', {
+													method: 'POST',
+													headers: {
+														'Content-Type': 'application/json',
+														'X-CSRFToken': csrftoken, // Убедитесь, что вы передаете CSRF токен
+													},
+													body: JSON.stringify({'productId': productId, 'action': action})
+												})
+												.then((response) => {
+													return response.json();
+												})
+												.then((data) => {
+													location.reload(); // Перезагрузка страницы для отображения обновленных данных
+												});
+											}
+
+											function getCookie(name) {
+												let cookieValue = null;
+												if (document.cookie && document.cookie !== '') {
+													const cookies = document.cookie.split(';');
+													for (let i = 0; i < cookies.length; i++) {
+														let cookie = cookies[i].trim();
+														if (cookie.substring(0, name.length + 1) === (name + '=')) {
+															cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+															break;
+														}
+													}
+												}
+												return cookieValue;
+											}
+
+											var csrftoken = getCookie('csrftoken');
+										</script>
 									</div>
 								</div>
 								{% empty %}
