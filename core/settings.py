@@ -206,10 +206,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Для собранных файлов
+
+# Эта строка нужна для указания Django, куда собирать статические файлы при запуске collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Используйте другое имя папки, чтобы не путаться с STATICFILES_DIRS
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Для разработки
+    os.path.join(BASE_DIR, 'static'),  # Это для разработки, указывает, где Django ищет статические файлы
 ]
 
 MEDIA_URL = '/media/'
