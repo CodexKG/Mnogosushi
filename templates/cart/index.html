@@ -100,15 +100,16 @@
 												<p>Количество: {{ item.quantity }}</p>
 												<strong>{{ item.total_price }} KGS</strong>
 											</div>
+											<a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger" style="margin-top: -30px;">Удалить</a>
+
+											<!-- Кнопка добавления и убавления количества товара -->
+											<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="increase" style="margin-top: -30px;">+</a>
+											<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="decrease" style="margin-top: -30px;">-</a>
+	
 										</a>
 
 										<!-- Кнопка удаления -->
-										<a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger" style="margin-top: -30px;">Удалить</a>
-
-										<!-- Кнопка добавления и убавления количества товара -->
-										<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="increase" style="margin-top: -30px;">+</a>
-										<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="decrease" style="margin-top: -30px;">-</a>
-
+									
 										<script>
 											var updateBtns = document.getElementsByClassName('update-cart');
 
