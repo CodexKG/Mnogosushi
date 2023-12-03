@@ -89,8 +89,8 @@
 									<div class="item-container">
 										<a class="menu_item modal_dialog" href="{% url 'product_detail' item.product.id  %}">
 											<figure>
-												{% if item.product.image.url %}
-												<img src="{{ item.product.image.url }}" data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="lazy">
+												{% if item.product.iiko_image %}
+												<img src="{{ item.product.iiko_image }}" data-src="{{ item.product.iiko_image }}" alt="{{ item.product.title }}" class="lazy">
 												{% else %}
 												<img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" alt="{{ item.product.title }}" class="lazy">
 												{% endif %}
