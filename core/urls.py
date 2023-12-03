@@ -19,7 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
+from django.conf.urls import handler404
+
 from apps.custom_admin.admin import custom_admin_site
+from apps.settings.views import page_404
 
 
 urlpatterns = [
@@ -39,6 +42,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page = 'index'), name = "logout"),
     path('accounts/', include('allauth.urls')),
 ]
+
+
+handler404 = 'apps.settings.views.page_404'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -57,3 +57,7 @@ def check_order(request):
             print(f"Error: {error}")
             billing = {'title':'Error'}
     return render(request, 'billing/check.html', locals())
+
+def page_404(request, exception):
+    setting = Setting.objects.latest('id')
+    return render(request, '404.html', locals(), status=404)
