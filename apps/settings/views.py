@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import HttpResponseServerError
+import traceback
 
 from apps.settings.models import Setting, Contact
 from apps.products.models import Product
@@ -60,4 +61,9 @@ def check_order(request):
 
 def page_404(request, exception):
     setting = Setting.objects.latest('id')
-    return render(request, '404.html', locals(), status=404)
+    return render(request, 'error/404.html', locals(), status=404)
+
+def page_500(request):
+    setting = Setting.objects.latest('id')
+    error_log = traceback.format_exc()
+    return HttpResponseServerError(render(request, 'error/500.html', {"error_log": error_log}))

@@ -19,10 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
-from django.conf.urls import handler404
+from django.conf.urls import handler404, handler500
 
 from apps.custom_admin.admin import custom_admin_site
-from apps.settings.views import page_404
+from apps.settings.views import page_404, page_500
 
 
 urlpatterns = [
@@ -45,6 +45,7 @@ urlpatterns = [
 
 
 handler404 = 'apps.settings.views.page_404'
+handler500 = 'apps.settings.views.page_500'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

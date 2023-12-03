@@ -12,17 +12,17 @@
 </head>
 
 <body id="register_bg">
-	
+	{% include 'include/second_header.html' %}
 	<div id="register">
 		<aside>
 			<figure>
-				<a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="20%" alt=""></a>
+				
 			</figure>
 			<div class="access_social">
 					<a href="{% provider_login_url 'google' %}" class="social_bt facebook">Регистрация с Telegram</a>
 					<a href="{% provider_login_url 'google' %}" class="social_bt google">Регистрация с Google</a>
 				</div>
-            <div class="divider"><span>Or</span></div>
+            <div class="divider"><span>Или</span></div>
 			<form autocomplete="off">
 				<div class="form-group">
 					<input class="form-control" type="text" placeholder="Имя">
@@ -49,10 +49,10 @@
 					<i class="icon_lock_alt"></i>
 				</div>
 				<div id="pass-info" class="clearfix"></div>
-				<a href="#0" class="btn_1 gradient full-width">Register Now!</a>
-				<div class="text-center mt-2"><small>Already have an acccount? <strong><a href="#0">Sign In</a></strong></small></div>
+				<a href="#0" class="btn_1 gradient full-width">Зарегистрироваться</a>
+				<div class="text-center mt-2"><small>У вас есть аккаунт? <strong><a href="{% url 'login' %}">Войдите</a></strong></small></div>
 			</form>
-			<div class="copy">© 2020 FooYes</div>
+			<div class="copy">© 2023 BigBee & Codex</div>
 		</aside>
 	</div>
 	<!-- /login -->

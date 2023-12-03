@@ -10,7 +10,7 @@
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
     
 </head>
-{% include 'include/header.html' %}
+{% include 'include/second_header.html' %}
 
 <body id="register_bg">
     
@@ -19,12 +19,7 @@
 			
 			<div class="access_social">
 					<a href="{% provider_login_url 'telegram' %}" class="social_bt facebook">Войти с помощью Telegram</a>
-                    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="doyobisan_test_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
-                    <script type="text/javascript">
-                    function onTelegramAuth(user) {
-                        alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-                    }
-                    </script>
+                    
 					<a href="{% provider_login_url 'google' %}" class="social_bt google">Войти с помощью Google</a>
 				</div>
             <div class="divider"><span>Или</span></div>
