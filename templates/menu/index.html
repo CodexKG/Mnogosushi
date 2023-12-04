@@ -135,7 +135,7 @@
 							<img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="{{ category.title }}">
 							{% endif %}
 							<a href="{% url 'category_menu_detail' table.number category.slug %}" class="strip_info">
-								<small>ID: {{ category.id }}</small>
+								<!-- <small>ID: {{ category.id }}</small> -->
 								<div class="item_title">
 									<h3>{{ category.title }}</h3>
 									<!-- <small>{{ setting.phone }}</small> -->
@@ -199,16 +199,6 @@
 				});
 			</script>
 
-	        <!-- /strip row -->
-	        <div class="pagination_fg">
-	            <a href="#">&laquo;</a>
-	            <a href="#" class="active">1</a>
-	            <a href="#">2</a>
-	            <a href="#">3</a>
-	            <a href="#">4</a>
-	            <a href="#">5</a>
-	            <a href="#">&raquo;</a>
-	        </div>
 	    </div>
 	    <!-- /container -->
 	</main>

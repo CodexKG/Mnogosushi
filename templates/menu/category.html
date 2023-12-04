@@ -7,6 +7,56 @@
 
     <!-- YOUR CUSTOM CSS -->
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css" integrity="sha512-EaaldggZt4DPKMYBa143vxXQqLq5LE29DG/0OoVenoyxDrAScYrcYcHIuxYO9YNTIQMgD8c8gIUU8FQw7WpXSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<style>
+		.strip ul{
+			text-align: right;
+		}
+
+		.btn-wrapper-fixed{
+			position: fixed;
+			z-index: 1000;
+			left: 20px;
+			bottom: 30px;
+		}
+
+		.btn-menu-fixed {			
+			background-color: #e54750;
+			color: white;
+			padding: 15px;
+			border-radius: 5%;
+			text-align: center;
+			font-size: 16px;
+			text-decoration: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			position: relative;
+		}
+
+		.items-in-menu-count {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			background-color: red;
+			color: white;
+			border-radius: 50%;
+			padding: 2px 5px;
+			font-size: 12px;
+			line-height: 1; /* Убирает лишний отступ внутри круга */
+			min-width: 20px; /* Минимальная ширина для круглой формы */
+			text-align: center;
+		}
+
+		.btn-menu-fixed:hover {
+			color: #fff;
+			background-color: #f3723b;
+		}
+
+		.btn-menu-fixed i {
+			margin-right: 5px;
+		}
+
+	</style>
 
 </head>
 
@@ -31,84 +81,6 @@
 			</div>
 			<!-- /Map -->
 			
-			<div class="collapse filters_2" id="collapseFilters">
-				<div class="container margin_30_20">
-	            <div class="row">
-	                <div class="col-md-4">
-	                    <div class="filter_type">
-	                        <h6>Categories</h6>
-	                        <ul>
-	                            <li>
-	                                <label class="container_check">Pizza - Italian <small>12</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                            <li>
-	                                <label class="container_check">Japanese - Sushi <small>24</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                            <li>
-	                                <label class="container_check">Burghers <small>23</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                            <li>
-	                                <label class="container_check">Vegetarian <small>11</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-	                <div class="col-md-4">
-	                    <div class="filter_type">
-	                        <h6>Rating</h6>
-	                        <ul>
-	                            <li>
-	                                <label class="container_check">Superb 9+ <small>06</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                            <li>
-	                                <label class="container_check">Very Good 8+ <small>12</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                            <li>
-	                                <label class="container_check">Good 7+ <small>17</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                            <li>
-	                                <label class="container_check">Pleasant 6+ <small>43</small>
-	                                    <input type="checkbox">
-	                                    <span class="checkmark"></span>
-	                                </label>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-	                <div class="col-md-4">
-	                    <div class="filter_type">
-	                        <h6>Distance</h6>
-	                        <div class="distance"> Radius around selected destination <span></span> km</div>
-	                        <div class="mb-3
-	                        "><input type="range" min="10" max="100" step="10" value="30" data-orientation="horizontal"></div>
-	                    </div>
-	                </div>
-	            </div>
-	            <!-- /row -->
-	        </div>
-	    </div>
-	    <!-- /filters -->
 	    <div class="container margin_30_20">
 
 	        <div class="promo mb_30">
@@ -143,7 +115,6 @@
 								<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
 
 								<button type="submit" class="btn_1" data-product-id="{{ product.id }}">В корзину {{ table.number }}</button>
-								<a href="{% url 'order' table.number %}" class="btn_1">Мои заказы</a>
 							</form>
 							
 						</ul>
@@ -151,7 +122,15 @@
 				</div>
 				{% endfor %}
 			</div>
-
+			
+			<div class="btn-wrapper-fixed">
+				<a href="{% url 'order' table.number %}" class="btn-menu-fixed">
+					<i class="fa fa-shopping-cart"></i> Мои заказы
+					<span class="items-in-menu-count" id="items-menu-count">{{ items_count }}</span>
+				</a>
+			</div>
+			
+			
 
 			<!-- Подключение SweetAlert (CDN) -->
 			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -177,21 +156,29 @@
 						.then(function(data) {
 							if (data.success) {
 								Swal.fire({
-								icon: 'success',
-								title: 'Продукт добавлен в заказ!',
-								showConfirmButton: false,
-								timer: 1000,
-								html: `
-									<p>Продукт добавлен в заказ!</p>
-									<a href="{% url 'order' table.number %}" class="btn_1">Меню</a>
-								`
-							});
+									icon: 'success',
+									title: 'Продукт добавлен в заказ!',
+									showConfirmButton: false,
+									timer: 3000,
+									html: `
+										<p>Продукт добавлен в заказ!</p>
+										<a href="{% url 'order' table.number %}" class="btn_1">Меню</a>
+										<a id="closeAddingAlert" class="btn_1">Закрыть</ф>
+									`,
+									showCloseButton: true,
+									didOpen: () => {
+										document.getElementById('closeAddingAlert').addEventListener('click', () => {
+											Swal.close();
+										});
+									}
+								});
+								document.querySelector('#items-menu-count').textContent = data.total_items;
 							} else {
 								Swal.fire({
 									icon: 'error',
 									title: 'Ошибка при добавлении продукта в заказ.',
 									showConfirmButton: false,
-									timer: 1000
+									timer: 3000
 								});
 							}
 						})

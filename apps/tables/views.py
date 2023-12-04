@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Case, When, Value, IntegerField
+
 import json
 
 from apps.settings.models import Setting
@@ -14,7 +16,13 @@ from apps.categories.models import Category
 def menu(request, table_uuid):
     table = Table.objects.get(number=table_uuid)
     setting = Setting.objects.latest('id')
-    categories = Category.objects.all()
+    categories = Category.objects.annotate(
+        sort_priority=Case(
+            When(priority=0, then=Value(9999)),
+            default='priority',
+            output_field=IntegerField()
+        )
+    ).order_by('sort_priority')
     products = Product.objects.all()
     return render(request, 'menu/index.html', locals())
 
@@ -23,7 +31,23 @@ def category_menu_detail(request, table_uuid, category_slug):
     setting = Setting.objects.latest('id')
     category = Category.objects.get(slug=category_slug)
     products = Product.objects.filter(category=category)
+    
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.save()
+        session_key = request.session.session_key
+
+    # Получаем заказ по сессионному ключу
+    table_order = TableOrder.objects.filter(session_key=session_key).first()
+
+    if table_order:
+        # Считаем общее количество товаров в заказе
+        items_count = TableOrderItem.objects.filter(table=table_order).aggregate(total_quantity=Sum('quantity'))['total_quantity']
+    else:
+        items_count = 0
+
     return render(request, 'menu/category.html', locals())
+
 
 def add_to_order(request):
     print("add to order")
@@ -59,7 +83,10 @@ def add_to_order(request):
                 table_item.save()
             else:
                 table_item = TableOrderItem.objects.create(table=table, product=product, quantity=quantity, total=price * quantity)
-            return JsonResponse({'success': True})
+
+            total_items = TableOrderItem.objects.filter(table=table).aggregate(total_quantity=Sum('quantity'))['total_quantity']
+        
+            return JsonResponse({'success': True, 'total_items': total_items})
         else:
             return JsonResponse({'success': False})
     return redirect('order')
