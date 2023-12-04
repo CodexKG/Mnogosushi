@@ -4,6 +4,9 @@ from datetime import date, timedelta
 from django.utils.translation import gettext as _
 from django.db.models import Sum, Count, F
 from mptt.admin import MPTTModelAdmin
+from django.http import HttpResponse
+from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
 
 from apps.billing.models import Billing, BillingProduct, SaleSummary
 
@@ -89,6 +92,41 @@ class SaleSummaryAdmin(admin.ModelAdmin):
 
         return 'month'
 
+def export_to_excel(modeladmin, request, queryset):
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="billings.xlsx"'
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Billings"
+
+    columns = ['ID', 'Итоговая цена', 'Цена доставки', 'Адрес', 'Номер телефона', 'Оплата', 'Код оплаты', 'Статус', 'Создан']
+    ws.append(columns)
+
+    # Track the maximum length of each column to set the column width later
+    column_widths = [len(column) for column in columns]
+
+    for obj in queryset:
+        # Convert Boolean status to a more user-friendly format
+        status_display = "Оплачено" if obj.status else "Не оплачено"
+        
+        row = [
+            obj.id, obj.total_price, obj.delivery_price, obj.address, obj.phone,
+            obj.payment_method, obj.payment_code, status_display, obj.created.strftime('%Y-%m-%d %H:%M:%S')
+        ]
+        ws.append(row)
+        for i, cell in enumerate(row):
+            # Update the maximum length found in each column
+            column_widths[i] = max(column_widths[i], len(str(cell)))
+
+    # Set the column widths based on the maximum length found, adding a small buffer
+    for i, column_width in enumerate(column_widths, 1):
+        ws.column_dimensions[get_column_letter(i)].width = column_width + 2  # Adding a buffer of 2
+
+    wb.save(response)
+    return response
+
+export_to_excel.short_description = "Export to Excel"
 
 @admin.register(Billing)
 class BillingAdmin(MPTTModelAdmin):
@@ -97,6 +135,7 @@ class BillingAdmin(MPTTModelAdmin):
     ordering = ('-created', )
     inlines = [ProductTabularInline]
     list_filter = (('created', DateRangeFilter), ('created', CustomDateFieldListFilter),)  # Добавляем фильтр по дате
+    actions = [export_to_excel]
 
 
 @admin.register(BillingProduct)

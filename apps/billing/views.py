@@ -1,3 +1,4 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from django.db import transaction
 from reportlab.lib.pagesizes import letter
@@ -12,8 +13,16 @@ from apps.carts.models import Cart, CartItem
 from apps.tables.models import TableOrder, TableOrderItem
 from apps.billing.models import Billing, BillingProduct
 from apps.telegram.views import send_post_billing, send_post_billing_menu
+from apps.billing.admin import export_to_excel
 
 # Create your views here.
+@staff_member_required
+def export_billings_to_excel_view(request):
+    # This is where you would implement the logic from the `export_to_excel` function
+    # But instead of using the 'queryset' parameter, you would query all Billings:
+    queryset = Billing.objects.all()
+    return export_to_excel(None, request, queryset)
+
 def confirm(request, address, phone, payment_code):
     setting = Setting.objects.latest('id')
     result = {'address':address, 'phone':phone, 'payment_code':payment_code}
