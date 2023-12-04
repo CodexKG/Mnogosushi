@@ -20,7 +20,11 @@
 					<div class="main_info">
 						<div class="row">
 							<div class="col-xl-4 col-lg-5 col-md-6">
-								<div class="head"><div class="score"><span>{{ setting }}<em>350 отзывов</em></span><strong>8.9</strong></div></div>
+								<div class="head">
+									<div class="score">
+										<span>{{ setting }}</span>
+								</div>
+							</div>
 								<h1>{{ product.title }}</h1>
 								<h3>{{ product.price }} KGS</h3>
 							</div>
@@ -48,7 +52,7 @@
 		    <div class="container margin_detail">
 		        <div class="row">
 		            <div class="col-lg-8 list_menu">
-		                <section id="section-1">
+		                <section id="section-1" class="detail-section">
 		                    <h4>Описание:</h4>
 							<p>{{ product.title }}</p>
                             <p>{{ product.description }}</p>

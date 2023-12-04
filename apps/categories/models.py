@@ -21,6 +21,8 @@ class Category(models.Model):
     )
     external_id = models.CharField(max_length=255, unique=True, null=True, verbose_name="Внешний ID")
 
+    priority = models.IntegerField(verbose_name="Приоритет категории", default=0)
+
     def __str__(self):
         return self.title 
     

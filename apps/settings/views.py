@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseServerError
+from django.db.models import Case, When, Value, IntegerField
 import traceback
 
 from apps.settings.models import Setting, Contact
@@ -10,7 +11,13 @@ from apps.categories.models import Category
 # Create your views here.
 def index(request):
     setting = Setting.objects.latest('id')
-    categories = Category.objects.all()
+    categories = Category.objects.annotate(
+        sort_priority=Case(
+            When(priority=0, then=Value(9999)),
+            default='priority',
+            output_field=IntegerField()
+        )
+    ).order_by('sort_priority')
     products = Product.objects.all()
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     popular_products = Product.objects.all().order_by("?")[:6]

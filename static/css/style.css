@@ -3929,7 +3929,7 @@ header.black_nav .dropdown.user a:hover {
 .owl-theme .owl-dots .owl-dot {
     display: inline-block;
     zoom: 1;
-    *display: inline
+    display: inline
 }
 
 .owl-carousel .owl-nav button.owl-prev,
@@ -6605,4 +6605,8 @@ a.box_topic.submit h3,
 
 .tp-mask-wrap{
     margin-bottom: 80px;
+}
+
+.detail-section img{
+    width: 100%;
 }
