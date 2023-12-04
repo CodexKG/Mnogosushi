@@ -61,6 +61,38 @@ async def delete_order_button(callback_query: types.CallbackQuery):
     except:
         await bot.answer_callback_query(callback_query.id, text="Зарегистрируйтесь в боте /start")
 
+@dp.message_handler(text="Заказы")
+async def get_delivery_orders(message: types.Message):
+    user = await sync_to_async(TelegramUser.objects.get)(
+        user_id=message.from_user.id
+    )
+
+    if user.user_role == "Delivery":
+        recent_deliveries = await sync_to_async(list)(
+            BillingDelivery.objects.filter(telegram_user=user).order_by('-created')[:5]
+        )
+
+        if recent_deliveries:
+            deliveries_info = []
+
+            for delivery in recent_deliveries:
+                delivery_info = f"<b>ID доставки:</b> {delivery.id}\n<b>Статус:</b> {delivery.get_delivery_display()}\n<b>Дата:</b> {delivery.created.strftime('%d-%m-%Y %H:%M')}"
+                
+                # Get delivery history for each delivery
+                delivery_histories = await sync_to_async(list)(delivery.delivery_history.all().order_by('-created'))
+                if delivery_histories:
+                    history_info = "\n".join([f"    - {history.created.strftime('%d-%m-%Y %H:%M')}: {history.message}" for history in delivery_histories])
+                    delivery_info += f"\n<b>История доставки:</b>\n" + history_info
+
+                deliveries_info.append(delivery_info)
+
+            final_message = "Вот ваши последние заказы которые вы делали:\n\n" + "\n\n".join(deliveries_info)
+            await message.answer(final_message, parse_mode='HTML')
+        else:
+            await message.answer("У вас нет недавних заказов.")
+    else:
+        await message.answer("Вы не являетесь курьером")
+
 """Функция для такси (в разработке)"""
 @dp.callback_query_handler(lambda call: call.data == 'taxi_order')
 async def taxi_order_button(callback_query: types.CallbackQuery):
@@ -77,10 +109,15 @@ async def take_order_button(callback_query: types.CallbackQuery):
         print(id_billing)
         print(user.id)
         if user.user_role == "Delivery":
+            telegram_user_instance, created = await sync_to_async(TelegramUser.objects.get_or_create)(
+                id=callback_query.message.from_user.id
+            )
+
             delivery_create = await sync_to_async(BillingDelivery.objects.create)(
-                billing_id = int(id_billing),
-                telegram_user_id = user.id,
-                delivery = "Accepted"
+                billing_id=int(id_billing),
+                telegram_user_id=user.id,
+                delivery="Accepted",
+                telegram_user=telegram_user_instance
             )
             delivery_history_create = await sync_to_async(BillingDeliveryHistory.objects.create)(
                 delivery = delivery_create,
