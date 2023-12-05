@@ -18,8 +18,6 @@ from apps.billing.admin import export_to_excel
 # Create your views here.
 @staff_member_required
 def export_billings_to_excel_view(request):
-    # This is where you would implement the logic from the `export_to_excel` function
-    # But instead of using the 'queryset' parameter, you would query all Billings:
     queryset = Billing.objects.all()
     return export_to_excel(None, request, queryset)
 

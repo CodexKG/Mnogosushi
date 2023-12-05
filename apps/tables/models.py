@@ -45,7 +45,7 @@ class Table(models.Model):
             box_size=10,
             border=4,
         )
-        qr.add_data(f"http://mnogosushi.kg/menu/{self.number}/")
+        qr.add_data(f"https://mnogosushi.kg/menu/{self.number}/")
         qr.make(fit=True)
 
         buffer = BytesIO()

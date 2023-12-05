@@ -98,7 +98,7 @@
 						<figure>
 							<span class="ribbon off">{{ setting.title }}</span>
 							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" class="img-fluid lazy" alt="{{ product.title }}">
-							<a href="{% url 'product_detail' product.id %}" class="strip_info">
+							<a href="{% url 'menu_detail' product.id table.number %}" class="strip_info">
 								<small>{{ product.price }} KGS</small>
 								<div class="item_title">
 									<h3>{{ product.title }} {{ product.price }} KGS</h3>

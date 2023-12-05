@@ -26,6 +26,31 @@ def menu(request, table_uuid):
     products = Product.objects.all()
     return render(request, 'menu/index.html', locals())
 
+def menu_detail(request, product_id, table_uuid):
+    setting = Setting.objects.latest('id')
+    product = Product.objects.get(id=product_id)
+    table = Table.objects.get(number=table_uuid)
+    footer_products = Product.objects.filter(title__startswith='Крылышки')
+    session_key = request.session.session_key
+    cart = TableOrder.objects.filter(session_key=session_key).first()
+    cart_items = []
+    delivery_cost = 250  # стоимость доставки
+    if cart:
+        cart_items = TableOrderItem.objects.filter(table=cart).annotate(
+            total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
+        )
+        total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+
+        if total_price < 1500:
+            total_price += delivery_cost  # Добавляем стоимость доставки, если сумма заказа меньше 1500 сом
+        else:
+            free_delivery = True
+    else:
+        cart_items = []
+        total_price = 0
+        free_delivery = False
+    return render(request, 'menu/detail.html', locals())
+
 def category_menu_detail(request, table_uuid, category_slug):
     table = Table.objects.get(number=table_uuid)
     setting = Setting.objects.latest('id')
@@ -51,9 +76,11 @@ def category_menu_detail(request, table_uuid, category_slug):
 
 def add_to_order(request):
     print("add to order")
+    print(request.META.get('HTTP_REFERER'))
     print(request.method)
     if request.method == 'POST':
         form = AddToOrderForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             table_uuid = form.cleaned_data['table_uuid']
             product_id = form.cleaned_data['product_id']
@@ -85,8 +112,10 @@ def add_to_order(request):
                 table_item = TableOrderItem.objects.create(table=table, product=product, quantity=quantity, total=price * quantity)
 
             total_items = TableOrderItem.objects.filter(table=table).aggregate(total_quantity=Sum('quantity'))['total_quantity']
-        
-            return JsonResponse({'success': True, 'total_items': total_items})
+            if 'menu' in str(request.META.get('HTTP_REFERER')):
+                return redirect('order', table_uuid)
+            else:
+                return JsonResponse({'success': True, 'total_items': total_items})
         else:
             return JsonResponse({'success': False})
     return redirect('order')

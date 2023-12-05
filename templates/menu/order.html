@@ -186,15 +186,10 @@
 										</div>
 									</div>
 
-									<!-- Блок reCAPTCHA -->
-									<div class="row opt_order">
-										<div class="col-6">
-											<div class="g-recaptcha" id="html_element"></div>
-										</div>
-									</div>
+									
 										
 									 <!-- Кнопка отправки (изначально скрыта) -->
-									<div class="btn_1_mobile" style="display: none;" id="submit-button">
+									<div class="btn_1_mobile">
 										<button type="submit" class="btn_1 gradient full-width mb_5">Заказать на столик</button>
 										<div class="text-center">
 											<small>После заказа, к вашему столику придут наши официанты для уточнения заказа</small>
@@ -203,24 +198,6 @@
 									{% endif %}
 								</div>
 							</form>
-
-							<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-							<script>
-								function onResponse(res) {
-									// Проверка успешности reCAPTCHA
-									if (res) {
-										document.getElementById('submit-button').style.display = 'block';
-									}
-								}
-
-								var onloadCallback = function () {
-									grecaptcha.render('html_element', {
-										'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
-										'callback': onResponse
-									});
-								};
-							</script>
-		                    </div>
 		                </div>
 		                <!-- /box_order -->
 		                <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">Заказать на столик</a></div>

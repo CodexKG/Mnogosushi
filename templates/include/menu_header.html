@@ -2,7 +2,7 @@
 <header class="header_in clearfix">
     <div class="container">
         <div id="logo">
-            <a href="{% url 'index' %}">
+            <a href="{% url 'menu' table.number %}">
                 <img src="{{ setting.logo.url }}" width="10%" alt="{{ setting.title }}">
             </a>
         </div>
@@ -20,11 +20,11 @@
                 <a href="{% url 'order' table.number %}" class="open_close">
                     <i class="icon_close"></i><span>Меню</span>
                 </a>
-                <a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="10%" alt=""></a>
+                <a href="{% url 'menu' table.number %}"><img src="{{ setting.logo.url }}" width="10%" alt=""></a>
             </div>
             <ul>
                 <li class="submenu">
-                    <a href="{% url 'index' %}" class="show-submenu">Главная</a>
+                    <a href="{% url 'menu' table.number %}" class="show-submenu">Главная</a>
                     
                 </li>
                 <li class="submenu">
@@ -38,7 +38,7 @@
                     <a href="{% url 'contact' %}" target="_parent">Контакты</a>
                 </li>
                 <li>
-                    <a href="{% url 'order' table.number %}" target="_parent">Корзина</a>
+                    <a href="{% url 'order' table.number %}" target="_parent">Корзина (Меню)</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li>
