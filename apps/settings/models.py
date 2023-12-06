@@ -79,3 +79,14 @@ class Contact(models.Model):
     class Meta:
         verbose_name = "Контакт"
         verbose_name_plural = "Контакты"
+
+class Statistics(models.Model):
+    count_visits = models.IntegerField(
+        default=0,
+        verbose_name="Количество посещений сайта (Главная)"
+    )
+    count_visits_menu = models.IntegerField(
+        default=0,
+        verbose_name="Количество посещений сайта (Меню)"
+    )
+    

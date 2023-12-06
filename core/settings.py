@@ -102,7 +102,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'telegram': {
         'APP': {
-            'client_id': '6441195070',
+            'client_id': '6645346121',
             'secret': TELEGRAM_BOT_TOKEN,
         },
         'AUTH_PARAMS': {'auth_date_validity': 30},
