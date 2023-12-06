@@ -43,6 +43,16 @@
     -moz-osx-font-smoothing: grayscale
 }
 
+
+.form{
+    width: 40vw;
+    margin: 0 auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+
+}
+
 .icon-food_icon_cake_2:before {
     content: '\0042'
 }
@@ -5524,7 +5534,7 @@ ul.additional_links li:after {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
-    border-radius: 3px;
+    border-radius: 10px;
     border: 1px solid #d2d8dd
 }
 
@@ -5535,10 +5545,14 @@ ul.additional_links li:after {
 }
 
 .form-group {
+    /* flex-direction: row-reverse; */
+    display: flex;
+    align-items: center;
     position: relative;
-    margin-bottom: 1rem
+    margin-bottom: 1rem;
+    gap: 1rem;
+    flex-direction: row-reverse;
 }
-
 .error_message {
     font-weight: 500;
     color: #e3464c
