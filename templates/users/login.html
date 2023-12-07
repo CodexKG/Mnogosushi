@@ -12,11 +12,9 @@
 </head>
 {% include 'include/second_header.html' %}
 
-<body id="register_bg">
-    
-    <div id="register">
-        <aside>
-			
+<body>
+    <div style="display: flex; align-items: center; height: 70vh;">
+        <aside class="form">
 			<div class="access_social">
 					<a href="{% provider_login_url 'telegram' %}" class="social_bt facebook">Войти с помощью Telegram</a>
                     
@@ -40,7 +38,7 @@
 						  <span class="checkmark"></span>
 						</label>
 					</div>
-					<div class="float-end"><a id="forgot" href="#0">Забыли пароль?</a></div>
+					<div class="float-end"><a id="forgot" href="{% url 'index' %}">Забыли пароль?</a></div>
 				</div>
 				<button class="btn_1 gradient full-width" type="submit">Войти</button>
 				<div class="text-center mt-2"><small>У вас нету аккаунта? <strong><a href="{% url 'register' %}">Регистрация</a></strong></small></div>
