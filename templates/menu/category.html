@@ -86,7 +86,6 @@
 	        <div class="promo mb_30">
 	            <h3>Меню стола Doyobisan {{ table.number }}</h3>
 	            <p>Меню стола ID: {{ table.number }}</p>
-				<img src="{{ table.qr_code_image.url }}" alt="{{ table.number }}" style="margin-top: 10px;" width="100px">
 	            <i class="icon-food_icon_delivery"></i>
 	        </div>
 	        <!-- /promo -->
@@ -99,7 +98,7 @@
 						<figure>
 							<span class="ribbon off">{{ setting.title }}</span>
 							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" class="img-fluid lazy" alt="{{ product.title }}">
-							<a href="{% url 'menu_detail' product.id table.number %}" class="strip_info">
+							<a href="{% url 'product_detail' product.id %}" class="strip_info">
 								<small>{{ product.price }} KGS</small>
 								<div class="item_title">
 									<h3>{{ product.title }} {{ product.price }} KGS</h3>
@@ -189,7 +188,6 @@
 					});
 				});
 			</script>
-
 	    </div>
 	    <!-- /container -->
 	</main>
