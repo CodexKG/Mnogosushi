@@ -112,7 +112,7 @@ def add_to_order(request):
                 table_item = TableOrderItem.objects.create(table=table, product=product, quantity=quantity, total=price * quantity)
 
             total_items = TableOrderItem.objects.filter(table=table).aggregate(total_quantity=Sum('quantity'))['total_quantity']
-            if 'menu' in str(request.META.get('HTTP_REFERER')):
+            if 'product' in str(request.META.get('HTTP_REFERER')):
                 return redirect('order', table_uuid)
             else:
                 return JsonResponse({'success': True, 'total_items': total_items})

@@ -10,6 +10,7 @@ from apps.telegram.keyboards import billing_keyboard, billing_menu_keyboard, on_
 # Create your views here.
 bot = Bot(settings.TELEGRAM_BOT_TOKEN)
 dp = Dispatcher(bot)
+print("START LOGGIN")
 basicConfig(level=INFO)
 
 """Функция для обработки комманды /start. Если пользователя нету в базе, 

@@ -90,6 +90,8 @@ CELERY_BEAT_SCHEDULE = {
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -102,7 +104,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'telegram': {
         'APP': {
-            'client_id': '6645346121',
+            'client_id': os.environ.get('ID_TELEGRAM_BOT'),
             'secret': TELEGRAM_BOT_TOKEN,
         },
         'AUTH_PARAMS': {'auth_date_validity': 30},
