@@ -8,6 +8,57 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
+	<style>
+
+.strip ul{
+			text-align: right;
+		}
+
+		.btn-wrapper-fixed{
+			position: fixed;
+			z-index: 1000;
+			left: 20px;
+			bottom: 30px;
+		}
+
+		.btn-menu-fixed {			
+			background-color: #e54750;
+			color: white;
+			padding: 15px;
+			border-radius: 5%;
+			text-align: center;
+			font-size: 16px;
+			text-decoration: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			position: relative;
+		}
+
+		.items-in-menu-count {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			background-color: red;
+			color: white;
+			border-radius: 50%;
+			padding: 2px 5px;
+			font-size: 12px;
+			line-height: 1; /* Убирает лишний отступ внутри круга */
+			min-width: 20px; /* Минимальная ширина для круглой формы */
+			text-align: center;
+		}
+
+		.btn-menu-fixed:hover {
+			color: #fff;
+			background-color: #f3723b;
+		}
+
+		.btn-menu-fixed i {
+			margin-right: 5px;
+		}
+
+
+	</style>
+
 </head>
 
 <body>
@@ -21,7 +72,7 @@
 		    	<div class="row">
 		    		<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
 		        		<h1>{{ setting.address }}</h1>
-		        		<a href="https://go.2gis.com/5pya9">Мы на 2GIS</a>
+		        		<a href="https://go.2gis.com/5pya9">Мы в 2GIS</a>
 		    		</div>
 		    		<div class="col-xl-4 col-lg-5 col-md-5">
 		    			<div class="search_bar_list">
@@ -85,11 +136,20 @@
 							</div>
 						</div>
                         {% endfor %}
+
+						<div class="btn-wrapper-fixed">
+							<a href="{% url 'cart' %}" class="btn-menu-fixed">
+								<i class="fa fa-shopping-cart"></i> Мои заказы
+								<span class="items-in-menu-count" id="items-menu-count">{{cart_items_count}}</span>
+							</a>
+						</div>
+
 						<!-- SweetAlert (CDN) -->
 						<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 
 						<!-- JavaScript for AJAX and SweetAlert -->
 						<script>
+
 							document.querySelectorAll('.add-to-order-form').forEach(function(form) {
 								form.addEventListener('submit', function(event) {
 									event.preventDefault();
@@ -110,11 +170,18 @@
 												icon: 'success',
 												title: 'Товар добавлен',
 												text: 'Товар добавлен в вашу корзину',
-												timer: 1500,
+												showConfirmButton: false,
+												timer: 3000,
 												html: `
-												<p>Продукт добавлен в заказ!</p>
-												<a href="{% url 'cart' %}" class="btn_1">Корзина</a>
-											`
+													<p>Продукт добавлен в заказ!</p>
+													<a href="{% url 'cart' %}" class="btn_1">Корзина</a>
+													<a id="closeAddingAlert" class="btn_1">Закрыть</a>
+												`,showCloseButton: true,
+												didOpen: () => {
+													document.getElementById('closeAddingAlert').addEventListener('click', () => {
+														Swal.close();
+													});
+												}
 											});
 										} else {
 											Swal.fire({
@@ -123,6 +190,7 @@
 												text: 'Произошла ошибка.'
 											});
 										}
+										document.querySelector('#items-menu-count').textContent = data.total_items;
 									})
 									.catch(function(error) {
 										console.error('Error:', error);
@@ -138,16 +206,6 @@
 
 						<!-- /strip grid -->
 					</div>
-					<!-- /row -->
-					<!-- <div class="pagination_fg">
-					  <a href="#">&laquo;</a>
-					  <a href="#" class="active">1</a>
-					  <a href="#">2</a>
-					  <a href="#">3</a>
-					  <a href="#">4</a>
-					  <a href="#">5</a>
-					  <a href="#">&raquo;</a>
-					</div> -->
 				</div>
 				<!-- /col -->
 			</div>		

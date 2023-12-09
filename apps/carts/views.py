@@ -9,6 +9,11 @@ from apps.products.models import Product
 from apps.carts.models import Cart, CartItem
 from apps.carts.forms import AddToCartForm
 
+
+from django.shortcuts import redirect
+from django.http import JsonResponse
+# ... другие импорты ...
+
 # Create your views here.
 def add_to_cart(request):
     print(request.META.get('HTTP_REFERER'))
@@ -17,8 +22,8 @@ def add_to_cart(request):
         print(form)
         print(form.is_valid())
         print(form.data)
-        # if form.is_valid():
-        if True:
+        if form.is_valid():
+        # if True:
             product_id = form.cleaned_data['product_id']
             quantity = form.cleaned_data['quantity']
             price = form.cleaned_data['price']
@@ -43,10 +48,12 @@ def add_to_cart(request):
             else:
                 cart_item = CartItem.objects.create(cart=cart, product=product, quantity=quantity, total=price * quantity)
 
+            total_items_count = CartItem.objects.filter(cart__session_key=session_key).count()
+
             if 'product' in str(request.META.get('HTTP_REFERER')):
                 return redirect('cart')
             else:
-                return JsonResponse({'success': True})
+                return JsonResponse({'success': True, 'total_items': total_items_count})
     
     return redirect('cart')  # Если метод запроса не POST или форма не прошла валидацию
 

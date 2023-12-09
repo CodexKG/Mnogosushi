@@ -4333,7 +4333,8 @@ header.black_nav .dropdown.user a:hover {
 
 .strip ul li:last-child {
     padding: 0;
-    float: right
+    float: right;
+    margin-bottom: 17px;
 }
 
 .ribbon {
