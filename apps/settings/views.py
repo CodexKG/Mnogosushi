@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseServerError
 from django.db.models import Case, When, Value, IntegerField
-import traceback
+import xml.etree.ElementTree as ET
+from django.http import JsonResponse
+import traceback, requests, json
 
 from apps.settings.models import Setting, Contact
 from apps.products.models import Product
@@ -65,6 +67,38 @@ def check_order(request):
             print(f"Error: {error}")
             billing = {'title':'Error'}
     return render(request, 'billing/check.html', locals())
+
+def get_selected_exchange_rates(request):
+    # URL файла XML
+    url = 'https://nationalbank.kz/rss/rates_all.xml'
+
+    # Получаем содержимое XML файла
+    response = requests.get(url)
+    xml_data = response.content
+
+    # Разбор XML
+    tree = ET.ElementTree(ET.fromstring(xml_data))
+    root = tree.getroot()
+
+    # Указываем валюты, которые нужно включить
+    selected_currencies = ['USD', 'EUR', 'RUB']
+
+    # Извлекаем нужные данные
+    exchange_rates = []
+    for item in root.findall('.//item'):
+        title = item.find('title').text
+        if title in selected_currencies:
+            description = item.find('description').text
+            pub_date = item.find('pubDate').text
+
+            exchange_rates.append({
+                'title': title,
+                'description': description,
+                'pubDate': pub_date
+            })
+
+    # Преобразуем список в JSON
+    return JsonResponse(exchange_rates, safe=False)
 
 def page_404(request, exception):
     setting = Setting.objects.latest('id')
