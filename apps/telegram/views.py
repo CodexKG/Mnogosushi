@@ -1,6 +1,6 @@
 from django.conf import settings
 from aiogram import Bot, Dispatcher, types, executor
-from logging import basicConfig, INFO
+from apps.telegram.bot_setup import dp, bot
 from asgiref.sync import sync_to_async
 from datetime import datetime
 
@@ -8,11 +8,6 @@ from apps.telegram.models import TelegramUser, BillingDelivery, BillingDeliveryH
 from apps.telegram.keyboards import billing_keyboard, billing_menu_keyboard, on_road_keyboard, order_keyboard, profile_keyboard
 
 # Create your views here.
-bot = Bot(settings.TELEGRAM_BOT_TOKEN)
-dp = Dispatcher(bot)
-print("START LOGGIN")
-basicConfig(level=INFO)
-
 """Функция для обработки комманды /start. Если пользователя нету в базе, 
 бот создаст его и даст ему поль пользователя.
 По желаю можно сделать его курьером"""

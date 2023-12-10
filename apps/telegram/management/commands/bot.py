@@ -1,7 +1,8 @@
 from typing import Any, Optional
 from django.core.management.base import BaseCommand
 
-from apps.telegram.views import dp, executor
+from apps.telegram.bot_setup import dp, executor
+import apps.telegram.support  # Импорт модуля поддержки
 
 
 class Command(BaseCommand):
