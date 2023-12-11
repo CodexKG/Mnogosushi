@@ -75,16 +75,15 @@ async def accept_support_manager(callback_query: types.CallbackQuery):
         user = await sync_to_async(TelegramUser.objects.get)(user_id=int(callback_query.from_user.id))
         
         if user.user_role == "Manager":
-            # Проверяем, обрабатывает ли менеджер уже другое обращение
             active_support_exists = await sync_to_async(TechnicalSupport.objects.filter(
                 support_operator=user, status=False
             ).exists)()
 
             if not active_support_exists:
-                # Назначаем менеджера на первое нерешенное обращение
+                # Используйте select_related для предварительной загрузки связанных объектов
                 support_request = await sync_to_async(TechnicalSupport.objects.filter(
                     support_operator__isnull=True, status=False
-                ).first)()
+                ).select_related('user').first)()
 
                 if support_request:
                     support_request.support_operator = user
@@ -96,6 +95,11 @@ async def accept_support_manager(callback_query: types.CallbackQuery):
                         text=f"{callback_query.message.text}\nСтатус принят оператором @{user.username}"
                     )
                     await bot.send_message(user.user_id, f"{callback_query.message.text}")
+
+                    # Теперь можно безопасно обращаться к support_request.user
+                    support_user_id = support_request.user.user_id
+                    await bot.send_message(support_user_id, f"Ваше обращение {support_request.id} принял оператор {user.username}")
+
                 else:
                     await bot.answer_callback_query(callback_query.id, text="Нет доступных обращений для обработки")
             else:
