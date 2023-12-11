@@ -24,7 +24,7 @@ class BillingDeliveryHistoryAdmin(admin.ModelAdmin):
 
 @admin.register(TechnicalSupport)
 class TechnicalSupportAdmin(admin.ModelAdmin):
-    list_display = ('get_username', 'get_user_id', 'message', 'support_operator', 'created', 'status', 'id')
+    list_display = ('get_username', 'get_user_id', 'message', 'support_operator', 'created', 'support_assessment', 'status', 'id')
 
     def get_username(self, obj):
         return obj.user.username if obj.user else None

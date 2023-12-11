@@ -120,6 +120,10 @@ class TechnicalSupport(models.Model):
         blank=True, null=True,
         limit_choices_to={'user_role': 'Manager'}
     )
+    support_assessment = models.SmallIntegerField(
+        verbose_name="Оценка поддержки",
+        default=0
+    )
     status = models.BooleanField(
         default=False, #False - если вопрос не решен, True - если решили
         verbose_name="Статус"
