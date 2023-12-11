@@ -3,7 +3,7 @@ from aiogram.dispatcher.storage import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 from apps.telegram.bot_setup import dp, bot, types
-from apps.telegram.keyboards import support_keyboard, support_action_keyboard
+from apps.telegram.keyboards import support_keyboard, support_action_keyboard, start_chat_keyboard
 from apps.telegram.models import TechnicalSupport, TelegramUser
 
 print("Support module is being imported and executed")
@@ -94,7 +94,7 @@ async def accept_support_manager(callback_query: types.CallbackQuery):
                         message_id=callback_query.message.message_id,
                         text=f"{callback_query.message.text}\nСтатус принят оператором @{user.username}"
                     )
-                    await bot.send_message(user.user_id, f"{callback_query.message.text}")
+                    await bot.send_message(user.user_id, f"{callback_query.message.text}", reply_markup=start_chat_keyboard)
 
                     # Теперь можно безопасно обращаться к support_request.user
                     support_user_id = support_request.user.user_id
@@ -110,5 +110,31 @@ async def accept_support_manager(callback_query: types.CallbackQuery):
         print(error)
         await callback_query.answer(f"Возникла ошибка на стороне сервера: {error}")
 
+class MessageState(StatesGroup):
+    message = State()
 
-    # await bot.send_message()
+@dp.callback_query_handler(lambda call: call.data == "start_chat_support")
+async def start_chat(callback_query: types.CallbackQuery):
+    await bot.send_message(callback_query.message.chat.id, text="Напишите сообщение")
+    await MessageState.message.set()
+
+@dp.message_handler(state=MessageState.message)
+async def send_message_user(message: types.Message, state: FSMContext):
+    telegram_user_id = message.from_user.id
+    telegram_user, _ = await sync_to_async(TelegramUser.objects.get_or_create)(user_id=telegram_user_id)
+
+    try:
+        support_request = await sync_to_async(TechnicalSupport.objects.get)(
+            user=telegram_user, 
+            status=False
+        )
+        print(support_request.user.user_id)
+        # Дополнительная логика обработки support_request
+        # ...
+
+    except TechnicalSupport.DoesNotExist:
+        # Обрабатываем случай, когда обращение не найдено
+        await message.answer("Обращение не найдено.")
+    except TechnicalSupport.MultipleObjectsReturned:
+        # Обрабатываем случай, когда найдено более одного обращения
+        await message.answer("Найдено более одного активного обращения.")

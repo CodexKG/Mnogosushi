@@ -51,3 +51,11 @@ support_action_buttons = [
 ]
 
 support_action_keyboard = types.InlineKeyboardMarkup().add(*support_action_buttons)
+
+###################################
+
+start_chat_button = [
+    types.InlineKeyboardButton("Начать чат", callback_data='start_chat_support')
+]
+
+start_chat_keyboard = types.InlineKeyboardMarkup().add(*start_chat_button)
