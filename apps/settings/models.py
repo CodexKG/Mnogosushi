@@ -90,3 +90,9 @@ class Statistics(models.Model):
         verbose_name="Количество посещений сайта (Меню)"
     )
     
+    def __str__(self):
+        return f"{self.count_visits} {self.count_visits_menu}"
+    
+    class Meta:
+        verbose_name = "Статистика"
+        verbose_name_plural = "Статистики"

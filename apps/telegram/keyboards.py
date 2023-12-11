@@ -34,3 +34,20 @@ billing_menu_buttons = [
     types.InlineKeyboardButton("Потвердить заказ", callback_data='confirm_menu_order')
 ]
 billing_menu_keyboard = types.InlineKeyboardMarkup().add(*billing_menu_buttons)
+
+###############################
+
+support_buttons = [
+    types.KeyboardButton("Обратиться к технической поддержке"),
+    types.KeyboardButton("Часто задаваемые вопросы"),
+    types.KeyboardButton("Назад")
+]
+support_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*support_buttons)
+
+###################################
+
+support_action_buttons = [
+    types.InlineKeyboardButton("Принять обращение", callback_data="accept_support")
+]
+
+support_action_keyboard = types.InlineKeyboardMarkup().add(*support_action_buttons)

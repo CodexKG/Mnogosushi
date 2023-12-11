@@ -98,3 +98,40 @@ class BillingDeliveryHistory(models.Model):
     class Meta:
         verbose_name = "История доставки"
         verbose_name_plural = "История доставок"
+
+
+class TechnicalSupport(models.Model):
+    user = models.ForeignKey(
+        TelegramUser, on_delete=models.SET_NULL,
+        related_name="user_support",
+        verbose_name="Пользователь",
+        blank=True, null=True
+    )
+    message = models.CharField(
+        max_length=500,
+        verbose_name="Сообщение",
+        blank=True, null=True,
+        default="Пользователь не оставил сообщение"
+    )
+    support_operator = models.ForeignKey(
+        TelegramUser, on_delete=models.SET_NULL,
+        related_name="support_operator_user",
+        verbose_name="Оператор поддержки",
+        blank=True, null=True,
+        limit_choices_to={'user_role': 'Manager'}
+    )
+    status = models.BooleanField(
+        default=False, #False - если вопрос не решен, True - если решили
+        verbose_name="Статус"
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания"
+    )
+
+    def __str__(self):
+        return f"{self.user} {self.created}"
+    
+    class Meta:
+        verbose_name = "Обращение Техподдержку"
+        verbose_name_plural = "Обращения Техподдержки"

@@ -272,3 +272,12 @@ async def menu_order_conifirm_waiter(callback_query: types.CallbackQuery):
     except Exception as error:
         print(error)
         await bot.answer_callback_query(callback_query.id, text="Зарегистрируйтесь в боте /start")
+
+
+@dp.message_handler(text="Назад")
+async def back_start(message:types.Message):
+    await start(message)
+
+@dp.message_handler()
+async def not_found(message:types.Message):
+    await message.reply(f"Я вас не понял, введите /help")
