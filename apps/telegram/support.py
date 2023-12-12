@@ -3,7 +3,7 @@ from aiogram.dispatcher.storage import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 from apps.telegram.bot_setup import dp, bot, types
-from apps.telegram.keyboards import support_keyboard, support_action_keyboard, start_chat_keyboard
+from apps.telegram.keyboards import support_keyboard, support_action_keyboard, start_chat_keyboard, close_chat_keyboard
 from apps.telegram.models import TechnicalSupport, TelegramUser
 
 print("Support module is being imported and executed")
@@ -115,7 +115,25 @@ class MessageState(StatesGroup):
 
 @dp.callback_query_handler(lambda call: call.data == "start_chat_support")
 async def start_chat(callback_query: types.CallbackQuery):
-    await bot.send_message(callback_query.message.chat.id, text="Напишите сообщение")
+    chat_id = callback_query.message.chat.id
+    message_id = callback_query.message.message_id
+
+    # Обновляем сообщение, удаляя инлайн-кнопку "Начать чат"
+    await bot.edit_message_text(
+        chat_id=chat_id,
+        message_id=message_id,
+        text=f"{callback_query.message.text}\nЧат начат. Напишите ваше сообщение.",
+        reply_markup=types.InlineKeyboardMarkup()  # Удаляем инлайн-кнопки
+    )
+
+    # Отправляем новое сообщение с обычной клавиатурой
+    await bot.send_message(
+        chat_id=chat_id,
+        text="Вы можете использовать кнопки ниже.",
+        reply_markup=close_chat_keyboard
+    )
+
+    # Переводим пользователя в состояние ожидания сообщения
     await MessageState.message.set()
 
 @dp.message_handler(state=MessageState.message)

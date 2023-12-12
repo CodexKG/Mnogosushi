@@ -59,3 +59,11 @@ start_chat_button = [
 ]
 
 start_chat_keyboard = types.InlineKeyboardMarkup().add(*start_chat_button)
+
+##################################
+
+close_chat_button = [
+    types.KeyboardButton("Закончить чат"),
+]
+
+close_chat_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*close_chat_button)
