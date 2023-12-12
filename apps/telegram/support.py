@@ -136,26 +136,44 @@ async def start_chat(callback_query: types.CallbackQuery):
     # Переводим пользователя в состояние ожидания сообщения
     await MessageState.message.set()
 
+# Обработчик сообщений от оператора и пользователя
 @dp.message_handler(state=MessageState.message)
 async def send_message_user(message: types.Message, state: FSMContext):
     telegram_user_id = message.from_user.id
     telegram_user, _ = await sync_to_async(TelegramUser.objects.get_or_create)(user_id=telegram_user_id)
 
-    try:
-        # Получаем объект support_request асинхронно
-        support_request = await sync_to_async(TechnicalSupport.objects.get)(
-            support_operator=telegram_user, 
-            status=False
-        )
+    async with state.proxy() as data:
+        awaiting_reply_from = data.get('awaiting_reply_from')
 
-        if support_request:
-            # Получаем связанный объект user асинхронно
-            support_user = await sync_to_async(lambda: support_request.user)()
-            await bot.send_message(support_user.user_id, message.text)
-        else:
+    # Проверяем, является ли отправитель оператором поддержки
+    if telegram_user.user_role == "Manager":
+        try:
+            support_request = await sync_to_async(TechnicalSupport.objects.get)(
+                support_operator=telegram_user, 
+                status=False
+            )
+
+            if support_request:
+                # Получаем связанный объект user асинхронно
+                support_user = await sync_to_async(lambda: support_request.user)()
+                await bot.send_message(support_user.user_id, message.text)
+
+                # Сохраняем ID пользователя, от которого ожидаем ответ
+                data['awaiting_reply_from'] = support_user.user_id
+            else:
+                await message.answer("Обращение не найдено.")
+
+        except TechnicalSupport.DoesNotExist:
             await message.answer("Обращение не найдено.")
+        except TechnicalSupport.MultipleObjectsReturned:
+            await message.answer("Найдено более одного активного обращения.")
 
-    except TechnicalSupport.DoesNotExist:
-        await message.answer("Обращение не найдено.")
-    except TechnicalSupport.MultipleObjectsReturned:
-        await message.answer("Найдено более одного активного обращения.")
+    elif awaiting_reply_from and awaiting_reply_from == telegram_user_id:
+        # Перенаправляем сообщение от пользователя к оператору
+        # Необходимо определить, как получить ID чата оператора, который в данный момент общается с пользователем
+        operator_chat_id = support_request.support_operator.user_id # Получить ID чата оператора
+        await bot.send_message(operator_chat_id, f"Сообщение от пользователя: {message.text}")
+        data['awaiting_reply_from'] = None  # Сброс состояния
+
+    else:
+        await message.answer("Ваше сообщение не может быть обработано в данный момент.")
