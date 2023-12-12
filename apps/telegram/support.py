@@ -124,17 +124,20 @@ async def send_message_user(message: types.Message, state: FSMContext):
     telegram_user, _ = await sync_to_async(TelegramUser.objects.get_or_create)(user_id=telegram_user_id)
 
     try:
+        # Получаем объект support_request асинхронно
         support_request = await sync_to_async(TechnicalSupport.objects.get)(
-            user=telegram_user, 
+            support_operator=telegram_user, 
             status=False
         )
-        print(support_request.user.user_id)
-        # Дополнительная логика обработки support_request
-        # ...
+
+        if support_request:
+            # Получаем связанный объект user асинхронно
+            support_user = await sync_to_async(lambda: support_request.user)()
+            await bot.send_message(support_user.user_id, message.text)
+        else:
+            await message.answer("Обращение не найдено.")
 
     except TechnicalSupport.DoesNotExist:
-        # Обрабатываем случай, когда обращение не найдено
         await message.answer("Обращение не найдено.")
     except TechnicalSupport.MultipleObjectsReturned:
-        # Обрабатываем случай, когда найдено более одного обращения
         await message.answer("Найдено более одного активного обращения.")
