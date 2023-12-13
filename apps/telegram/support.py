@@ -1,6 +1,7 @@
 from asgiref.sync import sync_to_async
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from time import ctime
 
 from apps.telegram.bot_setup import dp, bot, types
 from apps.telegram.keyboards import support_keyboard, support_action_keyboard, start_chat_keyboard, close_chat_keyboard
@@ -129,51 +130,54 @@ async def start_chat(callback_query: types.CallbackQuery):
     # Отправляем новое сообщение с обычной клавиатурой
     await bot.send_message(
         chat_id=chat_id,
-        text="Вы можете использовать кнопки ниже.",
+        text="Вы можете начать чат.",
         reply_markup=close_chat_keyboard
     )
 
-    # Переводим пользователя в состояние ожидания сообщения
+    # Переводим оператора в состояние ожидания сообщения
     await MessageState.message.set()
 
 # Обработчик сообщений от оператора и пользователя
 @dp.message_handler(state=MessageState.message)
 async def send_message_user(message: types.Message, state: FSMContext):
     telegram_user_id = message.from_user.id
-    telegram_user, _ = await sync_to_async(TelegramUser.objects.get_or_create)(user_id=telegram_user_id)
 
     async with state.proxy() as data:
         awaiting_reply_from = data.get('awaiting_reply_from')
 
-    # Проверяем, является ли отправитель оператором поддержки
-    if telegram_user.user_role == "Manager":
-        try:
-            support_request = await sync_to_async(TechnicalSupport.objects.get)(
-                support_operator=telegram_user, 
-                status=False
-            )
+        telegram_user = await sync_to_async(TelegramUser.objects.get)(user_id=telegram_user_id)
+        print(telegram_user_id == awaiting_reply_from)
+        print(telegram_user_id, type(telegram_user_id))
+        print(awaiting_reply_from, type(awaiting_reply_from))
+
+        if telegram_user.user_role == "Manager":
+            # Получение запроса поддержки и отправка сообщения пользователю
+            support_request = await sync_to_async(lambda: TechnicalSupport.objects.filter(
+                support_operator=telegram_user, status=False
+            ).first())()
 
             if support_request:
-                # Получаем связанный объект user асинхронно
-                support_user = await sync_to_async(lambda: support_request.user)()
-                await bot.send_message(support_user.user_id, message.text)
-
-                # Сохраняем ID пользователя, от которого ожидаем ответ
-                data['awaiting_reply_from'] = support_user.user_id
+                support_user_id = await sync_to_async(lambda: support_request.user.user_id)()
+                if message.text == "Закончить чат":
+                    await message.answer("Вы закрыли чат")
+                    support_request.status = True
+                    await sync_to_async(support_request.save)()
+                    await bot.send_message(support_user_id, "Чат закрыт")
+                else:
+                    await bot.send_message(support_user_id, message.text)
+                data['awaiting_reply_from'] = int(support_user_id)
             else:
                 await message.answer("Обращение не найдено.")
 
-        except TechnicalSupport.DoesNotExist:
-            await message.answer("Обращение не найдено.")
-        except TechnicalSupport.MultipleObjectsReturned:
-            await message.answer("Найдено более одного активного обращения.")
-
-    elif awaiting_reply_from and awaiting_reply_from == telegram_user_id:
-        # Перенаправляем сообщение от пользователя к оператору
-        # Необходимо определить, как получить ID чата оператора, который в данный момент общается с пользователем
-        operator_chat_id = support_request.support_operator.user_id # Получить ID чата оператора
-        await bot.send_message(operator_chat_id, f"Сообщение от пользователя: {message.text}")
-        data['awaiting_reply_from'] = None  # Сброс состояния
+@dp.message_handler()
+async def not_found(message:types.Message):
+    telegram_user = await sync_to_async(TelegramUser.objects.get)(user_id=message.from_user.id)
+    support_request = await sync_to_async(lambda: TechnicalSupport.objects.filter(
+        user=telegram_user, status=False
+    ).first())()
+    if support_request:
+        support_user_id = await sync_to_async(lambda: support_request.support_operator.user_id)()
+        await bot.send_message(support_user_id, message.text)
 
     else:
-        await message.answer("Ваше сообщение не может быть обработано в данный момент.")
+        await message.reply(f"Я вас не понял, введите /help")

@@ -8,6 +8,7 @@ from apps.telegram.models import TelegramUser, BillingDelivery, BillingDeliveryH
 from apps.telegram.keyboards import billing_keyboard, billing_menu_keyboard, on_road_keyboard, order_keyboard, profile_keyboard
 
 # Create your views here.
+print("views.py")
 """Функция для обработки комманды /start. Если пользователя нету в базе, 
 бот создаст его и даст ему поль пользователя.
 По желаю можно сделать его курьером"""
@@ -277,7 +278,3 @@ async def menu_order_conifirm_waiter(callback_query: types.CallbackQuery):
 @dp.message_handler(text="Назад")
 async def back_start(message:types.Message):
     await start(message)
-
-@dp.message_handler()
-async def not_found(message:types.Message):
-    await message.reply(f"Я вас не понял, введите /help")

@@ -115,7 +115,6 @@ class TechnicalSupport(models.Model):
     )
     support_operator = models.ForeignKey(
         TelegramUser, on_delete=models.SET_NULL,
-        related_name="support_operator_user",
         verbose_name="Оператор поддержки",
         blank=True, null=True,
         limit_choices_to={'user_role': 'Manager'}
