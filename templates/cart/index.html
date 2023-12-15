@@ -197,7 +197,7 @@
 										<li>Доставка<span>Бесплатно</span></li>
 										<input type="hidden" name="delivery_price" value="0">
 										{% else %}
-										<li>Доставка<span>250 KGS</span></li>
+										<li>Доставка<span class="delivery-price-display">250 KGS</span></li>
 										<input type="hidden" name="delivery_price" value="250">
 										{% endif %}
 										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
@@ -296,7 +296,30 @@
 										}
 									}
 								}
-							
+
+								document.addEventListener('DOMContentLoaded', function () {
+									var deliveryRadio = document.getElementById('courier');
+									var pickupRadio = document.getElementById('pickup');
+									var deliveryPriceInput = document.querySelector('input[name="delivery_price"]');
+									var deliveryPriceDisplay = document.querySelector('.delivery-price-display');
+
+									function updateDeliveryPrice() {
+										if (pickupRadio.checked) {
+											deliveryPriceInput.value = '0';
+											deliveryPriceDisplay.textContent = '0 KGS';
+										} else {
+											deliveryPriceInput.value = '250';
+											deliveryPriceDisplay.textContent = '250 KGS';
+										}
+									}
+
+									deliveryRadio.addEventListener('change', updateDeliveryPrice);
+									pickupRadio.addEventListener('change', updateDeliveryPrice);
+
+									// Вызываем функцию при загрузке страницы, чтобы установить начальное состояние
+									updateDeliveryPrice();
+								});
+															
 								addressInput.addEventListener('input', onResponse);
 								phoneInput.addEventListener('input', onResponse);
 							
@@ -316,8 +339,6 @@
 		<!-- /container -->
 		</div>
 		<!-- /bg_gray -->
-
-		
 
 	</main>
 	<!-- /main -->

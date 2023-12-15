@@ -4,7 +4,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from time import ctime
 
 from apps.telegram.bot_setup import dp, bot, types
-from apps.telegram.keyboards import support_keyboard, support_action_keyboard, start_chat_keyboard, close_chat_keyboard
+from apps.telegram.keyboards import support_keyboard, support_action_keyboard, start_chat_keyboard, close_chat_keyboard, profile_keyboard
 from apps.telegram.models import TechnicalSupport, TelegramUser
 
 print("Support module is being imported and executed")
@@ -99,7 +99,7 @@ async def accept_support_manager(callback_query: types.CallbackQuery):
 
                     # Теперь можно безопасно обращаться к support_request.user
                     support_user_id = support_request.user.user_id
-                    await bot.send_message(support_user_id, f"Ваше обращение {support_request.id} принял оператор {user.username}")
+                    await bot.send_message(support_user_id, f"Ваше обращение {support_request.id} принял оператор {user.first_name}")
 
                 else:
                     await bot.answer_callback_query(callback_query.id, text="Нет доступных обращений для обработки")
@@ -123,14 +123,14 @@ async def start_chat(callback_query: types.CallbackQuery):
     await bot.edit_message_text(
         chat_id=chat_id,
         message_id=message_id,
-        text=f"{callback_query.message.text}\nЧат начат. Напишите ваше сообщение.",
+        text=f"{callback_query.message.text}",
         reply_markup=types.InlineKeyboardMarkup()  # Удаляем инлайн-кнопки
     )
 
     # Отправляем новое сообщение с обычной клавиатурой
     await bot.send_message(
         chat_id=chat_id,
-        text="Вы можете начать чат.",
+        text="Вы можете начать чат. Напишите свое сообщение",
         reply_markup=close_chat_keyboard
     )
 
@@ -146,9 +146,6 @@ async def send_message_user(message: types.Message, state: FSMContext):
         awaiting_reply_from = data.get('awaiting_reply_from')
 
         telegram_user = await sync_to_async(TelegramUser.objects.get)(user_id=telegram_user_id)
-        print(telegram_user_id == awaiting_reply_from)
-        print(telegram_user_id, type(telegram_user_id))
-        print(awaiting_reply_from, type(awaiting_reply_from))
 
         if telegram_user.user_role == "Manager":
             # Получение запроса поддержки и отправка сообщения пользователю
@@ -159,10 +156,11 @@ async def send_message_user(message: types.Message, state: FSMContext):
             if support_request:
                 support_user_id = await sync_to_async(lambda: support_request.user.user_id)()
                 if message.text == "Закончить чат":
-                    await message.answer("Вы закрыли чат")
+                    await message.answer("Вы закрыли чат между пользователем", reply_markup=profile_keyboard)
                     support_request.status = True
                     await sync_to_async(support_request.save)()
-                    await bot.send_message(support_user_id, "Чат закрыт")
+                    await bot.send_message(support_user_id, "В случае дополнительных вопросов обратитесь повторно, будем рады Вам помочь.\nСпасибо за обращение! Всего Вам доброго!")
+                    await bot.send_message(support_user_id, "Чат закрыт. Оцените качество обслуживания", reply_markup=profile_keyboard)
                 else:
                     await bot.send_message(support_user_id, message.text)
                 data['awaiting_reply_from'] = int(support_user_id)

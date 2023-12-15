@@ -97,7 +97,8 @@ def create_billing_from_cart(request):
             address=billing.address,
             phone=billing.phone,
             delivery_price=billing.delivery_price,
-            total_price=billing.total_price
+            total_price=billing.total_price,
+            billing_receipt_type=billing.billing_receipt_type
         ))
 
         return redirect('confirm', billing.address, billing.phone, billing.payment_code)

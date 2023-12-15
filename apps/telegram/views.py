@@ -229,8 +229,9 @@ async def delivery_finish_order(callback_query: types.CallbackQuery):
         await bot.answer_callback_query(callback_query.id, text=f"У вас нет прав, свяжитесь с менеджерами")
 
 """Функция для отправки биллинга в телеграм группу"""
-async def send_post_billing(id, products, payment_method, payment_code, address, phone, delivery_price, total_price):
-    await bot.send_message(-4013644681, f"""<b>Биллинг #{id}</b>
+async def send_post_billing(id, products, payment_method, payment_code, address, phone, delivery_price, total_price, billing_receipt_type):
+    if billing_receipt_type == "Доставка":
+        await bot.send_message(-4013644681, f"""<b>Биллинг #{id}</b>
 <b>Товары:</b> 
 {products}
 <b>Способ оплаты:</b> {payment_method}
@@ -241,6 +242,17 @@ async def send_post_billing(id, products, payment_method, payment_code, address,
 <b>Итого c доставкой:</b> {total_price} KGS
 <b>Статус:</b> Ожидание курьера""",
 reply_markup=billing_keyboard, parse_mode='HTML')
+    else:
+        await bot.send_message(-4013644681, f"""<b>Биллинг #{id}</b>
+<b>Товары:</b> 
+{products}
+<b>Способ оплаты:</b> {payment_method}
+<b>Код оплаты:</b> {payment_code}
+<b>Адрес:</b> {address}
+<b>Номер:</b> {phone}
+<b>Самовывоз товара:</b>
+<b>Итого:</b> {total_price} KGS""",
+parse_mode='HTML')
     
 """Функция для отправки биллинга меню в телеграм группу"""
 async def send_post_billing_menu(id, table_uuid, products, payment_method, payment_code, total_price):
