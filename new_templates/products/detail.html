@@ -457,163 +457,66 @@
 
                     <div class="col-lg-4">
                         <div class="together-box">
+                            {% if cart_items %}
                             <div class="together-box-text">
                                 <h5>Корзина товаров</h5>
                             </div>
-
+                            {% for item in cart_items %}
                             <div class="together-box-item">
                                 <div class="form-check">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        Chicken Leg ($30.00)
+                                        {{ item.product.title }} {{ item.product.price }} KGS | {{item.total_price }} KGS
                                     </label>
                                 </div>
-
-
 
                                 <div class="form-check-btn">
                                     <div class="form-check-btn">
 
                                         <div class="grid">
                                             <button class="btn btn-minus "><i class="fa-solid fa-minus"></i></button>
-                                            <div class="column product-qty">0</div>
+                                            <div class="column product-qty">{{ item.quantity }}</div>
                                             <button class="btn btn-plus "><i class="fa-solid fa-plus"></i></button>
                                         </div>
 
                                     </div>
                                 </div>
-
-
                             </div>
-                            <div class="together-box-item">
-                                <div class="form-check">
-
-                                    <label class="form-check-label" for="flexCheckDefault1">
-                                        Drinks ($25.00)
-                                    </label>
-                                </div>
-
-
-
-                                <div class="form-check-btn">
-                                    <div class="form-check-btn">
-
-                                        <div class="grid">
-                                            <button class="btn btn-minus "><i class="fa-solid fa-minus"></i></button>
-                                            <div class="column product-qty">1</div>
-                                            <button class="btn btn-plus "><i class="fa-solid fa-plus"></i></button>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="together-box-item">
-                                <div class="form-check">
-
-                                    <label class="form-check-label" for="flexCheckDefault2">
-                                        Nan ($10.00)
-                                    </label>
-                                </div>
-
-
-
-                                <div class="form-check-btn">
-                                    <div class="form-check-btn">
-
-                                        <div class="grid">
-                                            <button class="btn btn-minus "><i class="fa-solid fa-minus"></i></button>
-                                            <div class="column product-qty">1</div>
-                                            <button class="btn btn-plus "><i class="fa-solid fa-plus"></i></button>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="together-box-item">
-                                <div class="form-check">
-
-                                    <label class="form-check-label" for="flexCheckDefault3">
-                                        Extra Chess ($5.00)
-                                    </label>
-                                </div>
-
-
-
-                                <div class="form-check-btn">
-                                    <div class="form-check-btn">
-
-                                        <div class="grid">
-                                            <button class="btn btn-minus "><i class="fa-solid fa-minus"></i></button>
-                                            <div class="column product-qty">0</div>
-                                            <button class="btn btn-plus "><i class="fa-solid fa-plus"></i></button>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="together-box-inner-btn">
-
-                                <div class="grid">
-                                    <button class="btn btn-minus "><i class="fa-solid fa-minus"></i></button>
-                                    <div class="column product-qty">2</div>
-                                    <button class="btn btn-plus "><i class="fa-solid fa-plus"></i></button>
-                                </div>
-
-
-                                <div class="together-box-inner-btn-dropdown">
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Variation Size <span>
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M7 10L12 14L17 10" stroke="white" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="#">10</a></li>
-                                            <li><a class="dropdown-item" href="#">20</a></li>
-                                            <li><a class="dropdown-item" href="#">30</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="together-box-inner-btn-btm">
-                                <a href="#" class="main-btn-six" tabindex="-1">
-                                    <span>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path
-                                                d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                stroke-width="1.5"></path>
-                                            <path
-                                                d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                stroke-width="1.5"></path>
-                                            <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </svg>
-                                    </span>
-                                    В корзину
-                                </a>
+                            {% endfor %}
+                            {% endif %}
+                            <div class="featured-item-btn">
+                                <form action="{% url 'add_to_cart' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+									<input type="hidden" name="price" value="{{ product.price }}">
+                                    <input class="js-result form-control" type="number" name="quantity" min="1" value="1">
+                                    <button class="main-btn-three">
+                                        <span>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
+                                                    stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path
+                                                    d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
+                                                    stroke-width="1.5"></path>
+                                                <path
+                                                    d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
+                                                    stroke-width="1.5"></path>
+                                                <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                </path>
+                                                <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        В корзину
+                                    </button>
+                                </form>
                             </div>
                         </div>
+
 
                         <div class="blog-details-promobanner-res-df">
                             <div class="blog-details-promobanner">
