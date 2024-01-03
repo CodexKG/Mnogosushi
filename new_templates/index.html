@@ -1,0 +1,299 @@
+{% extends 'include/homepage.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- header part start  -->
+    {% include 'include/header.html' %}
+
+    <!-- mobile navigation start -->
+    {% include 'include/mobile_header.html' %}
+
+
+    <!-- header part end  -->
+
+
+    <main>
+
+
+        <!-- .banner-part-start -->
+
+        <section class="banner-two">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="banner-wraper">
+                            <div class="banner-two-taitel">
+                                <h1> {{ setting.title }} <span>
+                                        Reservations
+                                    </span></h1>
+
+                                <p>{{ setting.description }}</p>
+                            </div>
+
+                            <div class="banner-taiteL-btn">
+
+                                <a href="#" class="main-btn main-btn-two ">
+                                    <span>
+                                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M16.333 22.1667V8.16667M16.333 22.1667H18.6663M16.333 22.1667H10.4997M16.333 8.16667C16.333 5.58934 14.2437 3.5 11.6663 3.5H6.99967C4.42235 3.5 2.33301 5.58934 2.33301 8.16667V17.5C2.33301 19.6761 3.82245 21.5043 5.83749 22.0208M16.333 8.16667H20.077C20.6698 8.16667 21.2404 8.3923 21.6728 8.79775L24.9289 11.8503C25.3994 12.2914 25.6663 12.9076 25.6663 13.5525V19.8333C25.6663 21.122 24.6217 22.1667 23.333 22.1667M23.333 22.1667C23.333 23.4553 22.2883 24.5 20.9997 24.5C19.711 24.5 18.6663 23.4553 18.6663 22.1667M23.333 22.1667C23.333 20.878 22.2883 19.8333 20.9997 19.8333C19.711 19.8333 18.6663 20.878 18.6663 22.1667M10.4997 22.1667C10.4997 23.4553 9.45501 24.5 8.16634 24.5C6.87768 24.5 5.83301 23.4553 5.83301 22.1667C5.83301 22.1177 5.83452 22.069 5.83749 22.0208M10.4997 22.1667C10.4997 20.878 9.45501 19.8333 8.16634 19.8333C6.92667 19.8333 5.91279 20.8001 5.83749 22.0208"
+                                                stroke-width="1.5" />
+                                            <path d="M11.6663 9.33203H9.33301" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M11.6667 14L7 14" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    Доставка</a>
+
+                                <a href="#" class=" main-btn-two-banner ">
+                                    <span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M14.1186 8.33333C14.1186 9.68336 13.0242 10.7778 11.6742 10.7778C10.3241 10.7778 9.22971 9.68336 9.22971 8.33333C9.22971 6.9833 10.3241 5.88889 11.6742 5.88889C13.0242 5.88889 14.1186 6.9833 14.1186 8.33333Z"
+                                                stroke-width="1.5" />
+                                            <path
+                                                d="M19.0075 8.33333C19.0075 12.3834 14.1186 18.1111 11.6742 18.1111C9.22971 18.1111 4.34082 12.3834 4.34082 8.33333C4.34082 4.28325 7.62407 1 11.6742 1C15.7242 1 19.0075 4.28325 19.0075 8.33333Z"
+                                                stroke-width="1.5" />
+                                            <path
+                                                d="M15.3412 15.668H16.7181C18.169 15.668 19.545 16.3124 20.4738 17.4271L21.7779 18.992C23.1047 20.5841 21.9725 23.0013 19.9 23.0013H3.44912C1.37662 23.0013 0.244465 20.5841 1.57124 18.992L2.87532 17.4271C3.80418 16.3124 5.18015 15.668 6.63107 15.668H8.0079"
+                                                stroke-width="1.5" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    Подобрать</a>
+
+                                <a href="#" class=" main-btn-two-banner">
+                                    <span>
+                                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M9.1226 25.6654H18.8768C21.5703 25.6654 23.7538 23.5817 23.7538 21.0113V15.3206C23.7538 14.4943 24.0978 13.7019 24.71 13.1176C26.1286 11.764 25.9442 9.52109 24.3218 8.3951L16.8682 3.22219C15.1581 2.03531 12.8413 2.03531 11.1311 3.22219L3.6776 8.3951C2.05519 9.52109 1.87078 11.764 3.28931 13.1176C3.90156 13.7019 4.24552 14.4943 4.24552 15.3206V21.0113C4.24552 23.5817 6.42906 25.6654 9.1226 25.6654Z"
+                                                stroke-width="1.5" stroke-linejoin="round" />
+                                            <path
+                                                d="M19.0218 18.2041C19.0218 20.8668 16.5108 25.436 13.9997 25.436C11.4886 25.436 8.97754 20.8668 8.97754 18.2041C8.97754 15.5414 11.226 13.3828 13.9997 13.3828C16.7734 13.3828 19.0218 15.5414 19.0218 18.2041Z"
+                                                stroke-width="1.5" />
+                                            <path
+                                                d="M15.5063 17.9028C15.5063 18.7348 14.8318 19.4094 13.9997 19.4094C13.1676 19.4094 12.493 18.7348 12.493 17.9028C12.493 17.0707 13.1676 16.3961 13.9997 16.3961C14.8318 16.3961 15.5063 17.0707 15.5063 17.9028Z"
+                                                stroke-width="1.5" />
+                                        </svg>
+                                    </span>
+                                    В ресторане</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="traditional s-padding">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="traditional-head">
+                            <h2>Вам может понравиться</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid Tab -->
+                <div class="tab-pane fade show in active" id="grid" role="tabpanel">
+                    <!-- Filter Title -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <ul class="shaf-filter course-filter j ">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Filter Title -->
+
+                    <!-- Filter Content -->
+                    <div class="row shafull-container">
+                        {% for category in categories %}
+                        <div class="col-lg-4 col-md-6 shaf-item res-mb-20px">
+
+                            <div class="featured-item" data-aos="fade-up">
+
+                                <div class="featured-item-img">
+                                    <a href="{% url 'category_detail' category.slug %}"><img src="{{ category.iiko_image }}" class="w-100" alt="{{ category.title }}"></a>
+
+                                    <div class="featured-item-img-overlay">
+                                        <div class="featured-item-img-over-text">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="featured-item-text">
+                                    <div class="text-item">
+                                        <div class="left">
+                                            <h3>Количество: {{ category.category_products.all.count }}</h3>
+                                        </div>
+                                        <div class="right">
+                                            <div class="icon">
+                                                <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
+                                                            fill="#FFB23E" />
+                                                    </svg></span>
+                                            </div>
+                                            <h5> 4.7(2.5K)</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-item-center">
+                                        <h3><a href="{% url 'category_detail' category.slug %}">{{ category.title }}</a></h3>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="traditional-btn">
+                                <a href="all-food.html" class="main-btn-four">просмотреть все категории</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Traditional part-end -->
+
+
+
+
+
+
+
+        <!-- Customer part-start -->
+
+        <section class="customer s-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="customer-head mb-48px">
+                            <h2>Отзывы от покупателей</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up">
+                        <div class="customer-item">
+
+                            <div class="customer-img">
+                                <img src="{% static 'assets/images/icon/customer-icon.png' %}" alt="icon">
+                            </div>
+                            <div class="customer-item-text">
+                                <p>"An absolute foodie's paradise! The flavors at
+                                    ReservQ are a symphony of delight. Every bite tells a story of passion and skill. A
+                                    must-visit for anyone seeking beyond compare."</p>
+                            </div>
+                        </div>
+
+                        <div class="customer-inner">
+                            <div class="customer-inner-img">
+                                <img src="{% static 'assets/images/small/customer-1.png' %}" alt="img">
+                            </div>
+
+                            <div class="customer-inner-text">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                </div>
+
+                                <h3>Jonson Roy</h3>
+                                <h5>Job Holder</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 customer-item-res aos-init aos-animate" data-aos="fade-up">
+                        <div class="customer-item ">
+
+                            <div class="customer-img">
+                                <img src="{% static 'assets/images/icon/customer-icon.png' %}" alt="icon">
+                            </div>
+                            <div class="customer-item-text">
+                                <p>"An absolute foodie's paradise! The flavors at
+                                    ReservQ are a symphony of delight. Every bite tells a story of passion and skill. A
+                                    must-visit for anyone seeking beyond compare."</p>
+                            </div>
+                        </div>
+
+                        <div class="customer-inner">
+                            <div class="customer-inner-img">
+                                <img src="{% static 'assets/images/small/customer-2.png' %}" alt="img">
+                            </div>
+
+                            <div class="customer-inner-text">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                </div>
+
+                                <h3>David Ethic</h3>
+                                <h5>Dog Trainer</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 d-md-none d-lg-block aos-init aos-animate" data-aos="fade-up">
+                        <div class="customer-item">
+
+                            <div class="customer-img">
+                                <img src="{% static 'assets/images/icon/customer-icon.png' %}" alt="icon">
+                            </div>
+                            <div class="customer-item-text">
+                                <p>"An absolute foodie's paradise! The flavors at
+                                    ReservQ are a symphony of delight. Every bite tells a story of passion and skill. A
+                                    must-visit for anyone seeking beyond compare."</p>
+                            </div>
+                        </div>
+
+                        <div class="customer-inner">
+                            <div class="customer-inner-img">
+                                <img src="{% static 'assets/images/small/customer-3.png' %}" alt="img">
+                            </div>
+
+                            <div class="customer-inner-text">
+                                <div class="icon">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                </div>
+
+                                <h3>Robert Fox</h3>
+                                <h5>Bike Trainer</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Customer part-end -->
+    </main>
+
+    {% include 'include/footer.html' %}
+
+{% endblock %}

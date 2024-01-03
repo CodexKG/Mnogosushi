@@ -9,6 +9,7 @@ from apps.carts.models import Cart, CartItem
 def product_detail(request, id):
     setting = Setting.objects.latest('id')
     product = Product.objects.get(id=id)
+    random_products = Product.objects.all().order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     session_key = request.session.session_key
     cart = Cart.objects.filter(session_key=session_key).first()
