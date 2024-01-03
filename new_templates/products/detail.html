@@ -120,48 +120,7 @@
                                                 <p>Описание: {{ product.description }}</p>
                                             </div>
 
-                                            <div class="food-details-text-two">
-                                                <h5>Ingredients:</h5>
-
-                                                <ul>
-                                                    <li>Fresh chicken breast or thigh meat, cubed</li>
-                                                    <li>Assorted sweet bell peppers (red, yellow, and green), sliced
-                                                        into rings</li>
-                                                    <li>Marinade (your choice of herbs, spices, and seasonings)</li>
-                                                    <li>Olive oil</li>
-                                                    <li>Salt and pepper </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="food-details-text-two food-details-text-three ">
-                                                <h5>Preparation:</h5>
-
-                                                <ul>
-                                                    <li>In a bowl, prepare the marinade by combining your choice of
-                                                        herbs, spices, olive oil, salt, and pepper.</li>
-                                                    <li>While the chicken is marinating, prepare the sweet bell peppers
-                                                        by slicing them into rings.</li>
-                                                    <li>Thread the marinated chicken pieces onto skewers, alternating
-                                                        with slices of sweet bell peppers.</li>
-                                                    <li>While grilling, you can brush any leftover marinade onto the
-                                                        skewers for extra flavor.</li>
-                                                    <li>Once cooked, remove the skewers from the grill and let them rest
-                                                        for a minute before serving. </li>
-                                                </ul>
-                                            </div>
-                                            <div class="food-details-text-two  ">
-                                                <h5>Preparation:</h5>
-
-                                                <ul>
-                                                    <li>Enjoy the skewers with a side of fresh salad or rice for a
-                                                        complete meal.</li>
-                                                    <li>Drizzle with a zesty lemon or lime juice for an extra burst of
-                                                        flavor.</li>
-                                                    <li>Pair with your favorite dipping sauce or chutney for added
-                                                        variety.</li>
-
-                                                </ul>
-                                            </div>
+                                            
                                         </div>
                                     </div>
 
@@ -550,9 +509,9 @@
                         <div class="featured-item">
                             <div class="featured-item-img">
                                 {% if product.iiko_image %}
-                                <img src="{{ product.iiko_image }}" class="w-100" alt="{{ product.title }}">
+                                <a href="{% url 'product_detail' product.id %}"><img src="{{ product.iiko_image }}" class="w-100" alt="{{ product.title }}"></a>
                                 {% else %}
-                                <img src="{{ product.image.url }}" class="w-100" alt="{{ product.title }}">
+                                <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" class="w-100" alt="{{ product.title }}"></a>
                                 {% endif %}
 
                                 <div class="featured-item-img-overlay">

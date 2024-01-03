@@ -58,87 +58,79 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-6 ">
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="shopping-cart-new-address-top-item">
-                                    <div class="shopping-cart-new-address-taitel">
-                                        <h4>Оформить заказ</h4>
-                                    </div>
-
-                                    <div class="shopping-cart-new-address-top-btn">
-                                        <a href="{% url 'index' %}">
-                                            <span>
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M5 8H15C17.2091 8 19 9.79086 19 12V12C19 14.2091 17.2091 16 15 16H5M5 8L9 5M5 8L9 11"
-                                                        stroke="#394150" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
-                                            Главная
-                                        </a>
-                                    </div>
-                                </div>
-
-
-
-
-
-                                <div class="shopping-cart-new-address-from">
-                                    <div class="shopping-cart-new-address-from-item">
-                                        <div class="shopping-cart-new-address-from-inner">
-                                            <label class="form-label">Адрес доставки</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput7"
-                                                placeholder="Адрес Доставки">
+                        <form action="{% url 'create_billing' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shopping-cart-new-address-top-item">
+                                        <div class="shopping-cart-new-address-taitel">
+                                            <h4>Оформить заказ</h4>
                                         </div>
-                                        <div class="shopping-cart-new-address-from-inner">
-                                            <label for="exampleFormControlInput1" class="form-label">Ваш номер телефона</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput8"
-                                                placeholder="Ваш номер телефона">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="shopping-cart-new-address-from-item">
-                                        <div class="shopping-cart-new-address-from-inner">
-                                            <label for="exampleFormControlInput1" class="form-label">Способ оплаты:</label>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Способ оплаты:</option>
-                                                <option value="Наличные">Наличные</option>
-                                                <option value="Наличные">Mbank</option>
-                                                <option value="Наличные">Optima</option>
-                                                <option value="Наличные">О деньги</option>
-                                            </select>
+
+                                        <div class="shopping-cart-new-address-top-btn">
+                                            <a href="{% url 'index' %}">
+                                                <span>
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M5 8H15C17.2091 8 19 9.79086 19 12V12C19 14.2091 17.2091 16 15 16H5M5 8L9 5M5 8L9 11"
+                                                            stroke="#394150" stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </span>
+                                                Главная
+                                            </a>
                                         </div>
                                     </div>
 
-                                    <div class="shopping-cart-new-address-from-btn">
-                                        <div class="check-btn">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="Доставка">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Доставка
-                                                </label>
+                                    <div class="shopping-cart-new-address-from">
+                                        <div class="shopping-cart-new-address-from-item">
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label class="form-label">Адрес доставки</label>
+                                                <input type="text" class="form-control" name="address" placeholder="Адрес Доставки">
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="Самовывоз">
-                                                <label class="form-check-label" for="flexCheckDefault1">
-                                                    Самовывоз
-                                                </label>
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label for="exampleFormControlInput1" class="form-label">Ваш номер телефона</label>
+                                                <input type="text" class="form-control" name="phone" placeholder="Ваш номер телефона">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="shopping-cart-new-address-from-item">
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label for="exampleFormControlInput1" class="form-label">Способ оплаты:</label>
+                                                <select class="form-select" name="payment_method" aria-label="Default select example">
+                                                    <option selected>Способ оплаты:</option>
+                                                    <option value="Наличные">Наличные</option>
+                                                    <option value="Наличные">Mbank</option>
+                                                    <option value="Наличные">Optima</option>
+                                                    <option value="Наличные">О деньги</option>
+                                                </select>
                                             </div>
                                         </div>
 
-                                        <div class="check-btn-two">
-                                            <a href="#" class="main-btn-four">Оформить</a>
-                                        </div>
+                                        <div class="shopping-cart-new-address-from-btn">
+                                            <div class="check-btn">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="billing_receipt_type" value="Доставка" checked>
+                                                    <label class="form-check-label" for="flexCheckDefault">Доставка</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="billing_receipt_type" value="Самовывоз">
+                                                    <label class="form-check-label" for="flexCheckDefault1">Самовывоз</label>
+                                                </div>
+                                            </div>
+                                            
 
+                                            <div class="check-btn-two">
+                                                <input type="hidden" name="total_price" value="{{ total_price }}">
+                                                <button class="main-btn-four" type="submit">Оформить</button>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
+                        </form>
                     </div>
 
 
@@ -158,9 +150,9 @@
                                                 <!-- <img src="{{ item.product.iiko_image }}" width="10%" alt="{{ item.product.title }}"> -->
                                             </div>
                                             <div class="cart-summary-box-text-two">
-                                                <h4>{{ item.product.title }}</h4>
+                                                <h4>{{ item.product.title }} {{ item.product.price }} KGS</h4>
                                                 <h5><span>Количество:</span> {{ item.quantity }}</h5>
-                                                <p>{{ item.product.price }} KGS | Итого: {{item.total_price }} KGS</p>
+                                                <p>Итого: {{item.total_price }} KGS</p>
                                             </div>
                                         </div>
                                     </a>
@@ -264,10 +256,7 @@
             </div>
         </section>
 
-
         <!-- Restaurant part-end -->
-
-
 
     </main>
 

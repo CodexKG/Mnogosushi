@@ -15,12 +15,21 @@
 
                 <div class="footer-icon">
                     <div class="icon">
-                        <a href="https://www.facebook.com/" target="_blank"><i
-                                class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank"><i
-                                class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        {% if setting.facebook %}
+                        <a href="{{ setting.facebook }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        {% endif %}
+                        {% if setting.tiktok %}
+                        <a href="{{ setting.tiktok }}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                        {% endif %}
+                        {% if setting.instagram %}
+                        <a href="{{ setting.instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        {% endif %}
+                        {% if setting.telegram %}
+                        <a href="{{ setting.telegram }}" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+                        {% endif %}
+                        {% if setting.whatsapp %}
+                        <a href="{{ setting.whatsapp }}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

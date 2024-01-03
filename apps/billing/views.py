@@ -23,6 +23,11 @@ def export_billings_to_excel_view(request):
 
 def confirm(request, address, phone, payment_code):
     setting = Setting.objects.latest('id')
+    billing = Billing.objects.get(payment_code=payment_code)
+    try:
+        products = BillingProduct.objects.filter(billing=billing.id)
+    except Exception as error:
+        print("Error:", error)
     result = {'address':address, 'phone':phone, 'payment_code':payment_code}
     return render(request, 'billing/confirm.html', locals())
 
