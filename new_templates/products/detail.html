@@ -446,8 +446,13 @@
                                 <form action="{% url 'add_to_cart' %}" method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="product_id" value="{{ product.id }}">
-									<input type="hidden" name="price" value="{{ product.price }}">
+                                    <input type="hidden" name="price" value="{{ product.price }}">
+                            
+                                    <!-- Кнопки уменьшения и увеличения количества -->
                                     <input class="js-result form-control" type="number" name="quantity" min="1" value="1">
+                                    <button type="button" class="btn-qty-adjust btn-minus" data-quantity-adjust="minus">-</button>
+                                    <button type="button" class="btn-qty-adjust btn-plus" data-quantity-adjust="plus">+</button>
+
                                     <button class="main-btn-three">
                                         <span>
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -472,6 +477,75 @@
                                         </span>
                                         В корзину
                                     </button>
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            var adjustButtons = document.querySelectorAll('.btn-qty-adjust');
+                                    
+                                            adjustButtons.forEach(function(btn) {
+                                                btn.addEventListener('click', function() {
+                                                    var adjustType = this.getAttribute('data-quantity-adjust');
+                                                    var qtyInput = this.parentElement.querySelector('.js-result');
+                                                    var currentQty = parseInt(qtyInput.value);
+                                    
+                                                    if (adjustType === 'plus') {
+                                                        qtyInput.value = currentQty + 1;
+                                                    } else if (adjustType === 'minus') {
+                                                        if (currentQty > 1) {
+                                                            qtyInput.value = currentQty - 1;
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                    <style>
+                                        .together-box-item {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            margin-bottom: 15px; /* Расстояние между элементами */
+                                        }
+
+                                        .btn-qty-adjust {
+                                            display: inline-flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            width: 32px; /* Ширина кнопок */
+                                            height: 32px; /* Высота кнопок */
+                                            border: none;
+                                            border-radius: 4px; /* Скругление углов */
+                                            background-color: #f2f2f2; /* Цвет фона */
+                                            color: #333; /* Цвет текста */
+                                            cursor: pointer; /* Курсор в виде руки при наведении */
+                                            font-size: 1.2em; /* Размер текста */
+                                            margin: 0 5px; /* Отступы вокруг кнопок */
+                                        }
+
+                                        .btn-qty-adjust:hover {
+                                            background-color: #e2e2e2; /* Цвет фона при наведении */
+                                        }
+
+                                        .btn-plus i, .btn-minus i {
+                                            pointer-events: none; /* Исключает иконку из событий мыши */
+                                        }
+
+                                        .product-qty {
+                                            width: 50px; /* Ширина контейнера с количеством */
+                                            text-align: center; /* Выравнивание текста по центру */
+                                        }
+
+                                        
+
+                                        .main-btn-three:hover {
+                                            background-color: #e55a23; /* Цвет фона при наведении */
+                                        }
+
+                                        /* Если вы используете иконки font-awesome, вы можете стилизовать их так: */
+                                        .fa-minus, .fa-plus {
+                                            color: #333; /* Цвет иконок */
+                                        }
+                                    </style>
                                 </form>
                             </div>
                         </div>

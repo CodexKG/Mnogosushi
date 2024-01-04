@@ -129,8 +129,22 @@
                         </div>
                         <div class="nav-btn-main">
                             <div class="nav-btn-one">
-                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Искать">
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var searchForm = document.getElementById('searchForm');
+                                        searchForm.addEventListener('keypress', function (e) {
+                                            var key = e.which || e.keyCode;
+                                            if (key === 13) { // Код клавиши Enter
+                                                searchForm.submit();
+                                            }
+                                        });
+                                    });
+                                </script>
+                                
+                                <form id="searchForm" action="{% url 'search' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="text" class="form-control" name="query" placeholder="Искать">
+                                </form>
 
                                 <div class="nav-search">
                                     <button type="submit">
