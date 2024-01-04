@@ -47,13 +47,13 @@
                             <div class="quick-line-menu">
                                 <ul>
                                     <li>
-                                        <a href="dashboard.html">Главная</a>
+                                        <a href="{% url 'index' %}">Главная</a>
                                     </li>
                                     <li>
-                                        <a href="about.html">Корзина</a>
+                                        <a href="{% url 'cart' %}">Корзина</a>
                                     </li>
                                     <li>
-                                        <a href="about.html">Еда</a>
+                                        <a href="{% url 'foods' %}">Все блюда</a>
                                     </li>
                                     <li>
                                         <a href="contact.html">Меню</a>
@@ -62,7 +62,7 @@
                                         <a href="contact.html">Отследить заказ</a>
                                     </li>
                                     <li>
-                                        <a href="contact.html">Конгакты</a>
+                                        <a href="{% url 'contact' %}">Контакты</a>
                                     </li>
                                 </ul>
                             </div>
