@@ -1,0 +1,52 @@
+{% extends 'include/homepage.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'include/second_header.html' %}
+
+{% include 'include/mobile_header.html' %}
+
+<main>
+
+    <!-- banner  -->
+
+
+
+    <!-- banner  -->
+
+
+    <!-- contact part start  -->
+
+    <section class="contact-us s-padding inner-banner" style="background: white !important;">
+        <div class="container">
+            <div class="flex">
+
+
+                
+               
+                <div style="width: 100%;" class="contact-us-from">
+                    <h1>Ваша заявка принята!</h1>
+                    <h3>В скором времени свяжутся наши менеджера</h3>
+                    
+                    <div class="check-btn-two">
+                        <a class="main-btn-four" href="{% url 'index' %}">Главная</a>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- contact part end  -->
+
+
+
+
+
+</main>
+
+{% include 'include/footer.html' %}
+
+{% endblock %}

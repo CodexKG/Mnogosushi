@@ -1,5 +1,9 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
 from apps.categories.models import Category
+
+User = get_user_model()
 
 # Create your models here.
 class Product(models.Model):
@@ -42,3 +46,34 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
+class ReviewProduct(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='users_review',
+        verbose_name='Пользователь'
+    )
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE,
+        related_name="product_reviews",
+        verbose_name="Товар"
+    )
+    text = models.CharField(
+        max_length=255,
+        verbose_name="Сообщение"
+    )
+    stars = models.SmallIntegerField(
+        verbose_name="Звезды",
+        help_text="Отзывы от 1 до 5"
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата"
+    )
+
+    def __str__(self):
+        return self.text
+    
+    class Meta:
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"

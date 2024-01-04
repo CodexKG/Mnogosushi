@@ -45,6 +45,12 @@
                         <h6>Тип заказа:</h6>
                         <p>{{ billing.billing_receipt_type }}</p>
                     </div>
+
+                    <div class="flex-justify-between">
+                        <h6>Промокод:</h6>
+                        <p>Отсутвует</p>
+                    </div>
+
                     <div class="border-bottom">
 
                     </div>
@@ -54,6 +60,11 @@
                         <p>{{ product.price }} KGS</p>
                     </div>
                     {% endfor %}
+
+                    <div class="flex-justify-between">
+                        <h3>Итоговая сумма:</h3>
+                    </div>
+                    <h4>{{ billing.total_price }} KGS</h4>
                     
                     <br>
                     <div class="flex">

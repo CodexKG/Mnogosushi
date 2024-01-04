@@ -7,6 +7,11 @@ from apps.carts.models import CartItem
 from django.db.models import Sum
 
 # Create your views here.
+def category_index(request):
+    setting = Setting.objects.latest('id')
+    categories = Category.objects.all()
+    return render(request, 'category/index.html', locals())
+
 def category_detail(request, slug):
     setting = Setting.objects.latest('id')
     category = Category.objects.get(slug=slug)
