@@ -13,6 +13,11 @@ from apps.products.models import Product
 from apps.categories.models import Category
 
 # Create your views here.
+def menu_index(request):
+    setting = Setting.objects.latest('id')
+    tables = Table.objects.all()
+    return render(request, 'menu/select.html', locals())
+
 def menu(request, table_uuid):
     table = Table.objects.get(number=table_uuid)
     setting = Setting.objects.latest('id')
@@ -31,6 +36,7 @@ def menu_detail(request, product_id, table_uuid):
     product = Product.objects.get(id=product_id)
     table = Table.objects.get(number=table_uuid)
     footer_products = Product.objects.filter(title__startswith='Крылышки')
+    random_products = Product.objects.all().order_by('?')[:3]
     session_key = request.session.session_key
     cart = TableOrder.objects.filter(session_key=session_key).first()
     cart_items = []
