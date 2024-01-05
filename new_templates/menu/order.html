@@ -3,11 +3,11 @@
 {% block content %}
 
     <!-- header part start  -->
-    {% include 'include/second_header.html' %}
+    {% include 'include/menu_header.html' %}
     
 
     <!-- mobile navigation start -->
-    {% include 'include/mobile_header.html' %}
+    {% include 'include/menu_mobile_header.html' %}
 
     <!-- header part end  -->
 
@@ -90,11 +90,10 @@
                                             <div class="shopping-cart-new-address-from-inner">
                                                 <label for="exampleFormControlInput1" class="form-label">Способ оплаты:</label>
                                                 <select class="form-select" name="payment_method" aria-label="Default select example">
-                                                    <option selected>Способ оплаты:</option>
-                                                    <option value="Наличные">Наличные</option>
-                                                    <option value="Наличные">Mbank</option>
-                                                    <option value="Наличные">Optima</option>
-                                                    <option value="Наличные">О деньги</option>
+                                                    <option value="Наличные" selected>Наличные</option>
+                                                    <option value="Mbank">Mbank</option>
+                                                    <option value="Optima">Optima</option>
+                                                    <option value="О деньги">О деньги</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -106,6 +105,7 @@
                                             <div class="check-btn-two">
                                                 <input type="hidden" name="total_price" value="{{ total_price }}">
                                                 <input type="hidden" name="table_uuid" value="{{ table.number }}">
+                                                <input type="hidden" name="table_title" value="{{ table.title }}">
                                                 <button class="main-btn-four" type="submit">Оформить</button>
                                             </div>
 

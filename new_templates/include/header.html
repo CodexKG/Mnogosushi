@@ -93,6 +93,23 @@
                             <a href="mailto:Quomodosoft@gmail.com">{{ setting.email }}</a>
                         </div>
                     </div>
+                    {% if request.user.is_authenticated %}
+                    <div class="header-right-inner">
+                        <div class="icon">
+                            <span>
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.66699 10V5.83333C1.66699 3.99238 3.15938 2.5 5.00033 2.5H15.0003C16.8413 2.5 18.3337 3.99238 18.3337 5.83333V14.1667C18.3337 16.0076 16.8413 17.5 15.0003 17.5H6.66699M5.00033 6.66667L8.15133 8.76733C9.27099 9.51378 10.7297 9.51378 11.8493 8.76733L15.0003 6.66667M1.66699 12.5H6.66699M1.66699 15H6.66699"
+                                        stroke-width="1.5" stroke-linecap="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="text">
+                            <a href="{% url 'profile' request.user.username %}">{{ request.user.username }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -158,15 +175,11 @@
                                         </span>
                                     </button>
                                 </div>
-
                             </div>
 
                             <div class="nav-btn-two">
                             </div>
-
-
                         </div>
-
                         <div class="nav-login-btn-main">
                             <a href="{% url 'login' %}" class="main-btn-four">Войти</a>
                         </div>

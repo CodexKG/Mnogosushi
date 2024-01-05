@@ -255,8 +255,8 @@ reply_markup=billing_keyboard, parse_mode='HTML')
 parse_mode='HTML')
     
 """Функция для отправки биллинга меню в телеграм группу"""
-async def send_post_billing_menu(id, table_uuid, products, payment_method, payment_code, total_price):
-    await bot.send_message(-1002071470870, f"""<b>Заказ на столик {table_uuid} #{id}</b>
+async def send_post_billing_menu(id, table_uuid, table_title, products, payment_method, payment_code, total_price):
+    await bot.send_message(-1002071470870, f"""<b>Заказ на столик {table_title} {table_uuid} #{id}</b>
 <b>Товары:</b> {products}
 <b>Способ оплаты:</b> {payment_method}
 <b>Код оплаты:</b> {payment_code}

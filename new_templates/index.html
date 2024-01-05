@@ -1,5 +1,5 @@
 {% extends 'include/homepage.html' %}
-{% load static %}
+{% load static my_filters %}
 {% block content %}
 
     <!-- header part start  -->
@@ -171,12 +171,6 @@
 
         <!-- Traditional part-end -->
 
-
-
-
-
-
-
         <!-- Customer part-start -->
 
         <section class="customer s-padding">
@@ -190,6 +184,7 @@
                 </div>
 
                 <div class="row">
+                    {% for review in reviews %}
                     <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up">
                         <div class="customer-item">
 
@@ -197,9 +192,7 @@
                                 <img src="{% static 'assets/images/icon/customer-icon.png' %}" alt="icon">
                             </div>
                             <div class="customer-item-text">
-                                <p>"An absolute foodie's paradise! The flavors at
-                                    ReservQ are a symphony of delight. Every bite tells a story of passion and skill. A
-                                    must-visit for anyone seeking beyond compare."</p>
+                                <p>{{ review.text }}</p>
                             </div>
                         </div>
 
@@ -210,82 +203,17 @@
 
                             <div class="customer-inner-text">
                                 <div class="icon">
+                                    {% for star in review.stars|get_range %}
                                     <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
+                                    {% endfor %}
                                 </div>
 
-                                <h3>Jonson Roy</h3>
-                                <h5>Job Holder</h5>
+                                <h3>{{ review.user }}</h3>
+                                <h5>Пользователь Mnogosushi</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 customer-item-res aos-init aos-animate" data-aos="fade-up">
-                        <div class="customer-item ">
-
-                            <div class="customer-img">
-                                <img src="{% static 'assets/images/icon/customer-icon.png' %}" alt="icon">
-                            </div>
-                            <div class="customer-item-text">
-                                <p>"An absolute foodie's paradise! The flavors at
-                                    ReservQ are a symphony of delight. Every bite tells a story of passion and skill. A
-                                    must-visit for anyone seeking beyond compare."</p>
-                            </div>
-                        </div>
-
-                        <div class="customer-inner">
-                            <div class="customer-inner-img">
-                                <img src="{% static 'assets/images/small/customer-2.png' %}" alt="img">
-                            </div>
-
-                            <div class="customer-inner-text">
-                                <div class="icon">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                </div>
-
-                                <h3>David Ethic</h3>
-                                <h5>Dog Trainer</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 d-md-none d-lg-block aos-init aos-animate" data-aos="fade-up">
-                        <div class="customer-item">
-
-                            <div class="customer-img">
-                                <img src="{% static 'assets/images/icon/customer-icon.png' %}" alt="icon">
-                            </div>
-                            <div class="customer-item-text">
-                                <p>"An absolute foodie's paradise! The flavors at
-                                    ReservQ are a symphony of delight. Every bite tells a story of passion and skill. A
-                                    must-visit for anyone seeking beyond compare."</p>
-                            </div>
-                        </div>
-
-                        <div class="customer-inner">
-                            <div class="customer-inner-img">
-                                <img src="{% static 'assets/images/small/customer-3.png' %}" alt="img">
-                            </div>
-
-                            <div class="customer-inner-text">
-                                <div class="icon">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                    <img src="{% static 'assets/images/icon/star.svg' %}" alt="img">
-                                </div>
-
-                                <h3>Robert Fox</h3>
-                                <h5>Bike Trainer</h5>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

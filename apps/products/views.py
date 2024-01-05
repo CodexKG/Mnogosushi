@@ -1,14 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q, F, ExpressionWrapper, DecimalField, Sum
 
 from apps.settings.models import Setting
-from apps.products.models import Product
+from apps.products.models import Product, ReviewProduct
 from apps.carts.models import Cart, CartItem
 
 # Create your views here.
 def product_detail(request, id):
     setting = Setting.objects.latest('id')
     product = Product.objects.get(id=id)
+    reviews = ReviewProduct.objects.filter(product_id=id).order_by('-created')[:5]
     random_products = Product.objects.all().order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     session_key = request.session.session_key
@@ -29,6 +30,14 @@ def product_detail(request, id):
         cart_items = []
         total_price = 0
         free_delivery = False
+    if request.method == "POST":
+        if 'review' in request.POST:
+            stars = int(request.POST.get('stars') or 5)
+            print(stars)
+            message = request.POST.get('message')
+            if stars and message:
+                review = ReviewProduct.objects.create(user=request.user, product=product, stars=stars, text=message)
+                return redirect('product_detail', product.id)
     return render(request, 'products/detail.html', locals())
 
 def foods(request):

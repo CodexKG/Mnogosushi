@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 
-{% include 'include/second_header.html' %}
+{% include 'include/menu_header.html' %}
 
-{% include 'include/mobile_header.html' %}
+{% include 'include/menu_mobile_header.html' %}
 
 <main>
 
@@ -21,9 +21,6 @@
         <div class="container">
             <div class="flex">
 
-
-
-               
                 <div style="width: 100%;" class="contact-us-from">
                     <h1>Ваш заказ принят! На столик {{ table.title }} | {{ table.number }}</h1>
                     <h6>Детали вашего заказа:</h6>
@@ -68,6 +65,7 @@
                     
                     <br>
                     <div class="flex">
+                        <a href="{% url 'menu' table.number %}" class="check-button ">Главная</a>
                         <a href="login.html" class="check-button ">Чек заказа</a>
                         <a href="login.html" class="check-button ">Скачать чек</a>
                     </div>

@@ -6,7 +6,7 @@ from django.http import JsonResponse
 import traceback, requests, json
 
 from apps.settings.models import Setting, Contact
-from apps.products.models import Product
+from apps.products.models import Product, ReviewProduct
 from apps.billing.models import Billing, BillingProduct
 from apps.categories.models import Category
 
@@ -21,6 +21,7 @@ def index(request):
         )
     ).order_by('sort_priority')
     products = Product.objects.all()
+    reviews = ReviewProduct.objects.filter(stars=5).order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     popular_products = Product.objects.all().order_by("?")[:6]
     return render(request, 'index.html', locals())

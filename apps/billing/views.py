@@ -118,6 +118,7 @@ def create_billing_from_order(request):
     total_price = request.POST.get('total_price')
     payment_method = request.POST.get('payment_method')
     table_uuid = request.POST.get('table_uuid')
+    table_title = request.POST.get('table_title')
     print("TABLE:", table_uuid)
     with transaction.atomic():
         # Создаем объект Billing
@@ -165,6 +166,7 @@ def create_billing_from_order(request):
         asyncio.run(send_post_billing_menu(
             id=billing.id,
             table_uuid=table_uuid,
+            table_title=table_title,
             products=formatted_items,
             payment_method=billing.payment_method,
             payment_code=billing.payment_code,
