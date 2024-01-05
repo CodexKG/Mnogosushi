@@ -156,10 +156,16 @@
 
 
 
+                        {% if request.user.is_authenticated %}
                         <div class="nav-login-btn-main">
-                            <a href="{% url 'login' %}" class="main-btn-four">Войти</a>
-
+                            <a href="{% url 'login' %}" class="main-btn-four">Выйти</a>
+                            <a href="{% url 'profile' request.user.username %}" class="text-align" style="color: white;">{{ request.user.username }}</a>
                         </div>
+                        {% else %}
+                        <div class="nav-login-btn-main">
+                            <a href="{% url 'logout' %}" class="main-btn-four">Войти</a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

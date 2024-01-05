@@ -180,9 +180,15 @@
                             <div class="nav-btn-two">
                             </div>
                         </div>
+                        {% if request.user.is_authenticated %}
                         <div class="nav-login-btn-main">
-                            <a href="{% url 'login' %}" class="main-btn-four">Войти</a>
+                            <a href="{% url 'login' %}" class="main-btn-four">Выйти</a>
                         </div>
+                        {% else %}
+                        <div class="nav-login-btn-main">
+                            <a href="{% url 'logout' %}" class="main-btn-four">Войти</a>
+                        </div>
+                        {% endif %}
 
                         <!-- <div class="nav-login-btn-main">
                             <a href="login.html" class="main-btn-four">Регистрация</a>

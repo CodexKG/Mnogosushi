@@ -255,101 +255,41 @@
 
                                 <div class="dashboard-edit-profile-from">
                                     <div class="shopping-cart-new-address-from">
-                                        <div class="shopping-cart-new-address-from-item">
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <input type="file" name="default" id="default" class="border p-2">
-
-                                            </div>
-                                        </div>
-                                        <div class="shopping-cart-new-address-from-item">
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput11"
-                                                    placeholder="First Name">
-                                            </div>
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label class="form-label">Last Name</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput7"
-                                                    placeholder="Last  Name">
-                                            </div>
-                                        </div>
-                                        <div class="shopping-cart-new-address-from-item">
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label class="form-label">Email Address</label>
-                                                <input type="email" class="form-control" id="exampleFormControlInput8"
-                                                    placeholder="Email Address">
-                                            </div>
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput12"
-                                                    placeholder="+1 707 797 0462">
-                                            </div>
-                                        </div>
-                                        <div class="shopping-cart-new-address-from-item">
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label class="form-label">Country</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">Bangladesh</option>
-                                                    <option value="2">India</option>
-                                                    <option value="3">Usa</option>
-                                                </select>
-                                            </div>
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label for="exampleFormControlInput1" class="form-label">State</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">State</option>
-
-                                                    <option value="2">India</option>
-                                                    <option value="3">Usa</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="shopping-cart-new-address-from-item">
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label for="exampleFormControlInput1" class="form-label">City</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">City</option>
-                                                    <option value="2">Dhaka</option>
-                                                    <option value="3">Usa</option>
-                                                </select>
-                                            </div>
-                                            <div class="shopping-cart-new-address-from-inner">
-                                                <label for="exampleFormControlInput1" class="form-label">Address</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput13"
-                                                    placeholder="Address">
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="shopping-cart-new-address-from-btn">
-                                            <div class="check-btn">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Home
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault1">
-                                                    <label class="form-check-label" for="flexCheckDefault1">
-                                                        Office
-                                                    </label>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <div class="shopping-cart-new-address-from-item">
+                                                <div class="shopping-cart-new-address-from-inner">
+                                                    <input type="file" name="default" id="default" class="border p-2">
                                                 </div>
                                             </div>
-
-                                            <div class="check-btn-two">
-                                                <a href="#" class="main-btn-four">Save now</a>
+                                            <div class="shopping-cart-new-address-from-item">
+                                                <div class="shopping-cart-new-address-from-inner">
+                                                    <label class="form-label">Имя</label>
+                                                    <input type="text" class="form-control" name="first_name" value="{{ request.user.first_name }}"
+                                                        placeholder="Имя">
+                                                </div>
+                                                <div class="shopping-cart-new-address-from-inner">
+                                                    <label class="form-label">Фамилия</label>
+                                                    <input type="text" class="form-control" name="last_name" value="{{ request.user.last_name }}"
+                                                        placeholder="Фамилия">
+                                                </div>
                                             </div>
-
-                                        </div>
-
-
-
-
-
+                                            <div class="shopping-cart-new-address-from-item">
+                                                <div class="shopping-cart-new-address-from-inner">
+                                                    <label class="form-label">Почта</label>
+                                                    <input type="email" class="form-control" name="email" value="{{ request.user.email }}"
+                                                        placeholder="example@gmail.com">
+                                                </div>
+                                                <div class="shopping-cart-new-address-from-inner">
+                                                    <label class="form-label">Номер</label>
+                                                    <input type="text" class="form-control" name="phone" value="{{ request.user.phone }}"
+                                                        placeholder="+1 707 797 0462">
+                                                </div>
+                                            </div>
+                                           
+                                            <button style="margin-top: 10px;" name="update" class="main-btn-four">Обновить</button>
+                                        </form>
+                                       
                                     </div>
                                 </div>
 
