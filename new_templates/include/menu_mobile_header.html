@@ -27,9 +27,9 @@
 </header>
 <div class="cart-icon">
     <div class="cart-icon-container">
-        <a href="{% url 'cart' %}">
+        <a href="{% url 'order' table.number %}">
             <span>
-                <div class="counter">{{ cart_items_count }}</div>
+                <div class="counter">М</div>
             <svg width="38" height="38" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M6.99967 4.66536H20.9997C23.577 4.66536 25.6663 6.7547 25.6663 9.33203V15.1654C25.6663 17.7427 23.577 19.832 20.9997 19.832H11.6663C9.08901 19.832 6.99967 17.7427 6.99967 15.1654V4.66536ZM6.99967 4.66536C6.99967 3.3767 5.95501 2.33203 4.66634 2.33203H2.33301"
@@ -56,13 +56,13 @@
     <nav class="m-nav">
         <button id="nav-cls-btn"><i class="fa-solid fa-xmark"></i></button>
         <div class="logo">
-            <a href="{% url 'index' %}">
+            <a href="{% url 'menu' table.number %}">
                 <img src="{{ setting.mobile_logo.url }}" alt="logo" width="40%">
             </a>
         </div>
         <ul class="nav-links">
             
-            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'menu' table.number %}">Главная</a></li>
             <li><a href="{% url 'foods' %}">Еда</a></li>
             <li><a href="{% url 'menu_select' %}">Меню</a></li>
             <li><a href="{% url 'check_order' %}">Отследить заказ</a></li>

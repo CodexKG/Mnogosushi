@@ -12,7 +12,7 @@ from apps.carts.forms import AddToCartForm
 
 from django.shortcuts import redirect
 from django.http import JsonResponse
-# ... другие импорты ...
+
 
 # Create your views here.
 def add_to_cart(request):

@@ -39,7 +39,20 @@
                             </div>
 
                             <div class="left">
-                                <a href="{% url 'index' %}">Товары</a>
+                                <a href="{% url 'menu' table.number %}">Меню</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <div class="left">
+                                <a href="{% url 'menu' table.number %}">Товары</a>
                             </div>
                             <div class="icon">
                                 <span>
@@ -443,10 +456,11 @@
                             {% endfor %}
                             {% endif %}
                             <div class="featured-item-btn">
-                                <form action="{% url 'add_to_cart' %}" method="post">
+                                <form action="{% url 'add_to_order' %}" method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="product_id" value="{{ product.id }}">
                                     <input type="hidden" name="price" value="{{ product.price }}">
+                                    <input type="hidden" name="table_uuid" value="{{ table.number }}">
                             
                                     <!-- Кнопки уменьшения и увеличения количества -->
                                     <input class="js-result form-control" type="number" name="quantity" min="1" value="1">
