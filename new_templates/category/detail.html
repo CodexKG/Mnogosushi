@@ -127,34 +127,76 @@
                         </h3>
                       </div>
                       <div class="featured-item-btn">
-                        <a href="shopping-cart.html" class="main-btn-three">
-                            <span>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                        stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <path
-                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                        stroke-width="1.5"></path>
-                                    <path
-                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                        stroke-width="1.5"></path>
-                                    <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                    </path>
-                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                </svg>
-                            </span>
-                            В корзину
-                        </a>
+                        <form method="post" action="{% url 'add_to_cart' %}" class="add-to-order-form">
+                          {% csrf_token %}
+                          <input type="hidden" name="product_id" value="{{ product.id }}">
+                          <input type="hidden" name="price" value="{{ product.price }}">
+                          <input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
+                          <button type="submit" class="main-btn-four" style="float: left;" data-product-id="{{ product.id }}">В корзину</button>
+                      </form>
                     </div>
                     </div>
                   </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                  document.querySelectorAll('.add-to-order-form').forEach(function(form) {
+                      if (!form.dataset.isListenerAdded) {
+                          form.addEventListener('submit', function(event) {
+                              event.preventDefault();
+                              var formData = new FormData(this);
+              
+                              fetch(this.getAttribute('action'), {
+                                  method: 'POST',
+                                  body: formData
+                              })
+                              .then(response => response.json())
+                              .then(data => {
+                                  if (data.success) {
+                                      Swal.fire({
+                                          icon: 'success',
+                                          title: 'Товар добавлен',
+                                          text: 'Товар добавлен в вашу корзину',
+                                          showCancelButton: true,
+                                          cancelButtonText: 'ОК',
+                                          confirmButtonText: 'Корзина',
+                                          showCloseButton: true,
+                                          didOpen: () => {
+                                              // Добавление кастомного класса к кнопке "Корзина"
+                                              document.querySelector('.swal2-confirm').classList.add('main-btn-four');
+                                          }
+                                      }).then((result) => {
+                                          if (result.isConfirmed) {
+                                              window.location.href = '{% url "cart" %}'; // URL корзины
+                                          }
+                                      });
+                                  } else {
+                                      Swal.fire({
+                                          icon: 'error',
+                                          title: 'Упс...',
+                                          text: 'Произошла ошибка: ' + data.message
+                                      });
+                                  }
+                                  const itemsMenuCount = document.querySelector('#items-menu-count');
+                                  if (itemsMenuCount) {
+                                      itemsMenuCount.textContent = data.total_items;
+                                  }
+                              })
+                              .catch(error => {
+                                  console.error('Error:', error);
+                                  Swal.fire({
+                                      icon: 'error',
+                                      title: 'Упс...',
+                                      text: 'Произошла ошибка: ' + error
+                                  });
+                              });
+                          });
+                          form.dataset.isListenerAdded = "true";
+                      }
+                  });
+              </script>
+              
+                                          
                 {% endfor %}
               </div>
             </div>
