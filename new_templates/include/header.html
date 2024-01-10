@@ -23,26 +23,9 @@
 
                     <div class="location-btn">
                         <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Полезные ссылки
+                            <a class="btn btn-secondary" href="{% url 'check_order' %}" role="button">
+                                Отследить заказ
                             </a>
-
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{ setting.instagram }}">Instagram</a></li>
-                                <li><a class="dropdown-item" href="{{ setting.tiktok }}">TikTok</a></li>
-                                <li><a class="dropdown-item" href="{{ setting.telegram }}">Telegram</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="location-btn-icon">
-                            <span>
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.83301 8.33203L9.99967 11.6654L14.1663 8.33203" stroke="white"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
                         </div>
                     </div>
 
@@ -112,6 +95,8 @@
                     {% endif %}
                 </div>
             </div>
+
+
         </div>
     </div>
 
@@ -136,11 +121,7 @@
                                     <li><a href="{% url 'index' %}">Главная</a></li>
                                     <li><a href="{% url 'foods' %}">Все блюда</a></li>
                                     <li><a href="{% url 'menu_select' %}">Меню</a></li>
-                                    <li><a href="{% url 'check_order' %}">Отследить заказ</a></li>
                                     <li><a href="{% url 'contact' %}">Контакты</a></li>
-                                    <!-- <li><a href="{% url 'cart' %}">Корзина</a></li> -->
-                                
-                                    </li>
                                 </ul>
                             </div>
                         </div>

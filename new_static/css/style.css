@@ -62,7 +62,7 @@ h5,
 h6,
 a,
 p {
-  font-family: "Montserrat", sans-serif;s
+  font-family: "Montserrat", sans-serif;
   margin: 0;
 }
 
@@ -1513,7 +1513,7 @@ p {
   transition: all 0.5s linear;
   overflow: hidden;
   z-index: 1;
-  font-size: 20px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.1px;
@@ -4400,6 +4400,7 @@ p {
   background-color: #fff;
   border-radius: 6px;
   overflow: hidden;
+  margin-bottom: 70px;
 }
 
 .food-details .featured-item:hover .text-item-center h3 a {
@@ -4424,6 +4425,7 @@ p {
 .food-details .featured-item .featured-item-img {
   overflow: hidden;
   position: relative;
+  height: 200px;
 }
 
 .food-details .featured-item .featured-item-img .featured-item-img-overlay .featured-item-img-over-text .left-text {
@@ -4477,6 +4479,7 @@ p {
 .food-details .featured-item .featured-item-text {
   padding: 24px 20px;
   box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.06);
+  height: 220px;
 }
 
 .food-details .featured-item .featured-item-text .text-item {
@@ -4515,10 +4518,11 @@ p {
 
 .food-details .featured-item .featured-item-text .text-item-center {
   padding-top: 8px;
+  margin-bottom: 15px;
 }
 
 .food-details .featured-item .featured-item-text .text-item-center h3 a {
-  font-size: 24px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
@@ -6612,6 +6616,7 @@ p {
 .traditional .featured-item .featured-item-img {
   overflow: hidden;
   position: relative;
+  height: 200px;
 }
 
 .traditional .featured-item .featured-item-img .featured-item-img-overlay .featured-item-img-over-text .left-text {
