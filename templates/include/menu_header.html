@@ -28,7 +28,6 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -38,7 +37,6 @@
                         <a href="#">заказать</a>
                     </span></p>
             </div>
-
 
             <div class="header-right">
                 <div class="header-right-item">
@@ -53,8 +51,6 @@
                                 </svg>
                             </span>
                         </div>
-
-
                         <div class="text">
                             <a href="tel:+17077970462">{{ setting.phone }}</a>
                         </div>
@@ -70,8 +66,6 @@
                                 </svg>
                             </span>
                         </div>
-
-
                         <div class="text">
                             <a href="mailto:Quomodosoft@gmail.com">{{ setting.email }}</a>
                         </div>
@@ -95,8 +89,6 @@
                     {% endif %}
                 </div>
             </div>
-
-
         </div>
     </div>
 
@@ -105,30 +97,23 @@
 
 
     <nav class="menu-bg">
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="nav-main">
-
                         <div class="nav-main">
                             <div class="logo">
                                 <a href="{% url 'menu' table.number %}"> <img width="20%" src="{{ setting.logo.url }}" alt="{{ setting.title }}"></a>
                             </div>
-
                             <div class="menu">
                                 <ul>
                                     <li><a href="{% url 'menu' table.number %}">Главная</a></li>
-                                    <li><a href="{% url 'foods' %}">Все блюда</a></li>
+                                    <li><a href="{% url 'category_index' %}">Все блюда</a></li>
                                     <li><a href="{% url 'menu_select' %}">Меню</a></li>
                                     <li><a href="{% url 'contact' %}">Контакты</a></li>
                                 </ul>
                             </div>
                         </div>
-
-
-
                         <div class="nav-btn-main">
                             <div class="nav-btn-one">
                                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Искать">
@@ -147,13 +132,8 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div class="nav-login-btn-main">
                             <a href="{% url 'login' %}" class="main-btn-four">Войти</a>
-
                         </div>
                     </div>
                 </div>

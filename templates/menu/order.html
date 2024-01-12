@@ -48,11 +48,7 @@
 
         <!-- banner  -->
 
-
-
         <!-- Shopping Cart  start -->
-
-
 
         <section class="shopping-cart-two shopping-cart-new-address  ">
             <div class="container">
@@ -66,7 +62,6 @@
                                         <div class="shopping-cart-new-address-taitel">
                                             <h4>Оформить заказ</h4>
                                         </div>
-
                                         <div class="shopping-cart-new-address-top-btn">
                                             <a href="{% url 'menu' table.number %}">
                                                 <span>
@@ -83,9 +78,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="shopping-cart-new-address-from">
-                                        
-                                        
+                                    <div class="shopping-cart-new-address-from">  
                                         <div class="shopping-cart-new-address-from-item">
                                             <div class="shopping-cart-new-address-from-inner">
                                                 <label for="exampleFormControlInput1" class="form-label">Способ оплаты:</label>
@@ -99,16 +92,12 @@
                                         </div>
 
                                         <div class="shopping-cart-new-address-from-btn">
-                                            
-                                            
-
                                             <div class="check-btn-two">
                                                 <input type="hidden" name="total_price" value="{{ total_price }}">
                                                 <input type="hidden" name="table_uuid" value="{{ table.number }}">
                                                 <input type="hidden" name="table_title" value="{{ table.title }}">
                                                 <button class="main-btn-four" type="submit">Оформить</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -143,8 +132,6 @@
                                 {% endfor %}
                                 {% endif %}
                             </div>
-
-
                             <div class="apply-coupon">
                                 <div class="apply-coupon-taitel">
                                     <h4>Ввести промокод</h4>
@@ -159,7 +146,6 @@
                                         <a href="#">Принять</a>
                                     </div>
                                 </div>
-
 
                                 <div class="apply-coupon-box">
                                     <div class="shopping-cart-list">
@@ -180,20 +166,6 @@
                                             <a href="#">{{ total_price }} KGS</a>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="shopping-cart-list-btn">
-                                        <a href="#" class="main-btn-six">
-                                            Place Order
-
-                                            <span>
-                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 9L13 5M13 5L9 1M13 5L1 5" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>

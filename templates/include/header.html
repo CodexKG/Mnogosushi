@@ -20,7 +20,6 @@
                             </svg>
                         </span>
                     </div>
-
                     <div class="location-btn">
                         <div class="dropdown">
                             <a class="btn btn-secondary" href="{% url 'check_order' %}" role="button">
@@ -31,15 +30,11 @@
 
                 </div>
             </div>
-
-
             <div class="header-left-center">
                 <p>{{ setting.description }} - <span>
                         <a href="#">заказать</a>
                     </span></p>
             </div>
-
-
             <div class="header-right">
                 <div class="header-right-item">
                     <div class="header-right-inner">
@@ -53,8 +48,6 @@
                                 </svg>
                             </span>
                         </div>
-
-
                         <div class="text">
                             <a href="tel:+17077970462">{{ setting.phone }}</a>
                         </div>
@@ -70,8 +63,6 @@
                                 </svg>
                             </span>
                         </div>
-
-
                         <div class="text">
                             <a href="mailto:Quomodosoft@gmail.com">{{ setting.email }}</a>
                         </div>
@@ -95,31 +86,25 @@
                     {% endif %}
                 </div>
             </div>
-
-
         </div>
     </div>
 
     <!-- menu part start -->
 
-
     <nav class="menu-bg ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="nav-main">
-
                         <div class="nav-main">
                             <div class="logo">
                                 <a href="{% url 'index' %}"> <img width="20%" src="{{ setting.logo.url }}"
                                         alt="logo"></a>
                             </div>
-
                             <div class="menu">
                                 <ul>
                                     <li><a href="{% url 'index' %}">Главная</a></li>
-                                    <li><a href="{% url 'foods' %}">Все блюда</a></li>
+                                    <li><a href="{% url 'category_index' %}">Все блюда</a></li>
                                     <li><a href="{% url 'menu_select' %}">Меню</a></li>
                                     <li><a href="{% url 'contact' %}">Контакты</a></li>
                                 </ul>
@@ -170,11 +155,9 @@
                             <a href="{% url 'logout' %}" class="main-btn-four">Войти</a>
                         </div>
                         {% endif %}
-
                         <!-- <div class="nav-login-btn-main">
                             <a href="login.html" class="main-btn-four">Регистрация</a>
                         </div> -->
-                        
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 from django.http import JsonResponse
 import traceback, requests, json
 
-from apps.settings.models import Setting, Contact
+from apps.settings.models import Setting, Contact, FAQ, Promotions
 from apps.products.models import Product, ReviewProduct
 from apps.billing.models import Billing, BillingProduct
 from apps.categories.models import Category
@@ -24,11 +24,13 @@ def index(request):
     reviews = ReviewProduct.objects.filter(stars=5).order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     popular_products = Product.objects.all().order_by("?")[:6]
+    faqs = FAQ.objects.all().order_by('?')[:3]
     return render(request, 'index.html', locals())
 
 def contact(request):
     setting = Setting.objects.latest('id')
     footer_products = Product.objects.filter(title__startswith='Крылышки')
+    faqs = FAQ.objects.all().order_by('?')[:3]
     print(request.method)
     if request.method == "POST":
         print("check")

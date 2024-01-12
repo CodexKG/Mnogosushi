@@ -21,7 +21,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 </header>
@@ -63,7 +62,7 @@
         <ul class="nav-links">
             
             <li><a href="{% url 'menu' table.number %}">Главная</a></li>
-            <li><a href="{% url 'foods' %}">Еда</a></li>
+            <li><a href="{% url 'category_index' %}">Все блюда</a></li>
             <li><a href="{% url 'menu_select' %}">Меню</a></li>
             <li><a href="{% url 'check_order' %}">Отследить заказ</a></li>
             <li><a href="{% url 'contact' %}">Контакты</a></li>
@@ -74,8 +73,6 @@
                     <li><a href="{% url 'register' %}">Регистрация</a></li>
                 </ul>
             </li>
-
         </ul>
-
     </nav>
 </aside>
