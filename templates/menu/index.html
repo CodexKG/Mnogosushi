@@ -1,141 +1,161 @@
-{% include 'include/homepage.html' %}
+{% extends 'include/homepage.html' %}
 {% load static %}
 {% block content %}
 
-    <!-- SPECIFIC CSS -->
-    <link href="{% static 'css/listing.css' %}" rel="stylesheet">
+    <!-- header part start  -->
+    {% include 'include/menu_header.html' %}
 
-    <!-- YOUR CUSTOM CSS -->
-    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <!-- mobile navigation start -->
+    {% include 'include/menu_mobile_header.html' %}
 
-</head>
-
-<body>
-				
-	<!-- /header -->
-	
-	<main>
-		
-		{% include 'include/menu_header.html' %}
-		
-	    <div class="container margin_30_20">
-
-	        <div class="promo mb_30">
-				<h3>Меню стола {{ setting.title }} {{ table.title }}</h3>
-	            <p>Меню стола ID: {{ table.number }}</p>
-				<img src="{{ table.qr_code_image.url }}" alt="{{ table.number }}" style="margin-top: 10px;" width="100px">
-	            <i class="icon-food_icon_delivery"></i>
-	        </div>
-	        <!-- /promo -->
-
-	        <!-- Ваш HTML-код -->
-			<div class="row">
-				<div class="col-12">
-					<h2 class="title_small">Категория товаров</h2>
-				</div>
-				
-				{% for category in categories %}
-				<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">{{ setting.title }}</span>
-							{% if category.iiko_image %}
-							<img src="{{ category.iiko_image }}" data-src="{{ category.iiko_image }}" class="img-fluid lazy" alt="{{ category.title }}">
-							{% else %}
-							<img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="{{ category.title }}">
-							{% endif %}
-							<a href="{% url 'category_menu_detail' table.number category.slug %}" class="strip_info">
-								<!-- <small>ID: {{ category.id }}</small> -->
-								<div class="item_title">
-									<h3>{{ category.title }}</h3>
-									<!-- <small>{{ setting.phone }}</small> -->
-								</div>
-							</a>
-						</figure>
-						
-					</div>
-				</div>
-				{% endfor %}
-				<!-- /strip grid -->
-			</div>
+    <!-- header part end  -->
 
 
-			<!-- Подключение SweetAlert (CDN) -->
-			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <main>
 
-			<!-- JavaScript для AJAX и SweetAlert -->
-			<script>
-				// Обработчик события отправки формы
-				document.querySelectorAll('.add-to-order-form').forEach(function(form) {
-					form.addEventListener('submit', function(event) {
-						event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        <!-- banner  -->
 
-						var productID = this.querySelector('button').getAttribute('data-product-id'); // Получаем ID продукта
-						var formData = new FormData(this);
+        <div class="inner-banner">
+            <div class="container">
+                <div class="row  ">
+                    <div class="col-lg-12">
+                        <div class="inner-banner-head">
+                            <h1>Меню стола {{ table.title }} | {{ table.number }}</h1>
+                        </div>
 
-						// Отправляем AJAX-запрос
-						fetch(this.getAttribute('action'), {
-							method: 'POST',
-							body: formData
-						})
-						.then(function(response) {
-							return response.json(); // Ожидаем JSON-ответ
-						})
-						.then(function(data) {
-							if (data.success) {
-								Swal.fire({
-								icon: 'success',
-								title: 'Продукт добавлен в заказ!',
-								showConfirmButton: false,
-								timer: 1000,
-								html: `
-									<p>Продукт добавлен в заказ!</p>
-									<a href="{% url 'order' table.number %}" class="btn_1">Меню</a>
-								`
-							});
-							} else {
-								Swal.fire({
-									icon: 'error',
-									title: 'Ошибка при добавлении продукта в заказ.',
-									showConfirmButton: false,
-									timer: 1000
-								});
-							}
-						})
-						.catch(function(error) {
-							console.error('Ошибка:', error);
-						});
-					});
-				});
-			</script>
+                        <div class="inner-banner-item">
+                            <div class="left">
+                                <a href="{% url 'index' %}">Главная</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="left">
+                                <a href="{% url 'menu_select' %}">Меню</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="left">
+                                <span>Категории</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	    </div>
-	    <!-- /container -->
-	</main>
-	<!-- /main -->
+        <!-- banner  -->
 
-	{% include 'include/footer.html' %}
-	<!--/footer-->
+        <!-- Food Details part start  -->
 
-	<div id="toTop"></div><!-- Back to top button -->
+        <section class="traditional s-padding">
+            <div class="container">
+                <!-- Grid Tab -->
+                <div class="tab-pane fade show in active" id="grid" role="tabpanel">
+                    <!-- Filter Content -->
+                    <div class="row shafull-container">
+                        {% for category in categories %}
+                        <div class="col-lg-4 col-md-6 shaf-item res-mb-20px">
 
-    <!-- SPECIFIC SCRIPTS -->
-    <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
-    <script src="{% static 'js/specific_listing.js' %}"></script>
-    <script src="{% static 'js/isotope.min.js' %}"></script>
-    <script>
-		$(window).on("load",function(){
-		  var $container = $('.isotope-wrapper');
-		  $container.isotope({ itemSelector: '.isotope-item', layoutMode: 'masonry' });
-		});
-		$('.type_delivery').on( 'click', 'input', 'change', function(){
-		  var selector = $(this).attr('data-filter');
-		  $('.isotope-wrapper').isotope({ filter: selector });
-		});
-	</script>
+                            <div class="featured-item" data-aos="fade-up">
+                                <div class="featured-item-img">
+                                    <a href="{% url 'category_menu_detail' table.number category.slug %}">
+                                        <img src="{{ category.iiko_image }}" class="w-100" alt="{{ category.title }}">
+                                    </a>
 
-    <!-- Map -->
-    <script src="{% static 'js/main_map_scripts.js' %}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH-1noGUoStq-5nLCbxHLhAPHN1kPrW2k&libraries=places&callback=initMap"></script>
+                                    <div class="featured-item-img-overlay">
+                                        <div class="featured-item-img-over-text">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="featured-item-text">
+                                    <div class="text-item">
+                                        <div class="left">
+                                            <h3>Количество: {{ category.category_products.all.count }}</h3>
+                                        </div>
+                                        <div class="right">
+                                            <div class="icon">
+                                                <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
+                                                            fill="#FFB23E" />
+                                                    </svg></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="text-item-center">
+                                        <h3><a href="{% url 'category_menu_detail' table.number category.slug %}">{{ category.title }}</a></h3>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="traditional-btn">
+                                <a href="all-food.html" class="main-btn-four">просмотреть все категории</a>
+                            </div>
+                        </div>
+
+                    </div> -->
+                </div>
+
+            </div>
+        </section>
+
+
+
+        <!-- Food Details part end  -->
+
+
+
+
+
+
+
+
+
+
+        <!-- faq part-star -->
+
+        {% include 'include/faq.html' %}
+
+        <!-- faq part-end -->
+
+
+
+
+    
+
+
+    </main>
+
+    <!-- footer part start  -->
+
+    {% include 'include/footer.html' %}
+
+    <!-- footer part end  -->
 
 {% endblock %}

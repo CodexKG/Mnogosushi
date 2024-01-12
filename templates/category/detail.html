@@ -1,229 +1,267 @@
-{% extends 'include/homepage.html' %}
-{% load static %}
+{% extends 'include/homepage.html' %} 
+{% load static %} 
 {% block content %}
+<!-- header part start  --> 
+{% include 'include/second_header.html' %}
+<!-- mobile navigation start --> 
+{% include 'include/mobile_header.html' %}
+<!-- header part end  -->
+<main>
+  <!-- banner  -->
+  <div class="inner-banner">
+    <div class="container">
+      <div class="row  ">
+        <div class="col-lg-12">
+          <div class="inner-banner-head">
+            <h1>{{ category.title }}</h1>
+          </div>
+          <div class="inner-banner-item">
+            <div class="left">
+              <a href="{% url 'index' %}">Главная</a>
+            </div>
+            <div class="icon">
+              <span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </div>
+            <div class="left">
+              <a href="{% url 'category_detail' category.slug %}">Категория</a>
+            </div>
+            <div class="icon">
+              <span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </div>
+            <div class="left">
+              <span>{{ category.title }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- banner  -->
+  <!-- Food Details part start  -->
+  <section class="food-details   ">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="food-details-btn-box">
+            <div class="food-details-btn-box-item">
+              <div class="food-details-btn-search-box">
+                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="Искать">
+                <div class="food-details-btn-search-btn">
+                  <a href="#" class="icon">
+                    <span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5 18.5L22 22M21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21C16.7467 21 21 16.7467 21 11.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="food-details-btn-box-right-btn">
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                    <span>
+                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.34857 0H2.96329C1.32953 0 0 1.32953 0 2.96329V8.34791C0 9.98167 1.32953 11.3112 2.96329 11.3112H8.34791C9.98167 11.3112 11.3112 9.98167 11.3112 8.34791V2.96329C11.3119 1.32953 9.98233 0 8.34857 0ZM9.33633 8.34857C9.33633 8.89316 8.89316 9.33633 8.34857 9.33633H2.96329C2.4187 9.33633 1.97553 8.89316 1.97553 8.34857V2.96395C1.97553 2.41936 2.4187 1.97618 2.96329 1.97618H8.34791C8.8925 1.97618 9.33567 2.41936 9.33567 2.96395L9.33633 8.34857ZM21.6715 0H16.2862C14.6525 0 13.3229 1.32953 13.3229 2.96329V8.34791C13.3229 9.98167 14.6525 11.3112 16.2862 11.3112H21.6715C23.3053 11.3112 24.6348 9.98167 24.6348 8.34791V2.96329C24.6348 1.32953 23.3059 0 21.6715 0ZM22.6593 8.34857C22.6593 8.89316 22.2161 9.33633 21.6715 9.33633H16.2862C15.7416 9.33633 15.2985 8.89316 15.2985 8.34857V2.96395C15.2985 2.41936 15.7416 1.97618 16.2862 1.97618H21.6715C22.2161 1.97618 22.6593 2.41936 22.6593 2.96395V8.34857ZM8.34857 12.6888H2.96329C1.32953 12.6888 0 14.0183 0 15.6521V21.0367C0 22.6705 1.32953 24 2.96329 24H8.34791C9.98167 24 11.3112 22.6705 11.3112 21.0367V15.6521C11.3119 14.0177 9.98233 12.6888 8.34857 12.6888ZM9.33633 21.0367C9.33633 21.5813 8.89316 22.0245 8.34857 22.0245H2.96329C2.4187 22.0245 1.97553 21.5813 1.97553 21.0367V15.6521C1.97553 15.1075 2.4187 14.6643 2.96329 14.6643H8.34791C8.8925 14.6643 9.33567 15.1075 9.33567 15.6521L9.33633 21.0367ZM21.6715 12.6888H16.2862C14.6525 12.6888 13.3229 14.0183 13.3229 15.6521V21.0367C13.3229 22.6705 14.6525 24 16.2862 24H20.3097C20.855 24 21.2975 23.5575 21.2975 23.0122C21.2975 22.467 20.855 22.0245 20.3097 22.0245H16.2862C15.7416 22.0245 15.2985 21.5813 15.2985 21.0367V15.6521C15.2985 15.1075 15.7416 14.6643 16.2862 14.6643H21.6715C22.2161 14.6643 22.6593 15.1075 22.6593 15.6521V20.1655C22.6593 20.7108 23.1018 21.1533 23.647 21.1533C24.1923 21.1533 24.6348 20.7108 24.6348 20.1655V15.6521C24.6348 14.0177 23.3059 12.6888 21.6715 12.6888Z" />
+                      </svg>
+                    </span>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+                    <span>
+                      <i class="fa-solid fa-bars"></i>
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+              <div class="row">
+                {% for product in products %}
+                <div class="col-lg-4 col-md-6">
+                  <div class="featured-item">
+                    <div class="featured-item-img">
+                      {% if product.iiko_image %}
+                      <a href="{% url 'product_detail' product.id %}"><img src="{{ product.iiko_image }}" class="w-100" alt="featured-thumb"></a>
+                      {% else %}
+                      <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" class="w-100" alt="featured-thumb"></a>
+                      {% endif %}
+                      <div class="featured-item-img-overlay">
+                        <div class="featured-item-img-over-text"></div>
+                      </div>
+                    </div>
+                    <div class="featured-item-text">
+                      <div class="text-item">
+                        <div class="left"></div>
+                        <div class="right">
+                          <div class="icon">
+                            <span>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z" fill="#FFB23E" />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-item-center">
+                        <h3>
+                          <a href="{% url 'product_detail' product.id %}">{{ product.title }}</a>
+                          <a href="{% url 'product_detail' product.id %}">{{ product.price }} KGS</a>
+                        </h3>
+                      </div>
+                      <div class="featured-item-btn">
+                        <form method="post" action="{% url 'add_to_cart' %}" class="add-to-order-form">
+                          {% csrf_token %}
+                          <input type="hidden" name="product_id" value="{{ product.id }}">
+                          <input type="hidden" name="price" value="{{ product.price }}">
+                          <input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
+                          <button type="submit" class="main-btn-four" style="float: left;" data-product-id="{{ product.id }}">В корзину</button>
+                      </form>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                  document.querySelectorAll('.add-to-order-form').forEach(function(form) {
+                      if (!form.dataset.isListenerAdded) {
+                          form.addEventListener('submit', function(event) {
+                              event.preventDefault();
+                              var formData = new FormData(this);
+              
+                              fetch(this.getAttribute('action'), {
+                                  method: 'POST',
+                                  body: formData
+                              })
+                              .then(response => response.json())
+                              .then(data => {
+                                  if (data.success) {
+                                      Swal.fire({
+                                          icon: 'success',
+                                          title: 'Товар добавлен',
+                                          text: 'Товар добавлен в вашу корзину',
+                                          showCancelButton: true,
+                                          cancelButtonText: 'ОК',
+                                          confirmButtonText: 'Корзина',
+                                          showCloseButton: true,
+                                          didOpen: () => {
+                                              // Добавление кастомного класса к кнопке "Корзина"
+                                              document.querySelector('.swal2-confirm').classList.add('main-btn-four');
+                                          }
+                                      }).then((result) => {
+                                          if (result.isConfirmed) {
+                                              window.location.href = '{% url "cart" %}'; // URL корзины
+                                          }
+                                      });
+                                  } else {
+                                      Swal.fire({
+                                          icon: 'error',
+                                          title: 'Упс...',
+                                          text: 'Произошла ошибка: ' + data.message
+                                      });
+                                  }
+                                  const itemsMenuCount = document.querySelector('#items-menu-count');
+                                  if (itemsMenuCount) {
+                                      itemsMenuCount.textContent = data.total_items;
+                                  }
+                              })
+                              .catch(error => {
+                                  console.error('Error:', error);
+                                  Swal.fire({
+                                      icon: 'error',
+                                      title: 'Упс...',
+                                      text: 'Произошла ошибка: ' + error
+                                  });
+                              });
+                          });
+                          form.dataset.isListenerAdded = "true";
+                      }
+                  });
+              </script>
+              
+                                          
+                {% endfor %}
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+              <div class="row popular-item-box-mt">
+                {% for product in products %}
+                <div class="col-lg-6">
+                  <div class="popular-item-box">
+                    <div class="popular-item-box-img">
+                      {% if product.iiko_image %}
+                      <img src="{{ product.iiko_image }}" alt="thumb">
+                      {% else %}
+                      <img src="{{ product.image.url }}" alt="thumb">
+                      {% endif %}
+                      <div class="popular-item-box-img-overlay">
+                        <div class="icon">
+                          <span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z" fill="#FFB23E" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="text">
 
-    <!-- SPECIFIC CSS -->
-    <link href="{% static 'css/listing.css' %}" rel="stylesheet">
-
-    <!-- YOUR CUSTOM CSS -->
-    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
-
-	<style>
-
-.strip ul{
-			text-align: right;
-		}
-
-		.btn-wrapper-fixed{
-			position: fixed;
-			z-index: 1000;
-			left: 20px;
-			bottom: 30px;
-		}
-
-		.btn-menu-fixed {			
-			background-color: #e54750;
-			color: white;
-			padding: 15px;
-			border-radius: 5%;
-			text-align: center;
-			font-size: 16px;
-			text-decoration: none;
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-			position: relative;
-		}
-
-		.items-in-menu-count {
-			position: absolute;
-			top: -10px;
-			right: -10px;
-			background-color: red;
-			color: white;
-			border-radius: 50%;
-			padding: 2px 5px;
-			font-size: 12px;
-			line-height: 1; /* Убирает лишний отступ внутри круга */
-			min-width: 20px; /* Минимальная ширина для круглой формы */
-			text-align: center;
-		}
-
-		.btn-menu-fixed:hover {
-			color: #fff;
-			background-color: #f3723b;
-		}
-
-		.btn-menu-fixed i {
-			margin-right: 5px;
-		}
-
-
-	</style>
-
-</head>
-
-<body>
-				
-	{% include 'include/second_header.html' %}
-	<!-- /header -->
-	
-	<main>
-		<div class="page_header element_to_stick">
-		    <div class="container">
-		    	<div class="row">
-		    		<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-		        		<h1>{{ setting.address }}</h1>
-		        		<a href="https://go.2gis.com/5pya9">Мы в 2GIS</a>
-		    		</div>
-		    		<div class="col-xl-4 col-lg-5 col-md-5">
-		    			<div class="search_bar_list">
-                            <form action="{% url 'search' %}" method="post">
-                                {% csrf_token %}
-                                <input type="text" name="query" class="form-control" placeholder="Название, описание">
-                                <button type="submit"><i class="icon_search"></i></button>
-                            </form>
-						</div>
-		    		</div>
-		    	</div>
-		    	<!-- /row -->		       
-		    </div>
-		</div>
-		<!-- /page_header -->
-
-		<div class="container margin_30_20">			
-			<div class="row">
-				
-				<div class="col-lg-16">
-					
-
-					<div class="promo mb_30">
-						<h3>Бесплатная доставка от 1500 сом!</h3>
-						<p>Если вы закажете еду от 1500 сом, доставка бесплатная</p>
-						<i class="icon-food_icon_delivery"></i>
-					</div>
-					<!-- /promo -->
-					
-					<div class="row">
-						<div class="col-12"><h2 class="title_small">{{ category.title }}</h2></div>
-                        {% for product in products %}
-						<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-							<div class="strip">
-							    <figure>
-							    	<span class="ribbon off">{{ setting.title }}</span>
-									{% if product.iiko_image %}
-							        <img src="{{ product.iiko_image }}" data-src="{{ product.iiko_image }}" class="img-fluid lazy" alt="{{ product.title }}">
-									{% else %}
-							        <img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" class="img-fluid lazy" alt="{{ product.title }}">
-									{% endif %}
-							        <a href="{% url 'product_detail' product.id %}" class="strip_info">
-							            <small>{{ product.price }}KGS</small>
-							            <div class="item_title">
-							                <h3>{{ product.title }}</h3>
-							                <!-- <small>{{ setting.phone }}</small> -->
-							            </div>
-							        </a>
-							    </figure>
-							    <ul>
-									<li>
-										<form method="post" action="{% url 'add_to_cart' %}" class="add-to-order-form">
-											{% csrf_token %}
-											<input type="hidden" name="product_id" value="{{ product.id }}">
-											<input type="hidden" name="price" value="{{ product.price }}">
-											<input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
-											<button type="submit" class="btn_1 gradient full-width" style="float: left;" data-product-id="{{ product.id }}">В корзину</button>
-										</form>
-									</li>
-								</ul>
-							</div>
-						</div>
-                        {% endfor %}
-
-						<div class="btn-wrapper-fixed">
-							<a href="{% url 'cart' %}" class="btn-menu-fixed">
-								<i class="fa fa-shopping-cart"></i> Мои заказы
-								<span class="items-in-menu-count" id="items-menu-count">{{cart_items_count}}</span>
-							</a>
-						</div>
-
-						<!-- SweetAlert (CDN) -->
-						<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                
-						<!-- JavaScript for AJAX and SweetAlert -->
-						<script>
-
-							document.querySelectorAll('.add-to-order-form').forEach(function(form) {
-								form.addEventListener('submit', function(event) {
-									event.preventDefault();
-						
-									var productID = this.querySelector('button').getAttribute('data-product-id');
-									var formData = new FormData(this);
-						
-									fetch(this.getAttribute('action'), {
-										method: 'POST',
-										body: formData
-									})
-									.then(function(response) {
-										return response.json();
-									})
-									.then(function(data) {
-										if (data.success) {
-											Swal.fire({
-												icon: 'success',
-												title: 'Товар добавлен',
-												text: 'Товар добавлен в вашу корзину',
-												showConfirmButton: false,
-												timer: 3000,
-												html: `
-													<p>Продукт добавлен в заказ!</p>
-													<a href="{% url 'cart' %}" class="btn_1">Корзина</a>
-													<a id="closeAddingAlert" class="btn_1">Закрыть</a>
-												`,showCloseButton: true,
-												didOpen: () => {
-													document.getElementById('closeAddingAlert').addEventListener('click', () => {
-														Swal.close();
-													});
-												}
-											});
-										} else {
-											Swal.fire({
-												icon: 'error',
-												title: 'Упс...',
-												text: 'Произошла ошибка.'
-											});
-										}
-										document.querySelector('#items-menu-count').textContent = data.total_items;
-									})
-									.catch(function(error) {
-										console.error('Error:', error);
-										Swal.fire({
-											icon: 'error',
-											title: 'Упс...',
-											text: 'Произошла ошибка!'
-										});
-									});
-								});
-							});
-						</script>
-
-						<!-- /strip grid -->
-					</div>
-				</div>
-				<!-- /col -->
-			</div>		
-		</div>
-		<!-- /container -->
-		
-	</main>
-	<!-- /main -->
-
-	{% include 'include/footer.html' %}
-	<!--/footer-->
-
-	<div id="toTop"></div><!-- Back to top button -->
-	
-	
-
-    <!-- SPECIFIC SCRIPTS -->
-    <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
-    <script src="{% static 'js/specific_listing.js' %}"></script>
-
+                        </div>
+                      </div>
+                    </div>
+                    <div class="popular-inner-box">
+                      <div class="popular-item-box-text">
+                        <h3>{{ product.title }}</h3>
+                      </div>
+                      
+                      <div class="popular-inner-item-btm">
+                        <div class="text">
+                          <h3>{{ product.price }} KGS</h3>
+                        </div>
+                        <div class="popular-inner-item-btn">
+                          <a href="shopping-cart.html" class="main-btn-five">
+                            <span>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z" stroke-width="1.5"></path>
+                                <path d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z" stroke-width="1.5"></path>
+                                <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                              </svg>
+                            </span> В корзину </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Food Details part end  -->
+  <!-- faq part-star -->
+  {% include 'include/faq.html' %}
+  <!-- faq part-end -->
+</main>
+<!-- footer part start  -->
+{% include 'include/footer.html' %}
+<!-- footer part end  --> 
 {% endblock %}

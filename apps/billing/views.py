@@ -10,7 +10,7 @@ import asyncio
 
 from apps.settings.models import Setting
 from apps.carts.models import Cart, CartItem
-from apps.tables.models import TableOrder, TableOrderItem
+from apps.tables.models import Table, TableOrder, TableOrderItem
 from apps.billing.models import Billing, BillingProduct
 from apps.telegram.views import send_post_billing, send_post_billing_menu
 from apps.billing.admin import export_to_excel
@@ -23,12 +23,23 @@ def export_billings_to_excel_view(request):
 
 def confirm(request, address, phone, payment_code):
     setting = Setting.objects.latest('id')
+    billing = Billing.objects.get(payment_code=payment_code)
+    try:
+        products = BillingProduct.objects.filter(billing=billing.id)
+    except Exception as error:
+        print("Error:", error)
     result = {'address':address, 'phone':phone, 'payment_code':payment_code}
     return render(request, 'billing/confirm.html', locals())
 
-def confirm_menu(request, payment_code):
+def confirm_menu(request, payment_code, table_number):
     setting = Setting.objects.latest('id')
+    table = Table.objects.get(number=table_number)
     result = {'payment_code':payment_code}
+    billing = Billing.objects.get(payment_code=payment_code)
+    try:
+        products = BillingProduct.objects.filter(billing=billing.id)
+    except Exception as error:
+        print("Error:", error)
     return render(request, 'billing/confirm_menu.html', locals())
 
 def create_billing_from_cart(request):
@@ -107,6 +118,7 @@ def create_billing_from_order(request):
     total_price = request.POST.get('total_price')
     payment_method = request.POST.get('payment_method')
     table_uuid = request.POST.get('table_uuid')
+    table_title = request.POST.get('table_title')
     print("TABLE:", table_uuid)
     with transaction.atomic():
         # Создаем объект Billing
@@ -154,6 +166,7 @@ def create_billing_from_order(request):
         asyncio.run(send_post_billing_menu(
             id=billing.id,
             table_uuid=table_uuid,
+            table_title=table_title,
             products=formatted_items,
             payment_method=billing.payment_method,
             payment_code=billing.payment_code,
@@ -161,7 +174,7 @@ def create_billing_from_order(request):
         ))
 
         # return redirect('confirm', billing.address, billing.phone, billing.payment_code)
-        return redirect('confirm_menu', billing.payment_code)
+        return redirect('confirm_menu', billing.payment_code, table_uuid)
     
 def order_receipt(request, payment_code):
     setting = Setting.objects.latest('id')

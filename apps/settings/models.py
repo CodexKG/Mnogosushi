@@ -16,6 +16,11 @@ class Setting(models.Model):
         verbose_name="Логотип",
         blank=True, null=True
     )
+    mobile_logo = models.ImageField(
+        upload_to='logo/',
+        verbose_name="Мобильное лого",
+        blank=True, null=True
+    )
     email = models.EmailField(
         verbose_name="Почта",
         blank=True, null=True
@@ -40,6 +45,10 @@ class Setting(models.Model):
     )
     tiktok = models.URLField(
         verbose_name="TikTok",
+        blank=True, null=True
+    )
+    telegram = models.URLField(
+        verbose_name="Telegram",
         blank=True, null=True
     )
     whatsapp = models.URLField(
@@ -96,3 +105,40 @@ class Statistics(models.Model):
     class Meta:
         verbose_name = "Статистика"
         verbose_name_plural = "Статистики"
+
+class FAQ(models.Model):
+    question = models.CharField(
+        max_length=255,
+        verbose_name="Вопрос"
+    )
+    answer = models.CharField(
+        max_length=255,
+        verbose_name="Ответ"
+    )
+
+    def __str__(self):
+        return f"{self.question} {self.answer}"
+    
+    class Meta:
+        verbose_name = "Часто задаваемый вопрос"
+        verbose_name_plural = "Часто задаваемые вопросы"
+
+class Promotions(models.Model):
+    title = models.CharField(
+        max_length=255,
+        verbose_name="Заголовок"
+    )
+    image = models.ImageField(
+        upload_to='promotions_image/',
+        verbose_name="Фотография"
+    )
+    url = models.URLField(
+        verbose_name="Ссылка на промоакцию"
+    )
+
+    def __str__(self):
+        return self.title 
+    
+    class Meta:
+        verbose_name = "Промоакция"
+        verbose_name_plural = "Промоакции"

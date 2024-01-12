@@ -57,6 +57,18 @@ def user_login(request):
 def profile(request, username):
     user = User.objects.get(username = username)
     setting = Setting.objects.latest('id')
+    if request.method == "POST":
+        if 'update' in request.POST:
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email 
+            user.phone = phone
+            user.save()
+            return redirect('profile', user.username)
     context = {
         'user' : user,
         'setting' : setting

@@ -1,97 +1,11 @@
-{% extends "include/homepage.html" %}
-
-{% load i18n static %}
-
-{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
-
-{% block content %}
-<style>
-    /* Добавьте это в ваш CSS файл или в блок <style> в шаблоне */
-        .container {
-    padding-top: 50px; /* Расстояние от верха страницы до формы */
-    }
-
-    .signup h1 {
-    margin-bottom: 25px; /* Расстояние от заголовка до текста */
-    }
-
-    .signup form {
-    background: #fff; /* Фон формы */
-    padding: 20px; /* Внутренние отступы формы */
-    border-radius: 8px; /* Скругленные углы формы */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень формы */
-    }
-
-    .signup button.btn {
-    width: 100%; /* Кнопка на всю ширину формы */
-    padding: 10px; /* Внутренние отступы кнопки */
-    margin-top: 20px; /* Расстояние от кнопки до последнего элемента формы */
-    }
-</style>
-
-{% load static %}
-<header class="header_in clearfix">
-    <div class="container">
-        <div id="logo">
-            <a href="{% url 'index' %}">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png" width="50px" alt="{{ setting.title }}">
-            </a>
-        </div>
-        <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
-        <!-- <ul id="top_menu">
-            <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-            <li><a href="#0" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
-        </ul> -->
-        <!-- /top_menu -->
-        <a href="{% url 'cart' %}" class="open_close">
-            <i class="icon_menu"></i><span>Menu</span>
-        </a>
-        <nav class="main-menu">
-            <div id="header_menu">
-                <a href="{% url 'cart' %}" class="open_close">
-                    <i class="icon_close"></i><span>Menu</span>
-                </a>
-                <a href="{% url 'index' %}"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png" width="10%" alt=""></a>
-            </div>
-            <ul>
-                <li class="submenu">
-                    <a href="{% url 'index' %}" class="show-submenu">Главная</a>
-                    
-                </li>
-                <li class="submenu">
-                    <a href="{% url 'foods' %}" class="show-submenu">Еда</a>
-                    
-                </li>
-                <li class="submenu">
-                    <a href="{% url 'check_order' %}" class="show-submenu">Отследить заказ</a>
-                </li>
-                <li>
-                    <a href="{% url 'contact' %}" target="_parent">Контакты</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h1 class="text-center">{% trans "Sign Up" %}</h1>
-
-      <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}
-        Вы собираетесь использовать свою учетную запись Telegram для входа в систему {{ provider_name }} {{ site_name }}. На последнем этапе заполните следующую форму::
-      {% endblocktrans %}</p>
-
-      <form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <div class="text-center">
-          <button class="btn_1" type="submit">{% trans "Sign Up" %} &raquo;</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-{% endblock content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
