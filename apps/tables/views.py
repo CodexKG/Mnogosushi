@@ -3,10 +3,11 @@ from django.db.models import F, ExpressionWrapper, DecimalField, Sum
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Case, When, Value, IntegerField
+from django.db import IntegrityError
 
 import json
 
-from apps.settings.models import Setting
+from apps.settings.models import Setting, FAQ, Promotions
 from apps.tables.models import Table, TableOrder, TableOrderItem
 from apps.tables.forms import AddToOrderForm
 from apps.products.models import Product
@@ -29,13 +30,14 @@ def menu(request, table_uuid):
         )
     ).order_by('sort_priority')
     products = Product.objects.all()
+    faqs = FAQ.objects.all().order_by('?')[:3]
     return render(request, 'menu/index.html', locals())
 
 def menu_detail(request, product_id, table_uuid):
     setting = Setting.objects.latest('id')
     product = Product.objects.get(id=product_id)
     table = Table.objects.get(number=table_uuid)
-    footer_products = Product.objects.filter(title__startswith='Крылышки')
+    promotions = Promotions.objects.all().order_by('-id')[:2]
     random_products = Product.objects.all().order_by('?')[:3]
     session_key = request.session.session_key
     cart = TableOrder.objects.filter(session_key=session_key).first()
@@ -103,10 +105,13 @@ def add_to_order(request):
                 session_key = request.session.session_key
 
             table_instance = Table.objects.get(number=table_uuid)
-            table, _ = TableOrder.objects.get_or_create(session_key=session_key, menu_table=table_instance)
+            table_order, created = TableOrder.objects.get_or_create(
+                session_key=session_key, 
+                defaults={'menu_table': table_instance}
+            )
 
             # Получаем объект CartItem по cart и product
-            table_item = TableOrderItem.objects.filter(table=table, product=product).first()
+            table_item = TableOrderItem.objects.filter(table=table_order, product=product).first()
 
             # Если CartItem существует, обновляем его количество, иначе создаем новый объект
             if table_item:
@@ -115,9 +120,9 @@ def add_to_order(request):
                 table_item.quantity += quantity
                 table_item.save()
             else:
-                table_item = TableOrderItem.objects.create(table=table, product=product, quantity=quantity, total=price * quantity)
+                table_item = TableOrderItem.objects.create(table=table_order, product=product, quantity=quantity, total=price * quantity)
 
-            total_items = TableOrderItem.objects.filter(table=table).aggregate(total_quantity=Sum('quantity'))['total_quantity']
+            total_items = TableOrderItem.objects.filter(table=table_order).aggregate(total_quantity=Sum('quantity'))['total_quantity']
             print(request.META.get('HTTP_REFERER'))
             if 'menu/product' in str(request.META.get('HTTP_REFERER')):
                 return redirect('order', table_uuid)

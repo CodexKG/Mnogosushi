@@ -24,9 +24,10 @@
 
                 <div class="process-item-box">
                     {% for table in tables %}
-                    <div class="process-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-                        <div class="process-item-icon">
-                            <div class="icon">
+                    <a href="{% url 'menu' table.number %}" class="process-item-link">
+                        <div class="process-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+                            <div class="process-item-icon">
+                                <div class="icon">
                                 <span>
                                     <svg width="30" height="34" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7371 23.5034C23.8364 20.3264 26.6663 15.5679 26.6663 11.7606C26.6663 5.44878 21.443 0.332031 14.9997 0.332031C8.55635 0.332031 3.33301 5.44878 3.33301 11.7606C3.33301 15.5679 6.16294 20.3264 9.26228 23.5034C11.3011 25.5932 13.4566 26.9987 14.9997 26.9987C16.5428 26.9987 18.6982 25.5932 20.7371 23.5034ZM14.9997 15.332C16.8406 15.332 18.333 13.8396 18.333 11.9987C18.333 10.1577 16.8406 8.66536 14.9997 8.66536C13.1587 8.66536 11.6663 10.1577 11.6663 11.9987C11.6663 13.8396 13.1587 15.332 14.9997 15.332Z" fill="white"></path>
@@ -49,6 +50,7 @@
                             <!-- <img src="{% static 'assets/images/icon/1.png' %}" alt="{{ table.title }}"> -->
                         </div>
                     </div>
+                    </a>
                     {% endfor %}
                 </div>
             </div>

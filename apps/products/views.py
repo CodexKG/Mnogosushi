@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q, F, ExpressionWrapper, DecimalField, Sum
 
-from apps.settings.models import Setting, Promotions
+from apps.settings.models import Setting, Promotions, FAQ
 from apps.products.models import Product, ReviewProduct
 from apps.carts.models import Cart, CartItem
 
@@ -44,12 +44,11 @@ def foods(request):
     setting = Setting.objects.latest('id')
     print("Setting", setting)
     products = Product.objects.all().order_by('?')
-    footer_products = Product.objects.filter(title__startswith='Крылышки')
     return render(request, 'products/foods.html', locals())
 
 def search(request):
     setting = Setting.objects.latest('id')
-    footer_products = Product.objects.filter(title__startswith='Крылышки')
+    faqs = FAQ.objects.all().order_by('?')[:3]
     query = request.POST.get('query', '')
     if query:
         # Используйте Q-объекты для выполнения поиска в моделях Shop и Product
