@@ -3,80 +3,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ setting.description }}">
-    <meta name="author" content="Codex Studio">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ setting.title }}</title>
 
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="{{ setting.logo.url }}" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="{% static 'img/apple-touch-icon-57x57-precomposed.png' %}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{% static 'img/apple-touch-icon-72x72-precomposed.png' %}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{% static 'img/apple-touch-icon-114x114-precomposed.png' %}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{% static 'img/apple-touch-icon-144x144-precomposed.png' %}">
+    <!-- fave-icon  -->
+    <link rel="shortcut icon" href="{{ setting.logo.url }}" type="image/png">
 
-    <!-- GOOGLE WEB FONT -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" as="fetch" crossorigin="anonymous">
-    <script type="text/javascript">
-    !function(e,n,t){"use strict";var o="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap",r="__3perf_googleFonts_c2536";function c(e){(n.head||n.body).appendChild(e)}function a(){var e=n.createElement("link");e.href=o,e.rel="stylesheet",c(e)}function f(e){if(!n.getElementById(r)){var t=n.createElement("style");t.id=r,c(t)}n.getElementById(r).innerHTML=e}e.FontFace&&e.FontFace.prototype.hasOwnProperty("display")?(t[r]&&f(t[r]),fetch(o).then(function(e){return e.text()}).then(function(e){return e.replace(/@font-face {/g,"@font-face{font-display:swap;")}).then(function(e){return t[r]=e}).then(f).catch(a)):a()}(window,document,localStorage);
-    </script>
+    <!-- font awesome cdn link  -->
 
-    <!-- BASE CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- REVOLUTION SLIDER CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'revolution-slider/fonts/font-awesome/css/font-awesome.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'revolution-slider/css/settings.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'revolution-slider/css/layers.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'revolution-slider/css/navigation.css' %}">
-
-    <!-- SPECIFIC CSS -->
-    <link href="{% static 'css/home.css' %}" rel="stylesheet">
-
-    <!-- YOUR CUSTOM CSS -->
-    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
-
-    <!-- REVOLUTION SLIDER CUSTOM CSS -->
-    <style type="text/css">
-        .tiny_bullet_slider .tp-bullet:before {
-            content: " ";
-            position: absolute;
-            width: 100%;
-            height: 25px;
-            top: -12px;
-            left: 0px;
-            background: transparent
-        }
-        .bullet-bar.tp-bullets:before {
-            content: " ";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            padding: 10px;
-            margin-left: -10px;
-            margin-top: -10px;
-            box-sizing: content-box
-        }
-        .bullet-bar .tp-bullet {
-            width: 60px;
-            height: 3px;
-            position: absolute;
-            background: #aaa;
-            background: rgba(204, 204, 204, 0.5);
-            cursor: pointer;
-            box-sizing: content-box
-        }
-        .bullet-bar .tp-bullet:hover,
-        .bullet-bar .tp-bullet.selected {
-            background: rgba(204, 204, 204, 1)
-        }
-    </style>
-
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/venobox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 </head>
 
 <body>
@@ -84,88 +27,15 @@
 
     {% endblock %}
 
-<!-- COMMON SCRIPTS -->
-<script src="{% static 'js/common_scripts.min.js' %}"></script>
-<script src="{% static 'js/common_func.js' %}"></script>
-<script src="{% static 'assets/validate.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/aos.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <script src="{% static 'assets/js//jquery.shuffle.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
 
-<!-- SLIDER REVOLUTION SCRIPTS  -->
-<script src="{% static 'revolution-slider/js/jquery.themepunch.tools.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/jquery.themepunch.revolution.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.actions.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.carousel.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.migration.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.navigation.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.parallax.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.extension.video.min.js' %}"></script>
-<script src="{% static 'revolution-slider/js/extensions/revolution.addon.slicey.min.js' %}"></script>
-<script>
-var tpj = jQuery;
-var revapi45;
-tpj(document).ready(function() {
-    if (tpj("#rev_slider_45_1").revolution == undefined) {
-        revslider_showDoubleJqueryError("#rev_slider_45_1");
-    } else {
-        revapi45 = tpj("#rev_slider_45_1").show().revolution({
-            sliderType: "standard",
-            jsFileLocation: "revolution/js/",
-            sliderLayout: "fullscreen",
-            dottedOverlay: "none",
-            delay: 9000,
-            navigation: {
-                keyboardNavigation: "off",
-                keyboard_direction: "horizontal",
-                mouseScrollNavigation: "off",
-                mouseScrollReverse: "default",
-                onHoverStop: "off",
-                bullets: {
-                    enable: true,
-                    hide_onmobile: false,
-                    style: "bullet-bar",
-                    hide_onleave: false,
-                    direction: "horizontal",
-                    h_align: "center",
-                    v_align: "bottom",
-                    h_offset: 0,
-                    v_offset: 50,
-                    space: 5,
-                    tmp: ''
-                }
-            },
-            responsiveLevels: [1240, 1024, 778, 480],
-            visibilityLevels: [1240, 1024, 778, 480],
-            gridwidth: [1240, 1024, 778, 480],
-            gridheight: [868, 768, 960, 720],
-            lazyType: "none",
-            shadow: 0,
-            spinner: "off",
-            stopLoop: "off",
-            stopAfterLoops: -1,
-            stopAtSlide: -1,
-            shuffle: "off",
-            autoHeight: "off",
-            fullScreenAutoWidth: "off",
-            fullScreenAlignForce: "off",
-            fullScreenOffsetContainer: "",
-            fullScreenOffset: "0px",
-            hideThumbsOnMobile: "off",
-            hideSliderAtLimit: 0,
-            hideCaptionAtLimit: 0,
-            hideAllCaptionAtLilmit: 0,
-            debugMode: false,
-            fallbacks: {
-                simplifyAll: "off",
-                nextSlideOnWindowFocus: "off",
-                disableFocusListener: false,
-            }
-        });
-    }
-    if (revapi45) revapi45.revSliderSlicey();
-});
-</script>
 
 </body>
+
 </html>

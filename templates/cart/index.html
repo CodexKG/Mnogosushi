@@ -2,354 +2,344 @@
 {% load static %}
 {% block content %}
 
-<!-- SPECIFIC CSS -->
-<link href="{% static 'css/detail-page.css' %}" rel="stylesheet">
-<style>
-	/* Стилизация выпадающего списка */
-	select {
-		padding: 10px;
-		/* Расстояние внутри элемента */
-		font-size: 16px;
-		/* Размер шрифта */
-		border: 1px solid #ccc;
-		/* Граничная линия */
-		border-radius: 5px;
-		/* Закругление углов */
-		width: 100%;
-		/* Ширина элемента */
-	}
+    <!-- header part start  -->
+    {% include 'include/second_header.html' %}
+    
 
-	input {
-		padding: 10px;
-		/* Расстояние внутри элемента */
-		font-size: 16px;
-		/* Размер шрифта */
-		border: 1px solid #ccc;
-		/* Граничная линия */
-		border-radius: 5px;
-		/* Закругление углов */
-		width: 120%;
-		/* Ширина элемента */
-	}
-</style>
+    <!-- mobile navigation start -->
+    {% include 'include/mobile_header.html' %}
 
-<body data-spy="scroll" data-bs-target="#secondary_nav" data-offset="75">
+    <!-- header part end  -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
-	{% include 'include/header.html' %}
-	<!-- /header -->
+    <main>
 
-	<main>
+        <!-- banner  -->
 
-		<div class="hero_in detail_page background-image" data-background="url({% static 'img/shushi1.jpg' %})">
-			<div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+        <div class="inner-banner">
+            <div class="container">
+                <div class="row  ">
+                    <div class="col-lg-12">
+                        <div class="inner-banner-head">
+                            <h1>Корзина</h1>
+                        </div>
 
-				<div class="container">
-					<div class="main_info">
-						<div class="row">
-							<div class="col-xl-4 col-lg-5 col-md-6">
-								<div class="head">
-									<div class="score"><span>{{ setting.title }}</span></div>
-								</div>
-								<h1>Корзина</h1>
-								<a href="" target="blank">Корзина товаров</a>
-							</div>
+                        <div class="inner-banner-item">
+                            <div class="left">
+                                <a href="{% url 'index' %}">Главная</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="left">
+                                <span>Корзина</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-						</div>
-						<!-- /row -->
-					</div>
-					<!-- /main_info -->
-				</div>
-			</div>
-		</div>
-		<!--/hero_in-->
+        <!-- banner  -->
 
-		<nav class="secondary_nav sticky_horizontal">
-			<div class="container">
-				<ul id="secondary_nav">
-					<li><a href="{% url 'index' %}">Главная</a></li>
-					<li><a href="{% url 'cart' %}">Корзина</a></li>
 
-					<li><a href="{% url 'contact' %}"><i class="icon_chat_alt"></i>Контакты</a></li>
-				</ul>
-			</div>
-			<span></span>
-		</nav>
-		<!-- /secondary_nav -->
 
-		<div class="bg_gray">
-			<div class="container margin_detail">
-				<div class="row">
-					<div class="col-lg-8 list_menu">
-						<section id="section-1">
-							<h4>Заказы</h4>
-							<div class="row">
-								{% for item in cart_items %}
-								<div class="col-md-6">
-									<!-- Обновленный блок товара с тенью и кнопкой удаления -->
-									<div class="item-container">
-										<a class="menu_item modal_dialog" href="{% url 'product_detail' item.product.id  %}">
-											<figure>
-												{% if item.product.iiko_image %}
-												<img src="{{ item.product.iiko_image }}" data-src="{{ item.product.iiko_image }}" alt="{{ item.product.title }}" class="lazy">
-												{% else %}
-												<img src="{% static 'noimage.jpg' %}" data-src="{% static 'noimage.jpg' %}" alt="{{ item.product.title }}" class="lazy">
-												{% endif %}
-											</figure>
-											<div class="item-details">
-												<h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
-												<p>Количество: {{ item.quantity }}</p>
-												<strong>{{ item.total_price }} KGS</strong>
-											</div>
-											<a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger" style="margin-top: -30px;">Удалить</a>
+        <!-- Shopping Cart  start -->
 
-											<!-- Кнопка добавления и убавления количества товара -->
-											<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="increase" style="margin-top: -30px;">+</a>
-											<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="decrease" style="margin-top: -30px;">-</a>
-	
-										</a>
 
-										<!-- Кнопка удаления -->
-									
-										<script>
-											var updateBtns = document.getElementsByClassName('update-cart');
 
-											for (var i = 0; i < updateBtns.length; i++) {
-												updateBtns[i].addEventListener('click', function(e){
-													e.preventDefault();
-													var productId = this.dataset.productId;
-													var action = this.dataset.action;
-													updateCart(productId, action);
-												})
-											}
+        <section class="shopping-cart-two shopping-cart-new-address  ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 ">
+                        <form action="{% url 'create_billing' %}" method="post" onsubmit="return validateForm()">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shopping-cart-new-address-top-item">
+                                        <div class="shopping-cart-new-address-taitel">
+                                            <h4>Оформить заказ</h4>
+                                        </div>
 
-											function updateCart(productId, action) {
-												// Отправляем AJAX запрос
-												fetch('/cart/update_item/', {
-													method: 'POST',
-													headers: {
-														'Content-Type': 'application/json',
-														'X-CSRFToken': csrftoken, // Убедитесь, что вы передаете CSRF токен
-													},
-													body: JSON.stringify({'productId': productId, 'action': action})
-												})
-												.then((response) => {
-													return response.json();
-												})
-												.then((data) => {
-													location.reload(); // Перезагрузка страницы для отображения обновленных данных
-												});
-											}
+                                        <div class="shopping-cart-new-address-top-btn">
+                                            <a href="{% url 'index' %}">
+                                                <span>
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M5 8H15C17.2091 8 19 9.79086 19 12V12C19 14.2091 17.2091 16 15 16H5M5 8L9 5M5 8L9 11"
+                                                            stroke="#394150" stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </span>
+                                                Главная
+                                            </a>
+                                        </div>
+                                    </div>
 
-											function getCookie(name) {
-												let cookieValue = null;
-												if (document.cookie && document.cookie !== '') {
-													const cookies = document.cookie.split(';');
-													for (let i = 0; i < cookies.length; i++) {
-														let cookie = cookies[i].trim();
-														if (cookie.substring(0, name.length + 1) === (name + '=')) {
-															cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-															break;
-														}
-													}
-												}
-												return cookieValue;
-											}
+                                    <div class="shopping-cart-new-address-from">
+                                        <div class="shopping-cart-new-address-from-item">
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label class="form-label">Адрес доставки</label>
+                                                <input type="text" class="form-control" name="address" placeholder="Адрес Доставки">
+                                            </div>
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label for="exampleFormControlInput1" class="form-label">Ваш номер телефона</label>
+                                                <input type="text" class="form-control" name="phone" placeholder="Ваш номер телефона">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="shopping-cart-new-address-from-item">
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label for="exampleFormControlInput1" class="form-label">Способ оплаты:</label>
+                                                <select class="form-select" name="payment_method" aria-label="Default select example">
+                                                    <option value="Наличные" selected>Наличные</option>
+                                                    <option value="Mbank">Mbank</option>
+                                                    <option value="Optima">Optima</option>
+                                                    <option value="О деньги">О деньги</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-											var csrftoken = getCookie('csrftoken');
-										</script>
-									</div>
-								</div>
-								{% empty %}
-								<div class="col-md-6">
-									<h1>Ваша корзина пуст</h1>
-								</div>
-								{% endfor %}
+                                        <div id="error-message" style="color: red;"></div>
 
-							</div>
-							<!-- /row -->
-						</section>
-						<!-- /section -->
-					</div>
-					<!-- /col -->
+                                        <div class="shopping-cart-new-address-from-btn">
+                                            <div class="check-btn">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="billing_receipt_type" value="Доставка" checked>
+                                                    <label class="form-check-label" for="flexCheckDefault">Доставка</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="billing_receipt_type" value="Самовывоз">
+                                                    <label class="form-check-label" for="flexCheckDefault1">Самовывоз</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="shopping-cart-new-address-from-btn">
+                                            <div class="check-btn">
+                                                <!-- Блок reCAPTCHA -->
+                                                <div class="row opt_order">
+                                                    <div class="col-6">
+                                                        <div class="g-recaptcha" id="html_element"></div>
+                                                    </div>
+                                                </div>
 
-					<div class="col-lg-4" id="sidebar_fixed">
-						<div class="box_order mobile_fixed">
-							<form action="{% url 'create_billing' %}" method="post">
-								{% csrf_token %}
-								<div class="head">
-									<h3>Общая сумма</h3>
-									<a href="{% url 'index' %}" class="close_panel_mobile"><i
-											class="icon_close"></i></a>
-								</div>
-								<!-- /head -->
-								<div class="main">
-									<ul class="clearfix">
-										{% if cart_items %}
-										{% for item in cart_items %}
-										<!-- <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-from-cart"><i class="icon_close"></i> Удалить</a> -->
-										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li>
-										{% endfor %}
-										{% endif %}
-									</ul>
-									<ul class="clearfix">
-										
-										{% if free_delivery == True %}
-										<li>Доставка<span>Бесплатно</span></li>
-										<input type="hidden" name="delivery_price" value="0">
-										{% else %}
-										<li>Доставка<span class="delivery-price-display">250 KGS</span></li>
-										<input type="hidden" name="delivery_price" value="250">
-										{% endif %}
-										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
-										<input type="hidden" name="total_price" value="{{ total_price }}">
-									</ul>
-									{% if cart_items %}
-									<div class="row opt_order">
-										<div class="col-6">
-											<label class="container_radio">Доставка
-												<input type="radio" name="billing_receipt_type" value="Доставка" id="courier" checked="checked">
-												<span class="checkmark"></span>
-											</label>
-										</div>
-										<div class="col-6">
-											<label class="container_radio">Самовывоз
-												<input type="radio" name="billing_receipt_type" value="Самовывоз" id="pickup">
-												<span class="checkmark"></span>
-											</label>
-										</div>
-									</div>
+                                                <div class="check-btn-two">
+                                                    <input type="hidden" name="total_price" value="{{ total_price }}">
+                                                    <button class="main-btn-four" type="submit" id="submit-button">Оформить</button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-									<div class="row opt_order">
-										<div class="col-6">
-											<label for="payment">Адрес доставки:</label>
-											<input type="text" placeholder="Бишкек, Чуйская 185" name="address">
-										</div>
-									</div>
+                                        <style>
+                                            #error-message {
+                                                color: red;
+                                                /* Другие стили, например, отступы, размер шрифта и т.д. */
+                                            }
+                                            #submit-button {
+                                                display: none;
+                                                /* Другие стили кнопки */
+                                            }
+                                        </style>
 
-									<div class="row opt_order">
-										<div class="col-6">
-											<label for="payment">Ваш номер телефона:</label>
-											<input type="text" placeholder="0772343206" name="phone">
-										</div>
-									</div>
+                                        <!-- Скрипт проверки reCAPTCHA -->
+                                        <script>
+                                            function checkFormFields() {
+                                                var address = document.getElementsByName("address")[0].value;
+                                                var phone = document.getElementsByName("phone")[0].value;
+                                                var submitButton = document.getElementById("submit-button");
+                                                var recaptchaResponse = grecaptcha.getResponse();
+                                        
+                                                if (address !== "" && phone !== "" && recaptchaResponse !== "") {
+                                                    submitButton.style.display = 'block'; // Показать кнопку
+                                                } else {
+                                                    submitButton.style.display = 'none'; // Скрыть кнопку
+                                                }
+                                            }
+                                        
+                                            document.getElementsByName("address")[0].addEventListener('input', checkFormFields);
+                                            document.getElementsByName("phone")[0].addEventListener('input', checkFormFields);
+                                        
+                                            function validateForm() {
+                                                var address = document.getElementsByName("address")[0].value;
+                                                var phone = document.getElementsByName("phone")[0].value;
+                                                var errorMessage = document.getElementById("error-message");
+                                        
+                                                if (address == "" || phone == "") {
+                                                    errorMessage.textContent = "Пожалуйста, заполните поля адреса доставки и номера телефона.";
+                                                    return false;
+                                                }
+                                        
+                                                if (!grecaptcha.getResponse()) {
+                                                    errorMessage.textContent = "Пожалуйста, подтвердите, что вы не робот.";
+                                                    return false;
+                                                }
+                                        
+                                                errorMessage.textContent = ""; // Очистить сообщение об ошибке
+                                                return true;
+                                            }
+                                        
+                                            var onloadCallback = function () {
+                                                grecaptcha.render('html_element', {
+                                                    'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
+                                                    'callback': onResponse
+                                                });
+                                            };
+                                        
+                                            function onResponse(response) {
+                                                console.log("reCAPTCHA response received:", response);
+                                                checkFormFields(); // Проверить поля после reCAPTCHA
+                                            }
+                                        
+                                            // Проверить поля при загрузке страницы
+                                            window.onload = function() {
+                                                checkFormFields();
+                                            };
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
-									<div class="row opt_order">
-										<div class="col-6">
-											<label for="payment_method">Выберите способ оплаты:</label>
-											<select name="payment_method" id="payment_method">
-												<option value="Наличные">Наличные</option>
-												<option value="Mbank">Mbank</option>
-												<option value="Optima">Optima</option>
-												<option value="О деньги">О деньги</option>
-											</select>
-										</div>
-									</div>
 
-									<!-- Блок reCAPTCHA -->
-									<div class="row opt_order">
-										<div class="col-6">
-											<div class="g-recaptcha" id="html_element"></div>
-										</div>
-									</div>
+                    <div class="col-lg-4 col-md-6 ">
+                        <div class="cart-summary-box">
+                            <div class="cart-summary-box-text">
+                                <h3>Общая сумма</h3>
+                            </div>
 
-									<div class="btn_1_mobile">
-										<div id="error-message" style="display: none;">Заполните обязательные поля: <span id="missing-fields"></span></div>
-										<button style="display: none;" type="submit" class="btn_1 gradient full-width mb_5" id="submit-button">Оформить</button>
-										<div class="text-center" id="submit-button-info" style="display: none;"><small>После заказа, вам позвонят наши менеджера для уточнения</small></div>
-									</div>									
+                            <div class="cart-summary-box-item-top">
+                                {% if cart_items %}
+                                {% for item in cart_items %}
+                                <div class="cart-summary-box-item">
+                                    <a href="{% url 'product_detail' item.product.id  %}">
+                                        <div class="cart-summary-box-inner">
+                                            <div class="cart-summary-box-img">
+                                                <!-- <img src="{{ item.product.iiko_image }}" width="10%" alt="{{ item.product.title }}"> -->
+                                            </div>
+                                            <div class="cart-summary-box-text-two">
+                                                <h4>{{ item.product.title }} {{ item.product.price }} KGS</h4>
+                                                <h5><span>Количество:</span> {{ item.quantity }}</h5>
+                                                <p>Итого: {{item.total_price }} KGS</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
 
-									{% endif %}
-							</form>
 
-							<!-- Скрипт проверки reCAPTCHA -->
-							<script>
-								var submitButton = document.getElementById('submit-button');
-								var submitButtonInfo = document.getElementById('submit-button-info');
-								var addressInput = document.querySelector('input[name="address"]');
-								var phoneInput = document.querySelector('input[name="phone"]');
-								var errorMessage = document.getElementById('error-message');
-								var missingFields = document.getElementById('missing-fields');
-							
-								function onResponse(res) {
-									var missing = [];
-							
-									if (addressInput.value.trim() === '') {
-										missing.push('Адрес доставки');
-									}
-									if (phoneInput.value.trim() === '') {
-										missing.push('Ваш номер телефона');
-									}
-							
-									if (missing.length > 0) {
-										errorMessage.style.display = 'block';
-										missingFields.textContent = missing.join(', ');
-										submitButton.style.display = 'none';
-										submitButtonInfo.style.display = 'none';
-									} else {
-										errorMessage.style.display = 'none';
-										missingFields.textContent = '';
-										submitButtonInfo.style.display = 'block';
-										
-										// Проверяем, есть ли отображенная кнопка после решения reCAPTCHA
-										if (submitButton.style.display !== 'block') {
-											submitButton.style.display = 'block';
-										}
-									}
-								}
+                            <div class="apply-coupon">
+                                <div class="apply-coupon-taitel">
+                                    <h4>Ввести промокод</h4>
+                                </div>
 
-								document.addEventListener('DOMContentLoaded', function () {
-									var deliveryRadio = document.getElementById('courier');
-									var pickupRadio = document.getElementById('pickup');
-									var deliveryPriceInput = document.querySelector('input[name="delivery_price"]');
-									var deliveryPriceDisplay = document.querySelector('.delivery-price-display');
+                                <div class="apply-coupon-btn">
+                                    <div class="apply-coupon-form">
+                                        <input type="email" class="form-control" id="exampleFormControlInput12"
+                                            placeholder="Промокод">
+                                    </div>
+                                    <div class="apply-coupon-btn-two">
+                                        <a href="#">Принять</a>
+                                    </div>
+                                </div>
 
-									function updateDeliveryPrice() {
-										if (pickupRadio.checked) {
-											deliveryPriceInput.value = '0';
-											deliveryPriceDisplay.textContent = '0 KGS';
-										} else {
-											deliveryPriceInput.value = '250';
-											deliveryPriceDisplay.textContent = '250 KGS';
-										}
-									}
 
-									deliveryRadio.addEventListener('change', updateDeliveryPrice);
-									pickupRadio.addEventListener('change', updateDeliveryPrice);
+                                <div class="apply-coupon-box">
+                                    <div class="shopping-cart-list">
+                                       
+                                        <div class="shopping-cart-list-text">
+                                            <h4>Доставка</h4>
+                                            {% if free_delivery == True %}
+                                            <a href="#">Бесплатно</a>
+                                            {% else %}
+                                            <a href="#">250 KGS</a>
+                                            {% endif %}
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="shopping-cart-list shopping-cart-list-btm ">
+                                        <div class="shopping-cart-list-text">
+                                            <h4>Итого</h4>
+                                            <a href="#">{{ total_price }} KGS</a>
+                                        </div>
+                                    </div>
 
-									// Вызываем функцию при загрузке страницы, чтобы установить начальное состояние
-									updateDeliveryPrice();
-								});
-															
-								addressInput.addEventListener('input', onResponse);
-								phoneInput.addEventListener('input', onResponse);
-							
-								var onloadCallback = function () {
-									grecaptcha.render('html_element', {
-										'sitekey': '6LdCDucoAAAAANQaGxXUTeJFDDXISCUAT6g9-sHi',
-										'callback': onResponse
-									});
-								};
-							</script>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-		</div>
-		<!-- /bg_gray -->
+                                    <!-- <div class="shopping-cart-list-btn">
+                                        <a href="#" class="main-btn-six">
+                                            Place Order
 
-	</main>
-	<!-- /main -->
+                                            <span>
+                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M9 9L13 5M13 5L9 1M13 5L1 5" stroke-width="1.5"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-	{% include 'include/footer.html' %}
-	<!--/footer-->
+        <!-- Shopping Cart end  -->
 
-	<!-- SPECIFIC SCRIPTS -->
-	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
-	<script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
-	<script src="{% static 'js/sticky-kit.min.js' %}"></script>
-	<script src="{% static 'js/specific_detail.js' %}"></script>
+        <!-- Restaurant part-start -->
 
-	{% endblock %}
+        <section class="restaurant">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="restaurant-taitel">
+                            <h2>Find out Better Restaurant Food Experience</h2>
+
+                            <h4>We've done it carefully and simply. Combined with the ingredients makes for beautiful
+                                landings.</h4>
+                        </div>
+
+                        <div class="restaurant-taitel-btn">
+                            <a href="#"> <span>
+                                    <img src="{% static 'assets/images/icon/Google_Play.png' %}" alt="icon">
+                                </span> Google Play</a>
+                            <a href="#" class=" restaurant-taitel-btn-two"> <span>
+                                    <img src="{% static 'assets/images/icon/apple.png' %}" alt="icon">
+                                </span> Google Play</a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="restaurant-img-main">
+                            <div class="restaurant-img">
+                                <img src="{% static 'assets/images/thumb/restaurant.png' %}" alt="img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Restaurant part-end -->
+
+    </main>
+
+    <!-- footer part start  -->
+
+    {% include 'include/footer.html' %}
+
+
+    <!-- footer part end  -->
+
+{% endblock %}

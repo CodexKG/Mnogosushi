@@ -2,220 +2,252 @@
 {% load static %}
 {% block content %}
 
-<!-- SPECIFIC CSS -->
-<link href="{% static 'css/detail-page.css' %}" rel="stylesheet">
+    <!-- header part start  -->
+    {% include 'include/menu_header.html' %}
+    
 
-<style>
-    /* Стилизация выпадающего списка */
-    select {
-        padding: 10px; /* Расстояние внутри элемента */
-        font-size: 16px; /* Размер шрифта */
-        border: 1px solid #ccc; /* Граничная линия */
-        border-radius: 5px; /* Закругление углов */
-        width: 100%; /* Ширина элемента */
-    }
-	input {
-        padding: 10px; /* Расстояние внутри элемента */
-        font-size: 16px; /* Размер шрифта */
-        border: 1px solid #ccc; /* Граничная линия */
-        border-radius: 5px; /* Закругление углов */
-        width: 120%; /* Ширина элемента */
-    }
-</style>
+    <!-- mobile navigation start -->
+    {% include 'include/menu_mobile_header.html' %}
 
-<body data-spy="scroll" data-bs-target="#secondary_nav" data-offset="75">
-				
-	{% include 'include/menu_header.html' %}
-	<!-- /header -->
-	
-	<main>
+    <!-- header part end  -->
 
-		<div class="hero_in detail_page background-image" data-background="url(https://tmint.co/wp-content/uploads/2019/09/Preview-Trifold-Menu-01-2.jpg)">
-			<div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-				
-				<div class="container">
-					<div class="main_info">
-						<div class="row">
-							<div class="col-xl-4 col-lg-5 col-md-6">
-								<div class="head"><div class="score">
-									<span>{{ setting.title }}</span>
-								</div>
-							</div>
-								<h1>Заказы из Menu {{ table.title }} {{ table.number }}</h1>
-								<a href="" target="blank">Заказы из меню</a>
-							</div>
-							
-						</div>
-						<!-- /row -->
-					</div>
-					<!-- /main_info -->
-				</div>
-			</div>
-		</div>
-		<!--/hero_in-->
 
-		<nav class="secondary_nav sticky_horizontal">
-		    <div class="container">
-		        <ul id="secondary_nav">
-		            <li><a href="{% url 'index' %}">Главная</a></li>
-		            <li><a href="{% url 'menu' table.number  %}">Меню</a></li>
-		            
-		            <li><a href="{% url 'index' %}"><i class="icon_chat_alt"></i>Контакты</a></li>
-		        </ul>
-		    </div>
-		    <span></span>
-		</nav>
-		<!-- /secondary_nav -->
+    <main>
 
-		<div class="bg_gray">
-		    <div class="container margin_detail">
-		        <div class="row">
-		            <div class="col-lg-8 list_menu">
-		                <section id="section-1">
-		                    <h4>Заказы</h4>
-		                    <div class="row">
+        <!-- banner  -->
+
+        <div class="inner-banner">
+            <div class="container">
+                <div class="row  ">
+                    <div class="col-lg-12">
+                        <div class="inner-banner-head">
+                            <h1>Корзина</h1>
+                        </div>
+
+                        <div class="inner-banner-item">
+                            <div class="left">
+                                <a href="{% url 'index' %}">Главная</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="left">
+                                <span>Корзина</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- banner  -->
+
+
+
+        <!-- Shopping Cart  start -->
+
+
+
+        <section class="shopping-cart-two shopping-cart-new-address  ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 ">
+                        <form action="{% url 'create_billing_from_order' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="shopping-cart-new-address-top-item">
+                                        <div class="shopping-cart-new-address-taitel">
+                                            <h4>Оформить заказ</h4>
+                                        </div>
+
+                                        <div class="shopping-cart-new-address-top-btn">
+                                            <a href="{% url 'menu' table.number %}">
+                                                <span>
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M5 8H15C17.2091 8 19 9.79086 19 12V12C19 14.2091 17.2091 16 15 16H5M5 8L9 5M5 8L9 11"
+                                                            stroke="#394150" stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </span>
+                                                Главная
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="shopping-cart-new-address-from">
+                                        
+                                        
+                                        <div class="shopping-cart-new-address-from-item">
+                                            <div class="shopping-cart-new-address-from-inner">
+                                                <label for="exampleFormControlInput1" class="form-label">Способ оплаты:</label>
+                                                <select class="form-select" name="payment_method" aria-label="Default select example">
+                                                    <option value="Наличные" selected>Наличные</option>
+                                                    <option value="Mbank">Mbank</option>
+                                                    <option value="Optima">Optima</option>
+                                                    <option value="О деньги">О деньги</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="shopping-cart-new-address-from-btn">
+                                            
+                                            
+
+                                            <div class="check-btn-two">
+                                                <input type="hidden" name="total_price" value="{{ total_price }}">
+                                                <input type="hidden" name="table_uuid" value="{{ table.number }}">
+                                                <input type="hidden" name="table_title" value="{{ table.title }}">
+                                                <button class="main-btn-four" type="submit">Оформить</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-6 ">
+                        <div class="cart-summary-box">
+                            <div class="cart-summary-box-text">
+                                <h3>Общая сумма</h3>
+                            </div>
+
+                            <div class="cart-summary-box-item-top">
+                                {% if cart_items %}
                                 {% for item in cart_items %}
-		                        <div class="col-md-6">
-		                            <a class="menu_item modal_dialog" href="{% url 'product_detail' item.product.id  %}">
-		                                <figure><img src="{{ item.product.image.url }}" data-src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="lazy"></figure>
-		                                <h3>{{ item.product.title }} {{ item.product.price }} KGS</h3>
-		                                <p>Количество: {{ item.quantity }}</p>
-		                                <strong>{{ item.total_price }} KGS</strong>
-		                            </a>
-									<!-- Кнопка удаления -->
-									<a href="{% url 'table_remove_from_cart' item.product.id table.number %}" class="btn btn-danger" style="margin-top: -30px;">Удалить</a>
-	
-									<!-- Кнопка добавления и убавления количества товара -->
-									<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="increase" style="margin-top: -30px;">+</a>
-									<a href="#" class="btn btn-danger update-cart" data-product-id="{{ item.product.id }}" data-action="decrease" style="margin-top: -30px;">-</a>
-
-									<script>
-										var updateBtns = document.getElementsByClassName('update-cart');
-
-										for (var i = 0; i < updateBtns.length; i++) {
-											updateBtns[i].addEventListener('click', function(e){
-												e.preventDefault();
-												var productId = this.dataset.productId;
-												var action = this.dataset.action;
-												updateCart(productId, action);
-											})
-										}
-
-										function updateCart(productId, action) {
-											// Отправляем AJAX запрос
-											fetch('/menu/update_item/', {
-												method: 'POST',
-												headers: {
-													'Content-Type': 'application/json',
-													'X-CSRFToken': csrftoken, // Убедитесь, что вы передаете CSRF токен
-												},
-												body: JSON.stringify({'productId': productId, 'action': action})
-											})
-											.then((response) => {
-												return response.json();
-											})
-											.then((data) => {
-												location.reload(); // Перезагрузка страницы для отображения обновленных данных
-											});
-										}
-
-										function getCookie(name) {
-											let cookieValue = null;
-											if (document.cookie && document.cookie !== '') {
-												const cookies = document.cookie.split(';');
-												for (let i = 0; i < cookies.length; i++) {
-													let cookie = cookies[i].trim();
-													if (cookie.substring(0, name.length + 1) === (name + '=')) {
-														cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-														break;
-													}
-												}
-											}
-											return cookieValue;
-										}
-
-										var csrftoken = getCookie('csrftoken');
-									</script>
-		                        </div>
-								{% empty %}
-								<div class="col-md-6">
-									<h1>Ваша заказы из меню пуст</h1>
-									<a href="{% url 'menu' table.number %}" class="btn_1">Назад</a>
-		                        </div>
+                                <div class="cart-summary-box-item">
+                                    <a href="{% url 'product_detail' item.product.id  %}">
+                                        <div class="cart-summary-box-inner">
+                                            <div class="cart-summary-box-img">
+                                                <!-- <img src="{{ item.product.iiko_image }}" width="10%" alt="{{ item.product.title }}"> -->
+                                            </div>
+                                            <div class="cart-summary-box-text-two">
+                                                <h4>{{ item.product.title }} {{ item.product.price }} KGS</h4>
+                                                <h5><span>Количество:</span> {{ item.quantity }}</h5>
+                                                <p>Итого: {{item.total_price }} KGS</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                                 {% endfor %}
-                               
-		                    </div>
-		                    <!-- /row -->
-		                </section>
-		                <!-- /section -->
-		            </div>
-		            <!-- /col -->
-		            <div class="col-lg-4" id="sidebar_fixed">
-		                <div class="box_order mobile_fixed">
-							<form action="{% url 'create_billing_from_order' %}" method="post">
-								{% csrf_token %}
-								<div class="head">
-									<h3>Общая сумма</h3>
-									<a href="{% url 'index' %}" class="close_panel_mobile"><i class="icon_close"></i></a>
-								</div>
-								<!-- /head -->
-								<div class="main">
-									<ul class="clearfix">
-										{% if cart_items %}
-										{% for item in cart_items %}
-										<!-- <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-from-cart"><i class="icon_close"></i> Удалить</a> -->
-										<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{ item.total_price }} KGS</span></li>
-										{% endfor %}
-										{% endif %}
-									</ul>
-									<ul class="clearfix">
-										<li class="total">Итого<span>{{ total_price }} KGS</span></li>
-										<input type="hidden" name="total_price" value="{{ total_price }}">
-										<input type="hidden" name="table_uuid" value="{{ table.number }}">
-									</ul>
-									{% if cart_items %}
-									<div class="row opt_order">
-										<div class="col-6">
-											<label for="payment_method">Выберите способ оплаты:</label>
-											<select name="payment_method" id="payment_method">
-												<option value="Наличные">Наличные</option>
-												<option value="Mbank">Mbank</option>
-												<option value="Optima">Optima</option>
-												<option value="О деньги">О деньги</option>
-											</select>
-										</div>
-									</div>
+                                {% endif %}
+                            </div>
 
-									
-										
-									 <!-- Кнопка отправки (изначально скрыта) -->
-									<div class="btn_1_mobile">
-										<button type="submit" class="btn_1 gradient full-width mb_5">Заказать на столик</button>
-										<div class="text-center">
-											<small>После заказа, к вашему столику придут наши официанты для уточнения заказа</small>
-										</div>
-									</div>
-									{% endif %}
-								</div>
-							</form>
-		                </div>
-		            </div>
-		        </div>
-		        <!-- /row -->
-		    </div>
-		    <!-- /container -->
-		</div>
-		<!-- /bg_gray -->
-	</main>
-	<!-- /main -->
 
-	{% include 'include/footer.html' %}
-	<!--/footer-->
+                            <div class="apply-coupon">
+                                <div class="apply-coupon-taitel">
+                                    <h4>Ввести промокод</h4>
+                                </div>
 
-    <!-- SPECIFIC SCRIPTS -->
-	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
-    <script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
-    <script src="{% static 'js/sticky-kit.min.js' %}"></script>
-    <script src="{% static 'js/specific_detail.js' %}"></script>
+                                <div class="apply-coupon-btn">
+                                    <div class="apply-coupon-form">
+                                        <input type="email" class="form-control" id="exampleFormControlInput12"
+                                            placeholder="Промокод">
+                                    </div>
+                                    <div class="apply-coupon-btn-two">
+                                        <a href="#">Принять</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="apply-coupon-box">
+                                    <div class="shopping-cart-list">
+                                       
+                                        <div class="shopping-cart-list-text">
+                                            <h4>Доставка</h4>
+                                            {% if free_delivery == True %}
+                                            <a href="#">Бесплатно</a>
+                                            {% else %}
+                                            <a href="#">250 KGS</a>
+                                            {% endif %}
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="shopping-cart-list shopping-cart-list-btm ">
+                                        <div class="shopping-cart-list-text">
+                                            <h4>Итого</h4>
+                                            <a href="#">{{ total_price }} KGS</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="shopping-cart-list-btn">
+                                        <a href="#" class="main-btn-six">
+                                            Place Order
+
+                                            <span>
+                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M9 9L13 5M13 5L9 1M13 5L1 5" stroke-width="1.5"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shopping Cart end  -->
+
+        <!-- Restaurant part-start -->
+
+        <section class="restaurant">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="restaurant-taitel">
+                            <h2>Find out Better Restaurant Food Experience</h2>
+
+                            <h4>We've done it carefully and simply. Combined with the ingredients makes for beautiful
+                                landings.</h4>
+                        </div>
+
+                        <div class="restaurant-taitel-btn">
+                            <a href="#"> <span>
+                                    <img src="{% static 'assets/images/icon/Google_Play.png' %}" alt="icon">
+                                </span> Google Play</a>
+                            <a href="#" class=" restaurant-taitel-btn-two"> <span>
+                                    <img src="{% static 'assets/images/icon/apple.png' %}" alt="icon">
+                                </span> Google Play</a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="restaurant-img-main">
+                            <div class="restaurant-img">
+                                <img src="{% static 'assets/images/thumb/restaurant.png' %}" alt="img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Restaurant part-end -->
+
+    </main>
+
+    <!-- footer part start  -->
+
+    {% include 'include/footer.html' %}
+
+
+    <!-- footer part end  -->
 
 {% endblock %}

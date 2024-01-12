@@ -1,153 +1,541 @@
 {% extends 'include/homepage.html' %}
-{% load static %}
+{% load static my_filters %}
 {% block content %}
 
-<link href="{% static 'css/detail-page.css' %}" rel="stylesheet">
+    <!-- header part start  -->
+
+    {% include 'include/second_header.html' %}
+
+    <!-- mobile navigation start -->
+    {% include 'include/mobile_header.html' %}
+
+    <!-- header part end  -->
+
+
+    <main>
+
+        <!-- banner  -->
+
+        <div class="inner-banner">
+            <div class="container">
+                <div class="row  ">
+                    <div class="col-lg-12">
+                        <div class="inner-banner-head">
+                            <h1>{{ product.title }}</h1>
+                        </div>
+
+                        <div class="inner-banner-item">
+                            <div class="left">
+                                <a href="{% url 'index' %}">Главная</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <div class="left">
+                                <a href="{% url 'index' %}">Товары</a>
+                            </div>
+                            <div class="icon">
+                                <span>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+                            
+                            <div class="left">
+                                <span>{{ product.title }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- banner  -->
 
 
 
-<body data-spy="scroll" data-bs-target="#secondary_nav" data-offset="75">
-				
-	{% include 'include/header.html' %}
-	<!-- /header -->
-	
-	<main>
 
-		<div class="hero_in detail_page background-image" data-background="url({% static 'img/shushi.jpeg' %})">
-			<div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-				
-				<div class="container">
-					<div class="main_info">
-						<div class="row">
-							<div class="col-xl-4 col-lg-5 col-md-6">
-								<div class="head">
-									<div class="score">
-										<span>{{ setting }}</span>
-								</div>
-							</div>
-								<h1>{{ product.title }}</h1>
-								<h3>{{ product.price }} KGS</h3>
-							</div>
-							<div class="col-xl-8 col-lg-7 col-md-6 position-relative">
-								<div class="buttons clearfix">
-									<span class="magnific-gallery">
-										<!-- <a href="{% static 'img/detail_1.jpg' %}" class="btn_hero" title="Photo title" data-effect="mfp-zoom-in"><i class="icon_chat_alt"></i>View photos</a> -->
-										<a href="{% static 'img/detail_2.jpg' %}" title="Photo title" data-effect="mfp-zoom-in"></a>
-										<a href="{% static 'img/detail_3.jpg' %}" title="Photo title" data-effect="mfp-zoom-in"></a>
-									</span>
-									
-								</div>
-							</div>
-						</div>
-						<!-- /row -->
-					</div>
-					<!-- /main_info -->
-				</div>
-			</div>
-		</div>
-		<!--/hero_in-->
+        <!-- Food Details part-start   -->
 
-		
-		<div class="bg_gray">
-		    <div class="container margin_detail">
-		        <div class="row">
-		            <div class="col-lg-8 list_menu">
-		                <section id="section-1" class="detail-section">
-		                    <h4>Описание:</h4>
-							<p>{{ product.title }}</p>
-                            <p>{{ product.description }}</p>
-							{% if product.iiko_image %}
-                            <img src="{{ product.iiko_image }}" alt="{{ product.title }}" width="50%">
-							{% else %}
-							<img src="{% static 'noimage.jpg' %}" alt="{{ product.title }}">
-							{% endif %}
-		                    <!-- /row -->
-		                </section>
-		                <!-- /section -->
-		                
-		            </div>
-		            <!-- /col -->
-		            <div class="col-lg-4" id="sidebar_fixed">
-		                <div class="box_order mobile_fixed">
-		                    <!-- форма чек лист старт -->
-							<div class="head">
-								<h3>Общая сумма</h3>
-							</div>
-							<!-- /head -->
-							<div class="main">
-								<ul class="clearfix">
-									{% if cart_items %}
-									{% for item in cart_items %}
-									<li><a href="{% url 'product_detail' item.product.id  %}">{{ item.quantity }} {{ item.product.title }} {{ item.product.price }} KGS</a></span><span>{{item.total_price }} KGS</span></li>
-									{% endfor %}
-									{% endif %}
-								</ul>
-								<ul class="clearfix">
-										
-									{% if free_delivery == True %}
-									<li>Доставка<span>Бесплатно</span></li>
-									{% else %}
-									<li>Доставка<span>250 KGS</span></li>
-									{% endif %}
-									<li class="total">Итого<span>{{ total_price }} KGS</span></li>
-									<input type="hidden" name="total_price" value="{{ total_price }}">
-								</ul>
 
-								<!-- форма чек лист конец -->
-								<form method="post" action="{% url 'add_to_cart' %}">
-									<div class="btn_1_mobile" style="position: relative;">
-										{% csrf_token %}
-										<input type="hidden" name="product_id" value="{{ product.id }}">
-										<input type="hidden" name="price" value="{{ product.price }}">
-										<div class="row opt_order">
-											<div class="col-6">
-												<p>Количество товара</p>
-												<input class="js-result form-control" type="number" name="quantity" min="1" value="1">
-												<button type="button" class="btn_1 gradient js-minus" style="margin-top: 10px;">-</button>
-												<button type="button" class="btn_1 gradient js-plus">+</button>
-											</div>
-										</div>
-										<input class="btn_1 gradient full-width" type="submit" value="В корзину" style="margin-top: 10px;">
-									</div>
-								</form>
-							</div>
-		                </div>
-		            </div>
-		        </div>
-		        <!-- /row -->
-		    </div>
-		    <!-- /container -->
-		</div>
-		<!-- /bg_gray -->
+        <section class="food-details-section s-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="food-details-head">
+                            <h2>{{ product.title }}</h2>
+                        </div>
 
-		
-		<!-- /container -->
+                        <div class="food-details-slick">
+                            <div class="slider-for">
+                                <div class="slider-for-img">
+                                    {% if product.iiko_image %}
+                                    <img src="{{ product.iiko_image }}" alt="img">
+                                    {% else %}
+                                    <img src="{{ product.image.url }}" alt="img">
+                                    {% endif %}
+                                </div>
+                                
+                            </div>
 
-	</main>
-	<!-- /main -->
+                            
+                        </div>
 
-	{% include 'include/footer.html' %}
-	<!--/footer-->
 
-	<div id="toTop" class="detail_page"></div><!-- Back to top button -->
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const quantityInput = document.querySelector(".js-result");
-        const plusButton = document.querySelector(".js-plus");
-        const minusButton = document.querySelector(".js-minus");
 
-        plusButton.addEventListener("click", function() {
-            quantityInput.value = parseInt(quantityInput.value) + 1;
-        });
+                        <div class="food-details-item-box">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                        aria-selected="true">Описание </button>
+                                </li>
+                               
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-contact" type="button" role="tab"
+                                        aria-controls="pills-contact" aria-selected="false">Отзывы</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                    aria-labelledby="pills-home-tab">
 
-        minusButton.addEventListener("click", function() {
-            const currentValue = parseInt(quantityInput.value);
-            if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
-            }
-        });
-    });
-</script>
-	
+
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="food-details-text">
+                                                <p>Описание: {{ product.description }}</p>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                    aria-labelledby="pills-profile-tab">
+
+                                    <div class="food-video-text">
+                                        <p>In this vlog video, join us on a culinary journey as we create a
+                                            mouthwatering dish that's perfect for any occasion - Grilled Chicken Skewers
+                                            with Slices of Sweet Bell Peppers. Get ready to tantalize your taste buds as
+                                            we showcase the step-by-step process of marinating tender chicken,</p>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="vedio-img">
+                                        <img src="{% static 'assets/images/thumb/food-video.png' %}" alt="img">
+
+                                        <a class="my-video-links" data-autoplay="true" data-vbtype="video"
+                                            href="https://youtu.be/EiNiSFIPIQE"><i class="fa-solid fa-play"></i></a>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="food-video-text-btm">
+                                        <p>Join us in the kitchen as we share our passion for cooking and culinary
+                                            creativity. Whether you're looking for a delightful appetizer, a flavorful
+                                            main course, or simply a cooking inspiration, these Grilled Chicken Skewers
+                                            with Slices of Sweet Bell Peppers are a must-try!</p>
+                                        <p><span>Note:</span> This is a fictional vlog video description and
+                                            timestamps. You can
+                                            adjust the content and timestamps based on your actual video footage and
+                                            narration.</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                                    aria-labelledby="pills-contact-tab">
+
+
+                                    <div class="food-review">
+                                        {% for review in reviews %}
+                                        <div class="food-review-item">
+                                            <div class="food-review-item-top">
+                                                <div class="icon">
+                                                    <style>
+                                                        .star-icon {
+                                                            margin-right: 5px;
+                                                        }
+                                                    </style>
+                                                    <span>
+                                                        {% for star in review.stars|get_range %}
+                                                        <svg class="star-icon" width="22" height="20"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                fill="#FFC403" />
+                                                            <path
+                                                                d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                fill="#FFC403" />
+                                                            </svg>
+                                                        {% endfor %}
+                                                    </span>
+                                                </div>
+
+                                                <div class="text">
+                                                    <a href="">{{ review.created }}</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="food-review-item-text">
+                                                <p>{{ review.text }}</p>
+                                            </div>
+
+                                            <div class="food-review-inner">
+                                                <div class="food-review-inner-img">
+                                                    <img src="{% static 'assets/images/small/review.png' %}" alt="img">
+                                                </div>
+
+                                                <div class="food-review-inner-text">
+                                                    <h4>{{ review.user }}</h4>
+                                                    <p>Dog Trainer</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        <!-- end review  -->
+
+                                    </div>
+
+
+
+
+
+                                    <div class="sent-review">
+                                        <div class="comment-from-box-main">
+                                            {% if request.user.is_authenticated %}
+                                            <div class="comment-from-box-text">
+                                                <h3>Оставить отзыв</h3>
+
+                                                <p>Ваши данные не будут высвечиваться*</p>
+                                            </div>
+                                            <div class="from-box">
+                                                <div class="from-item">
+                                                    <form method="post">
+                                                        {% csrf_token %}
+                                                        <div class="from-inner-df">
+                                                            <div class="from-inner from-inner-rate">
+                                                                <div class="rate">
+                                                                    <input type="radio" id="star5" name="stars" value="5"/>
+                                                                    <label for="star5" title="text">5 stars</label>
+                                                                    <input type="radio" id="star4" name="stars" value="4"/>
+                                                                    <label for="star4" title="text">4 stars</label>
+                                                                    <input type="radio" id="star3" name="stars" value="3"/>
+                                                                    <label for="star3" title="text">3 stars</label>
+                                                                    <input type="radio" id="star2" name="stars" value="2"/>
+                                                                    <label for="star2" title="text">2 stars</label>
+                                                                    <input type="radio" id="star1" name="stars" value="1"/>
+                                                                    <label for="star1" title="text">1 star</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                        <div class="from-inner-two">
+                                                            <textarea class="form-control" name="message" rows="5" placeholder="Оставить отзыв"></textarea>
+                                                        </div>
+    
+                                                        <div class="from-btn">
+                                                            <button type="submit" name="review" class="main-btn-four">Отправить</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="comment-from-box-text">
+                                                <h3>Оставить отзыв</h3>
+                                                <p>Для оставления отзыва авторизуйтесь или зарегистрируйтесь</p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="together-box">
+                            {% if cart_items %}
+                            <div class="together-box-text">
+                                <h5>Корзина товаров</h5>
+                            </div>
+                            {% for item in cart_items %}
+                            <div class="together-box-item">
+                                <div class="form-check">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ item.product.title }} {{ item.product.price }} KGS | {{item.total_price }} KGS
+                                    </label>
+                                </div>
+
+                                <div class="form-check-btn">
+                                    <div class="form-check-btn">
+
+                                        <div class="grid">
+                                            <button class="btn btn-minus "><i class="fa-solid fa-minus"></i></button>
+                                            <div class="column product-qty">{{ item.quantity }}</div>
+                                            <button class="btn btn-plus "><i class="fa-solid fa-plus"></i></button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <div class="featured-item-btn">
+                                <form action="{% url 'add_to_cart' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="price" value="{{ product.price }}">
+                            
+                                    <!-- Кнопки уменьшения и увеличения количества -->
+                                    <input class="js-result form-control" type="number" name="quantity" min="1" value="1">
+                                    <button type="button" class="btn-qty-adjust btn-minus" data-quantity-adjust="minus">-</button>
+                                    <button type="button" class="btn-qty-adjust btn-plus" data-quantity-adjust="plus">+</button>
+
+                                    <button class="main-btn-three">
+                                        <span>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
+                                                    stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path
+                                                    d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
+                                                    stroke-width="1.5"></path>
+                                                <path
+                                                    d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
+                                                    stroke-width="1.5"></path>
+                                                <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                </path>
+                                                <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        В корзину
+                                    </button>
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            var adjustButtons = document.querySelectorAll('.btn-qty-adjust');
+                                    
+                                            adjustButtons.forEach(function(btn) {
+                                                btn.addEventListener('click', function() {
+                                                    var adjustType = this.getAttribute('data-quantity-adjust');
+                                                    var qtyInput = this.parentElement.querySelector('.js-result');
+                                                    var currentQty = parseInt(qtyInput.value);
+                                    
+                                                    if (adjustType === 'plus') {
+                                                        qtyInput.value = currentQty + 1;
+                                                    } else if (adjustType === 'minus') {
+                                                        if (currentQty > 1) {
+                                                            qtyInput.value = currentQty - 1;
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                    <style>
+                                        .together-box-item {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            margin-bottom: 15px; /* Расстояние между элементами */
+                                        }
+
+                                        .btn-qty-adjust {
+                                            display: inline-flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            width: 32px; /* Ширина кнопок */
+                                            height: 32px; /* Высота кнопок */
+                                            border: none;
+                                            border-radius: 4px; /* Скругление углов */
+                                            background-color: #f2f2f2; /* Цвет фона */
+                                            color: #333; /* Цвет текста */
+                                            cursor: pointer; /* Курсор в виде руки при наведении */
+                                            font-size: 1.2em; /* Размер текста */
+                                            margin: 0 5px; /* Отступы вокруг кнопок */
+                                        }
+
+                                        .btn-qty-adjust:hover {
+                                            background-color: #e2e2e2; /* Цвет фона при наведении */
+                                        }
+
+                                        .btn-plus i, .btn-minus i {
+                                            pointer-events: none; /* Исключает иконку из событий мыши */
+                                        }
+
+                                        .product-qty {
+                                            width: 50px; /* Ширина контейнера с количеством */
+                                            text-align: center; /* Выравнивание текста по центру */
+                                        }
+
+                                        
+                                        .main-btn-three:hover {
+                                            background-color: #e55a23; /* Цвет фона при наведении */
+                                        }
+
+                                        /* Если вы используете иконки font-awesome, вы можете стилизовать их так: */
+                                        .fa-minus, .fa-plus {
+                                            color: #333; /* Цвет иконок */
+                                        }
+                                    </style>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <div class="blog-details-promobanner-res-df">
+                            <div class="blog-details-promobanner">
+                                <a href="#"> <img src="{% static 'assets/images/thumb/promobanner-01.png' %}" class="w-100"
+                                        alt="img"></a>
+                            </div>
+                            <div class="blog-details-promobanner-two">
+                                <a href="#"> <img src="{% static 'assets/images/thumb/promobanner-02.png' %}" class="w-100"
+                                        alt="img"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Details  part end -->
+
+        <section class="food-details food-details-two      ">
+            <div class="container">
+
+                <div class="row responsive-df">
+
+                    <div class="col-lg-12">
+                        <div class="recent-order-text">
+                            <h5>Вам может понравиться</h5>
+                        </div>
+                    </div>
+                    {% for product in random_products %}
+                    <div class="col-lg-4 col-md-6" data-aos="fade-right">
+                        <div class="featured-item">
+                            <div class="featured-item-img">
+                                {% if product.iiko_image %}
+                                <a href="{% url 'product_detail' product.id %}"><img src="{{ product.iiko_image }}" class="w-100" alt="{{ product.title }}"></a>
+                                {% else %}
+                                <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" class="w-100" alt="{{ product.title }}"></a>
+                                {% endif %}
+
+                                <div class="featured-item-img-overlay">
+                                    <div class="featured-item-img-over-text">
+                                        <div class="left-text">
+                                            <div class="icon">
+                                                <span>
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M4.31804 6.31804C3.90017 6.7359 3.5687 7.23198 3.34255 7.77795C3.1164 8.32392 3 8.90909 3 9.50004C3 10.091 3.1164 10.6762 3.34255 11.2221C3.5687 11.7681 3.90017 12.2642 4.31804 12.682L12 20.364L19.682 12.682C20.526 11.8381 21.0001 10.6935 21.0001 9.50004C21.0001 8.30656 20.526 7.16196 19.682 6.31804C18.8381 5.47412 17.6935 5.00001 16.5 5.00001C15.3066 5.00001 14.162 5.47412 13.318 6.31804L12 7.63604L10.682 6.31804C10.2642 5.90017 9.7681 5.5687 9.22213 5.34255C8.67616 5.1164 8.09099 5 7.50004 5C6.90909 5 6.32392 5.1164 5.77795 5.34255C5.23198 5.5687 4.7359 5.90017 4.31804 6.31804V6.31804Z"
+                                                            stroke="#F01543" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="right-text">
+                                            <h5>20% Off </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="featured-item-text">
+                                <div class="text-item">
+                                    <div class="left">
+                                        <h3>{{ product.price }} KGS</h3>
+                                    </div>
+                                    <div class="right">
+                                        <div class="icon">
+                                            <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
+                                                        fill="#FFB23E"></path>
+                                                </svg></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="text-item-center">
+                                    <h3><a href="{% url 'product_detail' product.id %}">{{ product.title }}</a></h3>
+                                </div>
+
+                                <div class="text-item-center-item-box">
+                                    
+                                  
+
+                                    <div class="featured-item-btn">
+                                        <a href="shopping-cart.html" class="main-btn-three">
+                                            <span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <path
+                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
+                                                        stroke-width="1.5"></path>
+                                                    <path
+                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
+                                                        stroke-width="1.5"></path>
+                                                    <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                    </path>
+                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
+                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                            В корзину
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- footer part start  -->
+    {% include 'include/footer.html' %}
+
+
 {% endblock %}
