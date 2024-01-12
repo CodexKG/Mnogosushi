@@ -62,11 +62,7 @@
 
         <!-- banner  -->
 
-
-
-
         <!-- Food Details part-start   -->
-
 
         <section class="food-details-section s-padding">
             <div class="container">
@@ -85,14 +81,8 @@
                                     <img src="{{ product.image.url }}" alt="img">
                                     {% endif %}
                                 </div>
-                                
                             </div>
-
-                            
                         </div>
-
-
-
 
                         <div class="food-details-item-box">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -111,60 +101,15 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                     aria-labelledby="pills-home-tab">
-
-
-
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="food-details-text">
                                                 <p>Описание: {{ product.description }}</p>
                                             </div>
-
-                                            
                                         </div>
                                     </div>
-
-
-
                                 </div>
-                                <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                                    aria-labelledby="pills-profile-tab">
-
-                                    <div class="food-video-text">
-                                        <p>In this vlog video, join us on a culinary journey as we create a
-                                            mouthwatering dish that's perfect for any occasion - Grilled Chicken Skewers
-                                            with Slices of Sweet Bell Peppers. Get ready to tantalize your taste buds as
-                                            we showcase the step-by-step process of marinating tender chicken,</p>
-                                    </div>
-
-
-
-
-
-
-                                    <div class="vedio-img">
-                                        <img src="{% static 'assets/images/thumb/food-video.png' %}" alt="img">
-
-                                        <a class="my-video-links" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/EiNiSFIPIQE"><i class="fa-solid fa-play"></i></a>
-                                    </div>
-
-
-
-
-
-
-                                    <div class="food-video-text-btm">
-                                        <p>Join us in the kitchen as we share our passion for cooking and culinary
-                                            creativity. Whether you're looking for a delightful appetizer, a flavorful
-                                            main course, or simply a cooking inspiration, these Grilled Chicken Skewers
-                                            with Slices of Sweet Bell Peppers are a must-try!</p>
-                                        <p><span>Note:</span> This is a fictional vlog video description and
-                                            timestamps. You can
-                                            adjust the content and timestamps based on your actual video footage and
-                                            narration.</p>
-                                    </div>
-                                </div>
+                                
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                     aria-labelledby="pills-contact-tab">
 
@@ -216,12 +161,7 @@
                                         </div>
                                         {% endfor %}
                                         <!-- end review  -->
-
                                     </div>
-
-
-
-
 
                                     <div class="sent-review">
                                         <div class="comment-from-box-main">
@@ -410,17 +350,16 @@
                             </div>
                         </div>
 
-
                         <div class="blog-details-promobanner-res-df">
+                            {% for promo in promotions %}
                             <div class="blog-details-promobanner">
-                                <a href="#"> <img src="{% static 'assets/images/thumb/promobanner-01.png' %}" class="w-100"
-                                        alt="img"></a>
+                                <a href="{{ promo.url }}"> <!-- Replace with a test URL -->
+                                    <img src="{{ promo.image.url }}" class="w-100" alt="{{ promo.title }}">
+                                </a>
                             </div>
-                            <div class="blog-details-promobanner-two">
-                                <a href="#"> <img src="{% static 'assets/images/thumb/promobanner-02.png' %}" class="w-100"
-                                        alt="img"></a>
-                            </div>
+                            {% endfor %}
                         </div>
+            
                     </div>
                 </div>
             </div>
@@ -428,7 +367,7 @@
 
         <!-- Food Details  part end -->
 
-        <section class="food-details food-details-two      ">
+        <section class="food-details food-details-two">
             <div class="container">
 
                 <div class="row responsive-df">

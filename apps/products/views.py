@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q, F, ExpressionWrapper, DecimalField, Sum
 
-from apps.settings.models import Setting
+from apps.settings.models import Setting, Promotions
 from apps.products.models import Product, ReviewProduct
 from apps.carts.models import Cart, CartItem
 
@@ -11,7 +11,7 @@ def product_detail(request, id):
     product = Product.objects.get(id=id)
     reviews = ReviewProduct.objects.filter(product_id=id).order_by('-created')[:5]
     random_products = Product.objects.all().order_by('?')[:3]
-    footer_products = Product.objects.filter(title__startswith='Крылышки')
+    promotions = Promotions.objects.all().order_by('-id')[:2]
     session_key = request.session.session_key
     cart = Cart.objects.filter(session_key=session_key).first()
     cart_items = []
