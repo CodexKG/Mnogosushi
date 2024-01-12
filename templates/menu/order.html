@@ -127,10 +127,71 @@
                                                 <p>Итого: {{item.total_price }} KGS</p>
                                             </div>
                                         </div>
+                                        <!-- Cart Item Actions -->
+                                        <div class="cart-item-actions">
+                                            <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="decrease">-</a>
+                                            <span>{{ item.quantity }}</span>
+                                            <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="increase">+</a>
+                                            <a href="#" class="btn remove-cart-item" data-product-id="{{ item.product.id }}">Удалить</a>
+                                        </div>
                                     </a>
                                 </div>
                                 {% endfor %}
                                 {% endif %}
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // Function to handle cart update
+                                        function updateCart(productId, action) {
+                                            fetch('/menu/update_item/', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRFToken': getCookie('csrftoken'),
+                                                },
+                                                body: JSON.stringify({'productId': productId, 'action': action})
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                location.reload(); // Reload the page to update the cart display
+                                            });
+                                        }
+                                
+                                        // Attach event listeners to update cart buttons
+                                        document.querySelectorAll('.update-cart').forEach(btn => {
+                                            btn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                var productId = this.dataset.productId;
+                                                var action = this.dataset.action;
+                                                updateCart(productId, action);
+                                            });
+                                        });
+                                
+                                        // Attach event listeners to remove cart item buttons
+                                        document.querySelectorAll('.remove-cart-item').forEach(btn => {
+                                            btn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                var productId = this.dataset.productId;
+                                                updateCart(productId, 'remove');
+                                            });
+                                        });
+                                
+                                        // Function to get CSRF token
+                                        function getCookie(name) {
+                                            let cookieValue = null;
+                                            if (document.cookie && document.cookie !== '') {
+                                                const cookies = document.cookie.split(';');
+                                                for (let i = 0; i < cookies.length; i++) {
+                                                    let cookie = cookies[i].trim();
+                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            return cookieValue;
+                                        }
+                                    });
+                                </script>
                             </div>
                             <div class="apply-coupon">
                                 <div class="apply-coupon-taitel">

@@ -191,7 +191,7 @@ def table_remove_from_cart(request, product_id, table_uuid):
 def table_cart_items_count_processor(request):
     session_key = request.session.session_key
     if not session_key:
-        return {'cart_items_count': 0}
+        return {'order_items_count': 0}
 
     count = TableOrderItem.objects.filter(table__session_key=session_key).count()
-    return {'cart_items_count': count}
+    return {'order_items_count': count}

@@ -218,24 +218,119 @@
                             <div class="cart-summary-box-item-top">
                                 {% if cart_items %}
                                 {% for item in cart_items %}
-                                <div class="cart-summary-box-item">
-                                    <a href="{% url 'product_detail' item.product.id  %}">
+                                    <div class="cart-summary-box-item">
                                         <div class="cart-summary-box-inner">
-                                            <div class="cart-summary-box-img">
-                                                <!-- <img src="{{ item.product.iiko_image }}" width="10%" alt="{{ item.product.title }}"> -->
-                                            </div>
+                                            <!-- Cart Item Details -->
                                             <div class="cart-summary-box-text-two">
                                                 <h4>{{ item.product.title }} {{ item.product.price }} KGS</h4>
                                                 <h5><span>Количество:</span> {{ item.quantity }}</h5>
-                                                <p>Итого: {{item.total_price }} KGS</p>
+                                                <p>Итого: {{ item.total_price }} KGS</p>
+                                            </div>
+
+                                            <!-- Cart Item Actions -->
+                                            <div class="cart-item-actions">
+                                                <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="decrease">-</a>
+                                                <span>{{ item.quantity }}</span>
+                                                <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="increase">+</a>
+                                                <a href="#" class="btn remove-cart-item" data-product-id="{{ item.product.id }}">Удалить</a>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
                                 {% endfor %}
-                                {% endif %}
+                            {% endif %}
                             </div>
-
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Function to handle cart update
+                                    function updateCart(productId, action) {
+                                        fetch('/cart/update_item/', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRFToken': getCookie('csrftoken'),
+                                            },
+                                            body: JSON.stringify({'productId': productId, 'action': action})
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            location.reload(); // Reload the page to update the cart display
+                                        });
+                                    }
+                            
+                                    // Attach event listeners to update cart buttons
+                                    document.querySelectorAll('.update-cart').forEach(btn => {
+                                        btn.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            var productId = this.dataset.productId;
+                                            var action = this.dataset.action;
+                                            updateCart(productId, action);
+                                        });
+                                    });
+                            
+                                    // Attach event listeners to remove cart item buttons
+                                    document.querySelectorAll('.remove-cart-item').forEach(btn => {
+                                        btn.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            var productId = this.dataset.productId;
+                                            updateCart(productId, 'remove');
+                                        });
+                                    });
+                            
+                                    // Function to get CSRF token
+                                    function getCookie(name) {
+                                        let cookieValue = null;
+                                        if (document.cookie && document.cookie !== '') {
+                                            const cookies = document.cookie.split(';');
+                                            for (let i = 0; i < cookies.length; i++) {
+                                                let cookie = cookies[i].trim();
+                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        return cookieValue;
+                                    }
+                                });
+                            </script>
+                            <!-- <style>
+                                .btn {
+                                    background-color: #ee1d23; /* Red background */
+                                    color: white; /* White text */
+                                    padding: 5px 10px; /* Padding around the text */
+                                    text-decoration: none; /* Removes underline from links */
+                                    border: 2px solid white; /* White border */
+                                    border-radius: 10px; /* Rounded corners */
+                                    cursor: pointer; /* Hand cursor on hover */
+                                    font-size: 14px; /* Font size */
+                                    margin: 2px; /* Margin between buttons */
+                                    transition: background-color 0.3s, color 0.3s; /* Smooth transition for color and background */
+                                }
+                            
+                                .btn:hover {
+                                    background-color: #d11a20; /* Slightly darker red on hover */
+                                }
+                            
+                                .btn:active {
+                                    background-color: white; /* White background when clicked */
+                                    color: #ee1d23; /* Red text when clicked */
+                                    border-color: #ee1d23; /* Red border when clicked */
+                                }
+                            
+                                .cart-item-actions {
+                                    display: flex; /* Aligns buttons in a row */
+                                    align-items: center; /* Centers buttons vertically */
+                                    justify-content: flex-start; /* Aligns buttons to the start of the flex container */
+                                }
+                            
+                                .cart-summary-box-item {
+                                    margin-bottom: 15px; /* Space between cart items */
+                                }
+                            
+                                .update-cart, .remove-cart-item {
+                                    margin: 0 5px; /* Spacing around buttons */
+                                }
+                            </style> -->
 
                             <div class="apply-coupon">
                                 <div class="apply-coupon-taitel">
