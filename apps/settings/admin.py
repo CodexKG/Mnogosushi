@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.settings.models import Setting, Contact, FAQ, Promotions
+from apps.settings.models import Setting, Contact, FAQ, Promotions, PromoCode
 
 # Register your models here.
 @admin.register(Setting)
@@ -18,3 +18,8 @@ class FAQAdmin(admin.ModelAdmin):
 @admin.register(Promotions)
 class PromotionsAdmin(admin.ModelAdmin):
     list_display = ('title', 'image', 'url')
+
+@admin.register(PromoCode)
+class PromoCodeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'quantity', 'amount', 'title')
+    search_fields = ('code', 'quantity', 'amount', 'title')

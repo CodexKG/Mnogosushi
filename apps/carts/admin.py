@@ -5,7 +5,7 @@ from apps.carts.models import Cart, CartItem
 # Register your models here.
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('session_key', 'display_items', 'created')
+    list_display = ('session_key', 'display_items', 'discount_amount', 'promo_code', 'created')
 
     def display_items(self, obj):
         items = obj.items.all()  # Получаем все связанные товары
