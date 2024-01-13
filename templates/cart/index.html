@@ -58,10 +58,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-6 ">
-                        <form action="{% url 'create_billing' %}" method="post" onsubmit="return validateForm()">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if cart %}
+                                <form action="{% url 'create_billing' %}" method="post" onsubmit="return validateForm()">
+                                    {% csrf_token %}
                                     <div class="shopping-cart-new-address-top-item">
                                         <div class="shopping-cart-new-address-taitel">
                                             <h4>Оформить заказ</h4>
@@ -203,9 +204,16 @@
                                             };
                                         </script>
                                     </div>
+                                </form>
+                                {% else %}
+                                <div class="shopping-cart-new-address-top-item">
+                                    <div class="shopping-cart-new-address-taitel">
+                                        <h4>Ваша корзина пуста</h4>
+                                    </div>
                                 </div>
+                                {% endif %}
                             </div>
-                        </form>
+                        </div>
                     </div>
 
 
@@ -333,20 +341,59 @@
                             </style> -->
 
                             <div class="apply-coupon">
+                                {% if cart.promo_code == False %}
                                 <div class="apply-coupon-taitel">
                                     <h4>Ввести промокод</h4>
                                 </div>
 
                                 <div class="apply-coupon-btn">
-                                    <div class="apply-coupon-form">
-                                        <input type="email" class="form-control" id="exampleFormControlInput12"
-                                            placeholder="Промокод">
-                                    </div>
-                                    <div class="apply-coupon-btn-two">
-                                        <a href="#">Принять</a>
-                                    </div>
+                                    <form id="promo-code-form" method="post" action="{% url 'apply_promo_code' %}"> <!-- Add the ID here and the action to handle the form submission -->
+                                        {% csrf_token %}
+                                        <div class="apply-coupon-form">
+                                            <input type="text" id="promo-code-input" class="form-control" name="promo_code" placeholder="Промокод"> <!-- Add the ID here -->
+                                            <button type="submit" class="main-btn-four">Принять</button>
+                                        </div>
+                                    </form>
+                                </div>                                
+                                <div id="promo-code-error" style="color: red;"></div>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        document.getElementById('promo-code-form').addEventListener('submit', function(e) {
+                                            e.preventDefault();
+                                            const promoCodeInput = document.getElementById('promo-code-input');
+                                            const promoCodeError = document.getElementById('promo-code-error');
+                                            const csrfToken = getCookie('csrftoken');
+                                            fetch(this.action, { // Use the form's action attribute
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded', // Correct content type for form submission
+                                                    'X-CSRFToken': csrfToken,
+                                                },
+                                                body: new URLSearchParams(new FormData(this)).toString() // Serialize form data correctly
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    location.reload(); // or update the cart display without reloading
+                                                } else if (data.error) {
+                                                    promoCodeError.textContent = data.error;
+                                                }
+                                            });
+                                        });
+                                
+                                        function getCookie(name) {
+                                            // ... your existing getCookie function ...
+                                        }
+                                    });
+                                </script>
+                                
+                               
+                                {% endif %}
+                                {% if cart and cart.promo_code == True  %}
+                                <div class="apply-coupon-taitel">
+                                    <h4 style="color: red;">Промокод использован</h4>
                                 </div>
-
+                                {% endif %}
 
                                 <div class="apply-coupon-box">
                                     <div class="shopping-cart-list">
@@ -393,38 +440,7 @@
 
         <!-- Restaurant part-start -->
 
-        <section class="restaurant">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="restaurant-taitel">
-                            <h2>Find out Better Restaurant Food Experience</h2>
-
-                            <h4>We've done it carefully and simply. Combined with the ingredients makes for beautiful
-                                landings.</h4>
-                        </div>
-
-                        <div class="restaurant-taitel-btn">
-                            <a href="#"> <span>
-                                    <img src="{% static 'assets/images/icon/Google_Play.png' %}" alt="icon">
-                                </span> Google Play</a>
-                            <a href="#" class=" restaurant-taitel-btn-two"> <span>
-                                    <img src="{% static 'assets/images/icon/apple.png' %}" alt="icon">
-                                </span> Google Play</a>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <div class="restaurant-img-main">
-                            <div class="restaurant-img">
-                                <img src="{% static 'assets/images/thumb/restaurant.png' %}" alt="img">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        {% include 'include/faq.html' %}
 
         <!-- Restaurant part-end -->
 

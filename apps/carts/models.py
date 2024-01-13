@@ -7,6 +7,8 @@ class Cart(models.Model):
     session_key = models.CharField(max_length=40, unique=True, verbose_name="Ключ сессии")
     items = models.ManyToManyField(Product, through='CartItem', verbose_name="Товары")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания корзины")
+    discount_amount = models.IntegerField(blank=True, null=True, default=0, verbose_name="Сумма скидки")
+    promo_code = models.BooleanField(verbose_name="Промокод", default=False, blank=True, null=True)
 
     def __str__(self):
         return f"{self.session_key}"

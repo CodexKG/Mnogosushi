@@ -142,3 +142,27 @@ class Promotions(models.Model):
     class Meta:
         verbose_name = "Промоакция"
         verbose_name_plural = "Промоакции"
+
+class PromoCode(models.Model):
+    title = models.CharField(
+        max_length=255,
+        verbose_name="Заголовок",
+        blank=True, null=True
+    )
+    code = models.CharField(
+        max_length=200,
+        verbose_name="Код"
+    )
+    quantity = models.SmallIntegerField(
+        verbose_name="Количество"
+    )
+    amount = models.IntegerField(
+        verbose_name="Сумма промокода"
+    )
+
+    def __str__(self):
+        return self.code 
+    
+    class Meta:
+        verbose_name = "Промокод (скидка на сайте)"
+        verbose_name_plural = "Промокоды (скидки на сайте)"

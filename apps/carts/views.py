@@ -1,27 +1,49 @@
 from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
-from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
 import json
 
-from apps.settings.models import Setting
+from apps.settings.models import Setting, PromoCode, FAQ
 from apps.products.models import Product
 from apps.carts.models import Cart, CartItem
 from apps.carts.forms import AddToCartForm
 
-
-from django.shortcuts import redirect
-from django.http import JsonResponse
-
-
 # Create your views here.
+@require_http_methods(["POST"])
+def apply_promo_code(request):
+    data = {'success': False}
+    promo_code_str = request.POST.get('promo_code')
+    try:
+        promo_code = PromoCode.objects.get(code=promo_code_str, quantity__gt=0)
+        
+        session_key = request.session.session_key
+        cart, created = Cart.objects.get_or_create(session_key=session_key)
+        cart.discount_amount = promo_code.amount
+        cart.promo_code = True
+        cart.save()
+        promo_code.quantity -= 1  # Decrement the available quantity
+        promo_code.save()
+
+        # Recalculate total price after applying the promo code
+        cart_items = CartItem.objects.filter(cart=cart).annotate(
+            total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
+        )
+        total_price_before_discount = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+        total_price_after_discount = total_price_before_discount - cart.discount_amount
+        
+        data['success'] = True
+        data['discount_amount'] = promo_code.amount
+        data['total_price'] = total_price_after_discount
+    except PromoCode.DoesNotExist:
+        data['error'] = "Промокод не существует либо закончились"
+    
+    return JsonResponse(data)
+
 def add_to_cart(request):
-    print(request.META.get('HTTP_REFERER'))
     if request.method == 'POST':
         form = AddToCartForm(request.POST)
-        print(form)
-        print(form.is_valid())
-        print(form.data)
         if form.is_valid():
         # if True:
             product_id = form.cleaned_data['product_id']
@@ -59,6 +81,7 @@ def add_to_cart(request):
 
 def cart(request):
     setting = Setting.objects.latest('id')
+    faqs = FAQ.objects.all().order_by('?')[:3]
     session_key = request.session.session_key
     cart = Cart.objects.filter(session_key=session_key).first()
     cart_items = []
@@ -69,10 +92,26 @@ def cart(request):
         )
         total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
 
+        total_price -= cart.discount_amount
+
         if total_price < 1500:
             total_price += delivery_cost  # Добавляем стоимость доставки, если сумма заказа меньше 1500 сом
         else:
             free_delivery = True
+        promo_code_error = None
+        if request.method == "POST":
+            promo_code_str = request.POST.get('promo_code')
+            try:
+                promo_code = PromoCode.objects.get(code=promo_code_str, quantity__gt=0)
+                if cart:
+                    cart.promo_code = True
+                    cart.save()
+                    promo_code.quantity -= 1
+                    promo_code.save()
+                total_price -= promo_code.amount
+            except PromoCode.DoesNotExist:
+                promo_code_error = "Invalid or expired promo code."
+                print(promo_code_error)
     else:
         cart_items = []
         total_price = 0
