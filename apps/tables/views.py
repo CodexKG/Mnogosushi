@@ -1,19 +1,50 @@
-from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
-from django.http import JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Case, When, Value, IntegerField
-from django.db import IntegrityError
-
+from django.views.decorators.http import require_http_methods
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
 import json
 
-from apps.settings.models import Setting, FAQ, Promotions
+from apps.settings.models import Setting, FAQ, Promotions, PromoCode
 from apps.tables.models import Table, TableOrder, TableOrderItem
 from apps.tables.forms import AddToOrderForm
 from apps.products.models import Product
 from apps.categories.models import Category
 
 # Create your views here.
+@require_http_methods(["POST"])
+def apply_promo_code(request):
+    data = {'success': False}
+    promo_code_str = request.POST.get('promo_code')
+    try:
+        promo_code = PromoCode.objects.get(code=promo_code_str, quantity__gt=0)
+        
+        session_key = request.session.session_key
+        order, created = TableOrder.objects.get_or_create(session_key=session_key)
+        order.discount_amount = promo_code.amount
+        order.promo_code = True
+        order.save()
+        promo_code.quantity -= 1  # Decrement the available quantity
+        promo_code.save()
+
+        print("CHECK MENU")
+
+        # Recalculate total price after applying the promo code
+        cart_items = TableOrderItem.objects.filter(table=order).annotate(
+            total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
+        )
+        total_price_before_discount = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+        total_price_after_discount = total_price_before_discount - order.discount_amount
+        
+        data['success'] = True
+        data['discount_amount'] = promo_code.amount
+        data['total_price'] = total_price_after_discount
+    except PromoCode.DoesNotExist:
+        data['error'] = "Промокод не существует либо закончились"
+    
+    return JsonResponse(data)
+
 def menu_index(request):
     setting = Setting.objects.latest('id')
     tables = Table.objects.all()
@@ -81,7 +112,6 @@ def category_menu_detail(request, table_uuid, category_slug):
 
     return render(request, 'menu/category.html', locals())
 
-
 def add_to_order(request):
     print("add to order")
     print(request.META.get('HTTP_REFERER'))
@@ -134,6 +164,7 @@ def add_to_order(request):
 
 def order(request, table_uuid):
     setting = Setting.objects.latest('id')
+    faqs = FAQ.objects.all().order_by('?')[:3]
     table = Table.objects.get(number=table_uuid)
     session_key = request.session.session_key
     order = TableOrder.objects.filter(session_key=session_key).first()
@@ -143,6 +174,22 @@ def order(request, table_uuid):
             total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
         )
         total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+        total_price -= order.discount_amount  # Apply discount
+
+        promo_code_error = None
+        if request.method == "POST":
+            promo_code_str = request.POST.get('promo_code')
+            try:
+                promo_code = PromoCode.objects.get(code=promo_code_str, quantity__gt=0)
+                if order:
+                    order.promo_code = True
+                    order.save()
+                    promo_code.quantity -= 1
+                    promo_code.save()
+                total_price -= promo_code.amount
+            except PromoCode.DoesNotExist:
+                promo_code_error = "Invalid or expired promo code."
+                print(promo_code_error)
     else:
         cart_items = []
         total_price = 0

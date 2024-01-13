@@ -64,6 +64,8 @@ class TableOrder(models.Model):
     menu_table = models.ForeignKey(Table, on_delete=models.SET_NULL, verbose_name="Стол", blank=True, null=True)
     session_key = models.CharField(max_length=40, unique=True, verbose_name="Ключ сессии")
     items = models.ManyToManyField(Product, through='TableOrderItem', verbose_name="Товары")
+    discount_amount = models.IntegerField(blank=True, null=True, default=0, verbose_name="Сумма скидки")
+    promo_code = models.BooleanField(verbose_name="Промокод", default=False, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Дата формирования заказа")
 
     def __str__(self):
