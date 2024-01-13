@@ -2,11 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseServerError
 from django.db.models import Case, When, Value, IntegerField
 from django.http import JsonResponse
-from django.core.paginator import Paginator, EmptyPage
-import traceback, requests
 import xml.etree.ElementTree as ET
+import traceback, requests
 
-from apps.settings.models import Setting, Contact, FAQ, Promotions
+from apps.settings.models import Setting, Contact, FAQ
 from apps.products.models import Product, ReviewProduct
 from apps.billing.models import Billing, BillingProduct
 from apps.categories.models import Category
