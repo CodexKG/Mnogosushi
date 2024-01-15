@@ -53,16 +53,65 @@
           <div class="food-details-btn-box">
             <div class="food-details-btn-box-item">
               <div class="food-details-btn-search-box">
-                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="Искать">
-                <div class="food-details-btn-search-btn">
-                  <a href="#" class="icon">
-                    <span>
+                <form action="{% url 'search' %}" method="post" class="search-form">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" name="query" placeholder="Искать">
+                  <button type="submit" class="search-btn">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5 18.5L22 22M21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21C16.7467 21 21 16.7467 21 11.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M18.5 18.5L22 22M21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21C16.7467 21 21 16.7467 21 11.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
-                    </span>
-                  </a>
-                </div>
+                  </button>
+                </form>
+                <!-- CSS for Styling -->
+                <style>
+                  .search-form {
+                      display: flex;
+                      align-items: center;
+                      width: 100%; /* Make sure the form takes the full width */
+                  }
+
+                  .form-control {
+                      flex: 1 0 300px; /* flex-grow to 1, flex-shrink to 0 and base width to 300px */
+                      margin-right: 10px;
+                      padding: 10px;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      font-size: 1rem; /* Adjust font size as needed */
+                  }
+
+                  .search-btn {
+                      background: #ff0000; /* Adjust the button color as needed */
+                      border: none;
+                      cursor: pointer;
+                  }
+
+                  .search-form {
+                      display: flex;
+                      align-items: center;
+                      width: 100%; /* Ensures that the form takes the full width of its parent */
+                  }
+
+                  .form-control {
+                      flex-grow: 1; /* Allows the input to grow and fill available space */
+                      margin-right: 10px;
+                      padding: 10px;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      font-size: 1rem; /* Adjust the font size as needed */
+                  }
+
+                  .search-btn {
+                      background-color: #ff0000; /* Adjust the button background color as needed */
+                      border: none;
+                      padding: 10px 15px; /* Adjust padding to increase the size of the button */
+                      border-radius: 4px;
+                      cursor: pointer;
+                  }
+
+                  .search-btn svg {
+                      fill: #fff; /* Ensures that the SVG icon is white */
+                  }
+                </style>
               </div>
             </div>
             <div class="food-details-btn-box-right-btn">

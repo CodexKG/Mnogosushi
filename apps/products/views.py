@@ -49,9 +49,16 @@ def foods(request):
 def search(request):
     setting = Setting.objects.latest('id')
     faqs = FAQ.objects.all().order_by('?')[:3]
-    query = request.POST.get('query', '')
+    query = request.POST.get('query', '').strip()
+    
+    products = Product.objects.none()  # Пустой QuerySet для начала
     if query:
-        # Используйте Q-объекты для выполнения поиска в моделях Shop и Product
-        products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+        # Q-объекты для выполнения регистронезависимого поиска по началу, концу или содержанию строки
+        products = Product.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(title__istartswith=query) |
+            Q(description__iendswith=query)
+        )
 
     return render(request, 'products/foods.html', locals())
