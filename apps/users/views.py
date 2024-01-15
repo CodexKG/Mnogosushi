@@ -59,14 +59,21 @@ def profile(request, username):
     setting = Setting.objects.latest('id')
     if request.method == "POST":
         if 'update' in request.POST:
+            print("UPDATE")
+            profile_image = request.FILES.get('profile_image')
+            print(profile_image)
+            user_username = request.POST.get('username')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
             email = request.POST.get('email')
             phone = request.POST.get('phone')
+            user.username = user_username
             user.first_name = first_name
             user.last_name = last_name
             user.email = email 
             user.phone = phone
+            if profile_image:
+                user.profile_image = profile_image
             user.save()
             return redirect('profile', user.username)
     context = {

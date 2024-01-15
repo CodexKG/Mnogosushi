@@ -3,6 +3,12 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
+    profile_image = models.ImageField(
+        upload_to='user_images/',
+        verbose_name='Фотография профиля',
+        default='no_image.jpg',
+        blank=True, null=True
+    )
     phone = models.CharField(
         max_length=100,
         verbose_name="Номер телефона",

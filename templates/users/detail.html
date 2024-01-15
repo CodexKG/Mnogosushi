@@ -55,7 +55,6 @@
 
         <section class="dashboard">
             <div class="container">
-
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist"
@@ -63,7 +62,7 @@
                             <div class="dashboard-menu-profile-main">
                                 <div class="dashboard-menu-profile">
                                     <div class="dashboard-menu-profile-img">
-                                        <img src="{% static 'assets/images/small/dashboard-menu-profile-img.png' %}" alt="img">
+                                        <img src="{{ user.profile_image.url }}" width="50%" alt="{{ user.username }}">
                                     </div>
                                     <div class="dashboard-menu-profile-text">
                                         <h4>{{ user.username }}</h4>
@@ -84,6 +83,7 @@
                                 </span>
                                 Профиль
                             </button>
+                            {% if request.user.username == user.username %}
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-profile" type="button" role="tab"
                                 aria-controls="v-pills-profile" aria-selected="false">
@@ -98,11 +98,10 @@
                                         </path>
                                     </svg>
                                 </span>
-
-
                                 Адреса
-
                             </button>
+                            {% endif %}
+                            {% if request.user.username == user.username %}
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-messages" type="button" role="tab"
                                 aria-controls="v-pills-messages" aria-selected="false">
@@ -123,11 +122,10 @@
                                         </path>
                                     </svg>
                                 </span>
-
-
                                 <span class="text"> Мои заказы</span>
-
                             </button>
+                            {% endif %}
+                            {% if request.user.username == user.username %}
                             <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-settings" type="button" role="tab"
                                 aria-controls="v-pills-settings" aria-selected="false">
@@ -142,11 +140,9 @@
                                         </path>
                                     </svg>
                                 </span>
-
-
                                 Избранное
-
                             </button>
+                            {% endif %}
                             <button class="nav-link" id="v-pills-settings-tab1" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-settings1" type="button" role="tab"
                                 aria-controls="v-pills-settings1" aria-selected="false">
@@ -158,11 +154,9 @@
                                         </path>
                                     </svg>
                                 </span>
-
-
                                 Отзывы
-
                             </button>
+                            {% if request.user.username == user.username %}
                             <button class="nav-link" id="v-pills-settings-tab2" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-settings2" type="button" role="tab"
                                 aria-controls="v-pills-settings2" aria-selected="false">
@@ -178,11 +172,10 @@
                                         <circle cx="6.99967" cy="11.5026" r="1.66667"></circle>
                                     </svg>
                                 </span>
-
-
                                 <span class=" text"> Поменять пароль</span>
-
                             </button>
+                            {% endif %}
+                            {% if request.user.username == user.username %}
                             <button type="button" class="logout-btn " data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
                                 <span>
@@ -198,6 +191,7 @@
                                 </span>
                                 Выйти
                             </button>
+                            {% endif %}
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -247,7 +241,7 @@
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                 aria-labelledby="v-pills-home-tab">
-
+                                {% if request.user.username == user.username %}
                                 <div class="dashboard-item-taitel">
                                     <h4>Мой профиль</h4>
                                     <p>Вы можете поменять данные своего профиля</p>
@@ -255,13 +249,49 @@
 
                                 <div class="dashboard-edit-profile-from">
                                     <div class="shopping-cart-new-address-from">
-                                        <form method="post">
+                                        <form method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="shopping-cart-new-address-from-item">
                                                 <div class="shopping-cart-new-address-from-inner">
-                                                    <input type="file" name="default" id="default" class="border p-2">
+                                                    <!-- Display current profile image -->
+                                                    <div class="profile-image-preview" style="width: 10%; border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                                                        <img src="{{ request.user.profile_image.url }}" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;">
+                                                    </div>
+                                            
+                                                    <!-- Input for new profile image -->
+                                                    <input type="file" name="profile_image" id="profile_image" class="border p-2" onchange="previewImage(event)">
                                                 </div>
                                             </div>
+
+                                            <!-- Optional: JavaScript to preview image before upload -->
+                                            <script>
+                                                function previewImage(event) {
+                                                    var reader = new FileReader();
+                                                    reader.onload = function() {
+                                                        var output = document.querySelector('.profile-image-preview img');
+                                                        output.src = reader.result;
+                                                    };
+                                                    reader.readAsDataURL(event.target.files[0]);
+                                                }
+                                            </script>
+                                                
+                                            <!-- CSS -->
+                                            <style>
+                                                .shopping-cart-new-address-from-inner {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    gap: 10px; /* Adjust the gap between the image preview and the input field */
+                                                }
+                                            </style>
+
+                                            <div class="shopping-cart-new-address-from-item">
+                                                <div class="shopping-cart-new-address-from-inner">
+                                                    <label class="form-label">Имя пользователя</label>
+                                                    <input type="text" class="form-control" name="username" value="{{ request.user.username }}"
+                                                        placeholder="Имя пользователя">
+                                                </div>
+                                            </div>
+
                                             <div class="shopping-cart-new-address-from-item">
                                                 <div class="shopping-cart-new-address-from-inner">
                                                     <label class="form-label">Имя</label>
@@ -287,12 +317,16 @@
                                                 </div>
                                             </div>
                                            
-                                            <button style="margin-top: 10px;" name="update" class="main-btn-four">Обновить</button>
+                                            <button style="margin-top: 10px;" type="submit" name="update" class="main-btn-four">Обновить</button>
                                         </form>
-                                       
                                     </div>
                                 </div>
-
+                                {% else %}
+                                <div class="dashboard-item-taitel">
+                                    <h4>Профиль пользователя {{ user.username }}</h4>
+                                    <p>Вы можете посмотреть данные пользователя {{ user.username }}</p>
+                                </div>
+                                {% endif %}
                             </div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                                 aria-labelledby="v-pills-profile-tab">
@@ -1231,10 +1265,7 @@
                                                         </a>
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init" data-aos="fade-up">
@@ -1333,13 +1364,9 @@
                                                         </a>
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-settings1" role="tabpanel"
@@ -1567,12 +1594,9 @@
                                                             </span>
                                                         </div>
                                                     </a>
-
                                                     <div class="text">
                                                         <a href="#">2 days ago</a>
                                                     </div>
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -1634,103 +1658,32 @@
                                                             placeholder="Confirm Password">
                                                     </div>
                                                 </div>
-
-
-
                                                 <div class="change-passowerd-btn  ">
                                                     <a href="#" class="main-btn-four">Save now</a>
                                                 </div>
-
-
-
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </section>
-
-
-
-
-
-
-
-
-
 
         <!-- dashboard end  -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- Restaurant part-start -->
 
-        <section class="restaurant">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="restaurant-taitel">
-                            <h2>Find out Better Restaurant Food Experience</h2>
-
-                            <h4>We've done it carefully and simply. Combined with the ingredients makes for beautiful
-                                landings.</h4>
-                        </div>
-
-                        <div class="restaurant-taitel-btn">
-                            <a href="#"> <span>
-                                    <img src="./assets/images/icon/Google_Play.png" alt="icon">
-                                </span> Google Play</a>
-                            <a href="#" class=" restaurant-taitel-btn-two"> <span>
-                                    <img src="./assets/images/icon/apple.png" alt="icon">
-                                </span> Google Play</a>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <div class="restaurant-img-main">
-                            <div class="restaurant-img">
-                                <img src="./assets/images/thumb/restaurant.png" alt="img">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        {% include 'include/faq.html' %}
 
 
         <!-- Restaurant part-end -->
 
-
-
     </main>
 
     <!-- footer part start  -->
-
 
     {% include 'include/footer.html' %}
 
