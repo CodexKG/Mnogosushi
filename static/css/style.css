@@ -1187,7 +1187,7 @@ p {
   background: #fff;
   padding-top: 80px;
   padding-left: 25px;
-  padding-right: 25px;
+  /*padding-right: 25px;*/
   padding-bottom: 50px;
   z-index: 9;
   display: block;
