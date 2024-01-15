@@ -150,12 +150,14 @@
 
                                             <div class="food-review-inner">
                                                 <div class="food-review-inner-img">
-                                                    <img src="{% static 'assets/images/small/review.png' %}" alt="img">
+                                                    {% if review.user.profile_image %}
+                                                    <img src="{{ review.user.profile_image.url }}" width="10%" alt="{{ review.user.username }}">
+                                                    {% endif %}
                                                 </div>
 
                                                 <div class="food-review-inner-text">
                                                     <h4>{{ review.user }}</h4>
-                                                    <p>Dog Trainer</p>
+                                                    <p>На сайте с: {{ review.user.date_joined }}</p>
                                                 </div>
                                             </div>
                                         </div>
