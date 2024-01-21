@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseServerError
 from django.db.models import Case, When, Value, IntegerField
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 import xml.etree.ElementTree as ET
 import traceback, requests
+import json
 
 from apps.settings.models import Setting, Contact, FAQ
 from apps.products.models import Product, ReviewProduct
@@ -20,6 +23,26 @@ def index(request):
             output_field=IntegerField()
         )
     ).order_by('sort_priority')
+    paginator = Paginator(categories, 6)  # Показывать по 6 категорий на странице
+
+    page = request.GET.get('page')
+    try:
+        categories = paginator.page(page)
+    except PageNotAnInteger:
+        categories = paginator.page(1)
+    except EmptyPage:
+        categories = paginator.page(paginator.num_pages)
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        page = request.GET.get('page')
+        categories = paginator.get_page(page)
+        
+        # Создаем список категорий для передачи через AJAX
+        categories_data = list(categories.object_list.values('title', 'slug', 'iiko_image'))
+
+        # Используем JsonResponse для удобства
+        return JsonResponse(categories_data, safe=False)
+    
     products = Product.objects.all()
     reviews = ReviewProduct.objects.filter(stars=5).order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
