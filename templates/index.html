@@ -11,6 +11,151 @@
 
     <!-- header part end  -->
 
+    <div id="cityModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Выберите город</h2>
+          <select id="citySelect">
+            <option value="stay">Выберите город</option>
+            <option value="bishkek">Бишкек</option>
+            <option value="tokmok">Токмок</option>
+            <!-- Добавьте дополнительные города здесь -->
+          </select>
+          <button id="submitCity">Подтвердить</button>
+        </div>
+    </div>
+
+    <style>
+        /* Стили для модального окна */
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000; /* Увеличить z-index, если есть другие всплывающие элементы */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.6); /* Немного более темный фон для лучшей видимости */
+        }
+
+        /* Стили для содержимого модального окна */
+        .modal-content {
+        background-color: #ffffff; /* Цвет фона */
+        margin: 10% auto; /* Центрирование и меньше отступа сверху */
+        padding: 40px; /* Больше отступа для внутреннего содержимого */
+        border-radius: 8px; /* Скругленные углы */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Тень для плавающего эффекта */
+        width: 30%; /* Ширина модального окна */
+        box-sizing: border-box; /* Для корректного отображения ширины с padding */
+        }
+
+        /* Стилизация текста внутри модального окна */
+        h2 {
+        color: #333333; /* Цвет текста */
+        font-family: 'Arial', sans-serif; /* Шрифт, схожий с основным шрифтом на сайте */
+        margin-bottom: 20px; /* Отступ снизу для заголовка */
+        }
+
+        /* Стили для кнопки закрытия */
+        .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #333333;
+        text-decoration: none;
+        cursor: pointer;
+        }
+
+        /* Стили для выпадающего списка */
+        #citySelect {
+        width: 100%; /* Ширина на всю доступную область */
+        padding: 10px; /* Отступ внутри поля */
+        margin-bottom: 20px; /* Отступ снизу */
+        border: 1px solid #cccccc; /* Граница */
+        border-radius: 4px; /* Скругление углов */
+        font-family: 'Arial', sans-serif; /* Шрифт, аналогичный основному на сайте */
+        }
+
+        /* Стили для кнопки подтверждения */
+        #submitCity {
+        background-color: #ee1d23; /* Зеленый цвет кнопки */
+        color: white;
+        padding: 15px 20px;
+        margin: 0; /* Убрать внешний отступ */
+        border: none;
+        border-radius: 4px; /* Скругление углов */
+        cursor: pointer;
+        width: 100%; /* Ширина на всю доступную область */
+        font-size: 16px; /* Размер шрифта */
+        font-family: 'Arial', sans-serif; /* Шрифт, аналогичный основному на сайте */
+        }
+
+        #submitCity:hover {
+        background-color: #c1181d; /* Чуть более темный оттенок зеленого при наведении */
+        }
+
+        /* Медиа-запросы для мобильных устройств */
+        @media (max-width: 768px) {
+        .modal-content {
+            width: 80%; /* Ширина модального окна для планшетов */
+            padding: 20px; /* Меньше отступа для планшетов */
+            margin: 15% auto; /* Больше отступа сверху */
+        }
+
+        .close {
+            font-size: 24px; /* Меньший размер для планшетов */
+        }
+        }
+
+        @media (max-width: 480px) {
+        .modal-content {
+            width: 95%; /* Максимальная ширина для смартфонов */
+            margin: 20% auto; /* Больше отступа сверху для смартфонов */
+        }
+    }
+    </style>
+
+    <script>
+        window.onload = function() {
+        // Открыть модальное окно при загрузке страницы
+        document.getElementById('cityModal').style.display = "block";
+
+        // Получить элементы
+        var modal = document.getElementById('cityModal');
+        var btn = document.getElementById("submitCity");
+        var span = document.getElementsByClassName("close")[0];
+        var citySelect = document.getElementById("citySelect");
+
+        // Когда пользователь кликает на кнопку, закрыть модальное окно и проверить выбранный город
+        btn.onclick = function() {
+            var city = citySelect.options[citySelect.selectedIndex].text; // Получить текст выбранного города
+            modal.style.display = "none";
+            if (city === "Токмок") {
+            // Перенаправить пользователя на URL для Токмока
+            window.location.href = 'https://tokmok.mnogosushi.kg';
+            }
+            // Если выбран Бишкек, ничего не делаем, так как пользователь должен остаться на странице
+        }
+
+        // Когда пользователь кликает на (x), закрыть модальное окно
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Когда пользователь кликает вне модального окна, закрыть его
+        window.onclick = function(event) {
+            if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        }
+        }
+    </script>
 
     <main>
 
@@ -98,51 +243,15 @@
 
                 <!-- Grid Tab -->
                 <div class="tab-pane fade show in active" id="grid" role="tabpanel">
-                    <!-- Filter Title -->
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6">
-                            <ul class="shaf-filter course-filter j ">
-
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Filter Title -->
-
-                    <!-- Filter Content -->
-                    <div class="row shafull-container">
+                    <div id="continerrr" class="row shafull-container">
                         {% for category in categories %}
                         <div class="col-lg-4 col-md-6 shaf-item res-mb-20px">
-
                             <div class="featured-item" data-aos="fade-up">
-
                                 <div class="featured-item-img">
                                     <a href="{% url 'category_detail' category.slug %}"><img src="{{ category.iiko_image }}" class="w-100" alt="{{ category.title }}"></a>
-
-                                    <div class="featured-item-img-overlay">
-                                        <div class="featured-item-img-over-text">
-
-                                        </div>
-                                    </div>
-
                                 </div>
 
                                 <div class="featured-item-text">
-                                    <div class="text-item">
-                                        <div class="left">
-                                            <h3>Количество: {{ category.category_products.all.count }}</h3>
-                                        </div>
-                                        <div class="right">
-                                            <div class="icon">
-                                                <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
-                                                            fill="#FFB23E" />
-                                                    </svg></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="text-item-center">
                                         <h3><a href="{% url 'category_detail' category.slug %}">{{ category.title }}</a></h3>
                                     </div>
@@ -153,16 +262,103 @@
                         {% endfor %}
                     </div>
 
-                    <!-- <div class="row">
-                        <div class="col-lg-12">
-                            <div class="traditional-btn">
-                                <a class="main-btn-four" >Все категории</a>
-                            </div>
-                        </div>
-                    </div> -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if categories.has_previous %}
+                                <a href="?page={{ categories.previous_page_number }}">&laquo;</a>
+                            {% endif %}
+                    
+                            {% for i in categories.paginator.page_range %}
+                                {% if categories.number == i %}
+                                    <span class="current">{{ i }}</span>
+                                {% else %}
+                                    <a href="?page={{ i }}">{{ i }}</a>
+                                {% endif %}
+                            {% endfor %}
+                     
+                            {% if categories.has_next %}
+                                <a href="?page={{ categories.next_page_number }}">&raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <style>
+                        .pagination {
+                            margin: 20px 0;
+                            text-align: center;
+                        }
+                        .pagination .step-links {
+                            display: inline-block;
+                        }
+                        .pagination .step-links a {
+                            padding: 5px 10px;
+                            margin: 0 5px;
+                            border: 1px solid #ddd;
+                            color: #ee1d23;
+                            text-decoration: none;
+                        }
+                        .pagination .step-links .current {
+                            padding: 5px 10px;
+                            margin: 0 5px;
+                            border: 1px solid #ddd;
+                            background-color: #ee1d23;
+                            color: white;
+                        }
+                    </style>
+
+                    <script>
+                        $(document).ready(function() {
+                            // Используем делегирование событий для привязки обработчика событий клика
+                            $(document).on('click', '.pagination a', function(e) {
+                                e.preventDefault();
+                                var page = $(this).attr('href').split('page=')[1];
+                                
+                                $.ajax({
+                                    url: "{% url 'index' %}?page=" + page,
+                                    type: 'get',
+                                    success: function(data) {
+                                        var newContent = '';
+                                        data.forEach(function(item) {
+                                            // Замените этот комментарий реальным кодом для создания HTML категорий
+                                            newContent += `
+                                            <div class="col-lg-4 col-md-6 shaf-item res-mb-20px">
+                                                <div class="featured-item"  >
+                                                    <div class="featured-item-img">
+                                                        <a href="/we"><img src="${ item.iiko_image}" class="w-100" alt="${item.title}"></a>
+                                                    </div>
+
+                                                    <div class="featured-item-text">
+                                                        <div class="text-item-center">
+                                                            <h3><a href="/we">${item.title}</a></h3>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            `
+                                        });
+                                        
+                                        $('.shafull-container').html(newContent);
+                                        // Теперь необходимо также обновить пагинацию
+                                        updatePagination(page);
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error(error);
+                                    }
+                                });
+                            });
+                        });
+
+                        function updatePagination(page) {
+                            // Добавьте логику для обновления пагинации
+                        }
+                    </script>
                 </div>
             </div>
         </section>
+
 
 
         <!-- Traditional part-end -->
@@ -196,7 +392,7 @@
 
                         <div class="customer-inner">
                             <div class="customer-inner-img">
-                                <img src="{% static 'assets/images/small/customer-1.png' %}" alt="img">
+                                <img src="{{ review.user.profile_image.url }}" width="100px" style="border-radius: 10%;" alt="{{ review.user.username }}">
                             </div>
 
                             <div class="customer-inner-text">
