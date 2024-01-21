@@ -23,9 +23,22 @@
 
                     <div class="location-btn">
                         <div class="dropdown">
-                            <a class="btn btn-secondary" href="{% url 'check_order' %}" role="button">
-                                Отследить заказ
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Выбрать город
                             </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'index' %}">Бишкек</a></li>
+                                <li><a class="dropdown-item" href="https://tokmok.mnogosushi.kg/">Токмок</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="location-btn-icon">
+                            <span>
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.83301 8.33203L9.99967 11.6654L14.1663 8.33203" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
                         </div>
                     </div>
 
