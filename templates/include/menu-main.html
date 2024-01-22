@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mnogosushi</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets-menu/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/magnific.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/nice-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/owl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/slick-slide.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/remixicon/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets-menu/css/responsive.css' %}">
+
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+<body class='sc5'>
+    <!-- preloader area start -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div id="wave1">
+            </div>
+            <div class="spinner">
+                <div class="dot1"></div>
+                <div class="dot2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- preloader area end -->
+
+    <!-- search popup area start -->
+    <div class="body-overlay" id="body-overlay"></div>
+    <div class="td-search-popup" id="td-search-popup">
+        <form action="/" class="search-form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Поиск">
+            </div>
+            <button type="submit" class="submit-btn"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <!-- //. search Popup -->
+    <div class="container">
+        <div class="main-home-area pb-0 mt-5">
+            <div class="home-search-wrap">
+                <div class="default-form-wrap">
+                    <div class="single-input-wrap">
+                        <label><img src="{% static 'assets-menu/img/icon/search.svg' %}" alt="img"></label>
+                        <input type="text" class="form-control" placeholder="Поиск">
+                    </div>
+                    <button type="button" class="btn btn-border" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <img src="{% static 'assets-menu/img/icon/filter.svg' %}" alt="img">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Modal -->
+    <div class="modal fade bottom filter-modal-popup" id="exampleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="container">
+                    <h5 class="section-title">Category</h5>
+                    <div class="home-category-slider owl-carousel">
+                        <div class="item">
+                            <a class="home-category-item-wrap" href="main-home.html#">
+                                Ramen
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="home-category-item-wrap" href="main-home.html#">
+                                Pizza
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="home-category-item-wrap" href="main-home.html#">
+                                Burger
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="home-category-item-wrap" href="main-home.html#">
+                                Soft Drinks
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="home-category-item-wrap" href="main-home.html#">
+                                Fast Food
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="home-category-item-wrap" href="main-home.html#">
+                                French Fries
+                            </a>
+                        </div>
+                    </div>
+                    <h5 class="section-title">Price</h5>
+                    <ul class="price-list">
+                        <li><a href="main-home.html#">$</a></li>
+                        <li><a href="main-home.html#">$$</a></li>
+                        <li><a href="main-home.html#">$$$</a></li>
+                        <li><a href="main-home.html#">$$$$</a></li>
+                    </ul>
+                    <button type="button" class="link-btn" data-bs-dismiss="modal">Clear All</button>
+                    <button type="button" class="btn btn-base">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- all plugins here -->
+    <script src="{% static 'assets-menu/js/jquery.3.6.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/imageloded.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/counterup.js' %}"></script>
+    <script src="{% static 'assets-menu/js/waypoint.js' %}"></script>
+    <script src="{% static 'assets-menu/js/magnific.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/nice-select.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/fontawesome.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/owl.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/slick-slider.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets-menu/js/tweenmax.min.js' %}"></script>
+    <!-- main js  -->
+
+
+    <script src="{% static 'assets-menu/js/main.js' %}"></script>
+</body>
+</html>

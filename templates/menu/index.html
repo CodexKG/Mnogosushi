@@ -1,161 +1,30 @@
-{% extends 'include/homepage.html' %}
+{% extends 'include/menu-main.html' %}
 {% load static %}
 {% block content %}
 
-    <!-- header part start  -->
-    {% include 'include/menu_header.html' %}
+    <div class="container">
+        <div class="main-home-area pt-0">
+            <div class="home-category-slider owl-carousel">
+                {% include 'include/online_menu_categoty.html' %}
+            </div>
 
-    <!-- mobile navigation start -->
-    {% include 'include/menu_mobile_header.html' %}
-
-    <!-- header part end  -->
-
-
-    <main>
-
-        <!-- banner  -->
-
-        <div class="inner-banner">
-            <div class="container">
-                <div class="row  ">
-                    <div class="col-lg-12">
-                        <div class="inner-banner-head">
-                            <h1>Меню стола {{ table.title }} | {{ table.number }}</h1>
-                        </div>
-
-                        <div class="inner-banner-item">
-                            <div class="left">
-                                <a href="{% url 'index' %}">Главная</a>
-                            </div>
-                            <div class="icon">
-                                <span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </div>
-                            <div class="left">
-                                <a href="{% url 'menu_select' %}">Меню</a>
-                            </div>
-                            <div class="icon">
-                                <span>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 7L14 12L10 17" stroke="#E5E6EB" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </div>
-                            <div class="left">
-                                <span>Категории</span>
-                            </div>
-                        </div>
-                    </div>
+            <h5 class="section-title">Категории</h5>
+            {% for category in categories %}
+            <div class="single-product-wrap">
+                <div class="thumb">
+                    <a href="{% url 'category_menu_detail' table.number category.slug %}">
+                        <img src="{{ category.iiko_image }}" alt="{{ category.title }}">
+                    </a>
+                </div>
+                <div class="details">
+                    <h6><a href="{% url 'category_menu_detail' table.number category.slug %}">{{ category.title }}</a></h6>
                 </div>
             </div>
+            {% endfor %}
+
+            {% include 'include/online_menu_menu.html' %}
+
         </div>
-
-        <!-- banner  -->
-
-        <!-- Food Details part start  -->
-
-        <section class="traditional s-padding">
-            <div class="container">
-                <!-- Grid Tab -->
-                <div class="tab-pane fade show in active" id="grid" role="tabpanel">
-                    <!-- Filter Content -->
-                    <div class="row shafull-container">
-                        {% for category in categories %}
-                        <div class="col-lg-4 col-md-6 shaf-item res-mb-20px">
-
-                            <div class="featured-item" data-aos="fade-up">
-                                <div class="featured-item-img">
-                                    <a href="{% url 'category_menu_detail' table.number category.slug %}">
-                                        <img src="{{ category.iiko_image }}" class="w-100" alt="{{ category.title }}">
-                                    </a>
-
-                                    <!-- <div class="featured-item-img-overlay">
-                                        <div class="featured-item-img-over-text">
-
-                                        </div>
-                                    </div> -->
-                                </div>
-
-                                <div class="featured-item-text">
-                                    <!-- <div class="text-item">
-                                        <div class="left">
-                                            <h3>Количество: {{ category.category_products.all.count }}</h3>
-                                        </div>
-                                        <div class="right">
-                                            <div class="icon">
-                                                <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
-                                                            fill="#FFB23E" />
-                                                    </svg></span>
-                                            </div>
-
-                                        </div>
-                                    </div> -->
-
-                                    <div class="text-item-center">
-                                        <h3><a href="{% url 'category_menu_detail' table.number category.slug %}">{{ category.title }}</a></h3>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <!-- <div class="row">
-
-                        <div class="col-lg-12">
-                            <div class="traditional-btn">
-                                <a href="all-food.html" class="main-btn-four">просмотреть все категории</a>
-                            </div>
-                        </div>
-
-                    </div> -->
-                </div>
-
-            </div>
-        </section>
-
-
-
-        <!-- Food Details part end  -->
-
-
-
-
-
-
-
-
-
-
-        <!-- faq part-star -->
-
-        {% include 'include/faq.html' %}
-
-        <!-- faq part-end -->
-
-
-
-
-    
-
-
-    </main>
-
-    <!-- footer part start  -->
-
-    {% include 'include/footer.html' %}
-
-    <!-- footer part end  -->
+    </div>
 
 {% endblock %}

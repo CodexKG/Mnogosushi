@@ -1,0 +1,7 @@
+{% for category in categories %}
+    <div class="item">
+        <a class="home-category-item-wrap" href="{% url 'category_menu_detail' table.number category.slug %}">
+            {{ category.title }}
+        </a>
+    </div>
+{% endfor %}

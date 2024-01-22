@@ -4847,8 +4847,8 @@ p {
 }
 
 .food-details-section .food-details-slick .slider-for-img img {
-  width: 870px;
-  height: 460px;
+  /*width: 870px;*/
+  height: 360px;
 }
 
 .food-details-section .food-details-slick .slider-nav {
