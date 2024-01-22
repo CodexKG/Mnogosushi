@@ -43,7 +43,7 @@ def index(request):
         # Используем JsonResponse для удобства
         return JsonResponse(categories_data, safe=False)
     
-    products = Product.objects.all()
+    products = Product.objects.filter(iiko_image__isnull=False)
     reviews = ReviewProduct.objects.filter(stars=5).order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     popular_products = Product.objects.all().order_by("?")[:6]
