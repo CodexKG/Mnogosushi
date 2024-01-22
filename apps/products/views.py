@@ -43,7 +43,7 @@ def product_detail(request, id):
 def foods(request):
     setting = Setting.objects.latest('id')
     print("Setting", setting)
-    products = Product.objects.all().order_by('?')
+    products = Product.objects.filter(iiko_image__isnull=False).order_by('?')
     return render(request, 'products/foods.html', locals())
 
 def search(request):
@@ -58,7 +58,8 @@ def search(request):
             Q(title__icontains=query) |
             Q(description__icontains=query) |
             Q(title__istartswith=query) |
-            Q(description__iendswith=query)
+            Q(description__iendswith=query),
+            iiko_image__isnull=False
         )
 
     return render(request, 'products/foods.html', locals())
