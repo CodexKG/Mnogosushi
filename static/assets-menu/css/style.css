@@ -590,20 +590,20 @@ ul {
     ## Button
 ---------------------------------------*/
 .btn {
-  padding: 0 50px;
-  overflow: hidden;
-  position: relative;
-  border: 0;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  font-weight: 600;
-  font-size: 18px;
-  display: inline-block;
-  -webkit-transform: perspective(1px) translateZ(0);
-          transform: perspective(1px) translateZ(0);
-  border-radius: 16px;
-  height: 64px;
-  line-height: 64px;
+      padding: 0 40px;
+    overflow: hidden;
+    position: relative;
+    border: 0;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    border-radius: 16px;
+    height: 45px;
+    line-height: 45px;
 }
 .btn i,
 .btn svg {
@@ -3879,6 +3879,20 @@ ul {
   line-height: 49px;
   text-align: center;
   margin-left: auto;
+}
+.product-details-area .sent-to-cart-btn button {
+  height: 56px;
+  width: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: inline-block;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  line-height: 49px;
+  text-align: center;
+  margin-left: auto;
+  background: red;
 }
 
 .cart-page-area {

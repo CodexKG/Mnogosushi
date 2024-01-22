@@ -29,7 +29,16 @@
                         <h6><a href="{% url 'menu_detail' product.id table.number %}">{{ product.title }}</a></h6>
                         <div class="ratting">
                         </div>
-                        <span><span class="ms-3">{{ product.price }} KGS</span></span>
+                        <span><span class="ms-3">{{ product.price }} KGS</span>
+                        <form method="post" action="{% url 'add_to_order' %}" class="add-to-order-form">
+                              {% csrf_token %}
+                              <input type="hidden" name="product_id" value="{{ product.id }}">
+                              <input type="hidden" name="price" value="{{ product.price }}">
+                              <input type="hidden" name="table_uuid" value="{{ table.number }}">
+                              <input class="js-result form-control" type="hidden" name="quantity" min="1" value="1">
+                              <span class="ms-3"><button type="submit" class="btn btn-danger" style="float: left;" data-product-id="{{ product.id }}">В корзину</button></span>
+                        </form>
+                        </span>
                     </div>
                 </div>
 
