@@ -127,26 +127,26 @@
             var btn = document.getElementById("submitCity");
             var span = document.getElementsByClassName("close")[0];
             var citySelect = document.getElementById("citySelect");
-        
+
             // Проверяем, выбирал ли пользователь ранее город Бишкек
             if (localStorage.getItem("city") !== "Бишкек") {
                 cityModal.style.display = "block"; // Показываем модальное окно, если Бишкек не был выбран
             }
-        
+
             btn.onclick = function() {
                 var city = citySelect.options[citySelect.selectedIndex].text;
                 localStorage.setItem("city", city); // Сохраняем выбранный город в localStorage
                 cityModal.style.display = "none";
-        
+
                 if (city === "Токмок") {
                     window.location.href = 'https://tokmok.mnogosushi.kg';
                 }
             }
-        
+
             span.onclick = function() {
                 cityModal.style.display = "none";
             }
-        
+
             window.onclick = function(event) {
                 if (event.target == cityModal) {
                     cityModal.style.display = "none";
@@ -206,23 +206,6 @@
                                         </svg>
                                     </span>
                                     Подобрать</a>
-
-                                <a href="{% url 'category_index' %}" class=" main-btn-two-banner">
-                                    <span>
-                                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.1226 25.6654H18.8768C21.5703 25.6654 23.7538 23.5817 23.7538 21.0113V15.3206C23.7538 14.4943 24.0978 13.7019 24.71 13.1176C26.1286 11.764 25.9442 9.52109 24.3218 8.3951L16.8682 3.22219C15.1581 2.03531 12.8413 2.03531 11.1311 3.22219L3.6776 8.3951C2.05519 9.52109 1.87078 11.764 3.28931 13.1176C3.90156 13.7019 4.24552 14.4943 4.24552 15.3206V21.0113C4.24552 23.5817 6.42906 25.6654 9.1226 25.6654Z"
-                                                stroke-width="1.5" stroke-linejoin="round" />
-                                            <path
-                                                d="M19.0218 18.2041C19.0218 20.8668 16.5108 25.436 13.9997 25.436C11.4886 25.436 8.97754 20.8668 8.97754 18.2041C8.97754 15.5414 11.226 13.3828 13.9997 13.3828C16.7734 13.3828 19.0218 15.5414 19.0218 18.2041Z"
-                                                stroke-width="1.5" />
-                                            <path
-                                                d="M15.5063 17.9028C15.5063 18.7348 14.8318 19.4094 13.9997 19.4094C13.1676 19.4094 12.493 18.7348 12.493 17.9028C12.493 17.0707 13.1676 16.3961 13.9997 16.3961C14.8318 16.3961 15.5063 17.0707 15.5063 17.9028Z"
-                                                stroke-width="1.5" />
-                                        </svg>
-                                    </span>
-                                    В ресторане</a>
                             </div>
                         </div>
                     </div>
