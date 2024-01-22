@@ -16,6 +16,6 @@ def category_index(request):
 def category_detail(request, slug):
     setting = Setting.objects.latest('id')
     category = Category.objects.get(slug=slug)
-    products = Product.objects.filter(category=category)
+    products = Product.objects.filter(category=category, iiko_image__isnull=False)
     faqs = FAQ.objects.all().order_by('?')[:3]
     return render(request, 'category/detail.html', locals())

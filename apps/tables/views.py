@@ -60,7 +60,7 @@ def menu(request, table_uuid):
             output_field=IntegerField()
         )
     ).order_by('sort_priority')
-    products = Product.objects.all()
+    products = Product.objects.filter(iiko_image__isnull=False)
     faqs = FAQ.objects.all().order_by('?')[:3]
     return render(request, 'menu/index.html', locals())
 
@@ -94,7 +94,7 @@ def category_menu_detail(request, table_uuid, category_slug):
     table = Table.objects.get(number=table_uuid)
     setting = Setting.objects.latest('id')
     category = Category.objects.get(slug=category_slug)
-    products = Product.objects.filter(category=category)
+    products = Product.objects.filter(category=category, iiko_image__isnull=False)
     
     session_key = request.session.session_key
     if not session_key:

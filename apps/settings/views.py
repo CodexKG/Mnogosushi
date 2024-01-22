@@ -22,28 +22,8 @@ def index(request):
             default='priority',
             output_field=IntegerField()
         )
-    ).order_by('sort_priority')
-    paginator = Paginator(categories, 6)  # Показывать по 6 категорий на странице
-
-    page = request.GET.get('page')
-    try:
-        categories = paginator.page(page)
-    except PageNotAnInteger:
-        categories = paginator.page(1)
-    except EmptyPage:
-        categories = paginator.page(paginator.num_pages)
-
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        page = request.GET.get('page')
-        categories = paginator.get_page(page)
-        
-        # Создаем список категорий для передачи через AJAX
-        categories_data = list(categories.object_list.values('title', 'slug', 'iiko_image'))
-
-        # Используем JsonResponse для удобства
-        return JsonResponse(categories_data, safe=False)
-    
-    products = Product.objects.all()
+    ).order_by('sort_priority')[:6]
+    products = Product.objects.filter(iiko_image__isnull=False)
     reviews = ReviewProduct.objects.filter(stars=5).order_by('?')[:3]
     footer_products = Product.objects.filter(title__startswith='Крылышки')
     popular_products = Product.objects.all().order_by("?")[:6]
