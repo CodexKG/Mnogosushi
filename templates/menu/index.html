@@ -1,13 +1,11 @@
 {% extends 'include/menu-main.html' %}
 {% load static %}
 {% block content %}
-
     <div class="container">
         <div class="main-home-area pt-0">
             <div class="home-category-slider owl-carousel">
                 {% include 'include/online_menu_categoty.html' %}
             </div>
-
             <h5 class="section-title">Категории</h5>
             {% for category in categories %}
             <div class="single-product-wrap">
@@ -21,9 +19,7 @@
                 </div>
             </div>
             {% endfor %}
-
             {% include 'include/online_menu_menu.html' %}
-
         </div>
     </div>
 
