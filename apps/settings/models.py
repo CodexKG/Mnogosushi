@@ -55,6 +55,16 @@ class Setting(models.Model):
         verbose_name="WhatsApp",
         blank=True, null=True
     )
+    city_modal = models.BooleanField(
+        verbose_name="Всплывающее окно в главной странице",
+        help_text="Если значение True, то выводится окошко для выбора города",
+        blank=True, null=True, default=False
+    )
+    main_city = models.CharField(
+        max_length=255,
+        verbose_name="Основной город",
+        blank=True, null=True
+    )
 
     def __str__(self):
         return self.title 
@@ -62,6 +72,27 @@ class Setting(models.Model):
     class Meta:
         verbose_name = "Настройка"
         verbose_name_plural = "Настройки"
+
+class SettingCity(models.Model):
+    setting = models.ForeignKey(
+        Setting, on_delete=models.CASCADE,
+        related_name="setting_cities",
+        verbose_name="Настройка"
+    )
+    title = models.CharField(
+        max_length=255,
+        verbose_name="Название города"
+    )
+    url = models.URLField(
+        verbose_name="Ссылка на город"
+    )
+
+    def __str__(self):
+        return self.title 
+    
+    class Meta:
+        verbose_name = "Город"
+        verbose_name_plural = "Города"
 
 class Contact(models.Model):
     name = models.CharField(
