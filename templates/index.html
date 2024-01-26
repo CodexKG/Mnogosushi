@@ -11,19 +11,23 @@
 
     <!-- header part end  -->
 
+    {% if setting.city_modal == True %}
     <div id="cityModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
           <h2>Выберите город</h2>
           <select id="citySelect">
             <option value="stay">Выберите город</option>
-            <option value="bishkek">Бишкек</option>
-            <option value="tokmok">Токмок</option>
+            <option value="{{ setting.main_city_url }}">{{ setting.main_city }}</option>
+            {% for city in setting.setting_cities.all %}
+            <option value="{{ city.url }}">{{ city.title }}</option>
+            {% endfor %}
             <!-- Добавьте дополнительные города здесь -->
-          </select>
+        </select>
           <button id="submitCity">Подтвердить</button>
         </div>
     </div>
+    {% endif %}
 
     <style>
         /* Стили для модального окна */
@@ -134,13 +138,11 @@
 
         // Когда пользователь кликает на кнопку, закрыть модальное окно и проверить выбранный город
         btn.onclick = function() {
-            var city = citySelect.options[citySelect.selectedIndex].text; // Получить текст выбранного города
+            var cityUrl = citySelect.value; // Получить URL выбранного города
             modal.style.display = "none";
-            if (city === "Токмок") {
-            // Перенаправить пользователя на URL для Токмока
-            window.location.href = 'https://tokmok.mnogosushi.kg';
+            if (cityUrl !== "stay") {
+                window.location.href = cityUrl; // Перенаправить пользователя на выбранный URL
             }
-            // Если выбран Бишкек, ничего не делаем, так как пользователь должен остаться на странице
         }
 
         // Когда пользователь кликает на (x), закрыть модальное окно
