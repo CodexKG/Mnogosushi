@@ -32,7 +32,7 @@ def product_detail(request, id):
         free_delivery = False
     if request.method == "POST":
         if 'review' in request.POST:
-            stars = int(request.POST.get('stars') or 5)
+            stars = int(request.POST.get('stars') or 5) 
             print(stars)
             message = request.POST.get('message')
             if stars and message:
