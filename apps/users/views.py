@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView
 
 from apps.settings.models import Setting
 from apps.users.models import User
-
+from apps.products.models import ReviewProduct , Product
+from apps.carts.models import CartItem
 # Create your views here.
 def register(request):
     setting = Setting.objects.latest('id')
@@ -56,7 +57,10 @@ def user_login(request):
 
 def profile(request, username):
     user = User.objects.get(username = username)
-    setting = Setting.objects.latest('id')
+    product = Product.objects.all()
+    reviews = ReviewProduct.objects.all()
+    carts = CartItem.objects.all()
+    # reviews = ReviewProduct.objects.filter(product_id=id).order_by('-created')[:5]
     if request.method == "POST":
         if 'update' in request.POST:
             print("UPDATE")
@@ -76,11 +80,16 @@ def profile(request, username):
                 user.profile_image = profile_image
             user.save()
             return redirect('profile', user.username)
-    context = {
-        'user' : user,
-        'setting' : setting
-    }
-    return render(request, 'users/detail.html', context)
+
+    return render(request, 'users/detail.html', locals())
+
+def delete_review(request, review_id):
+    review = get_object_or_404(ReviewProduct, id=review_id)
+
+    # Проверка, что пользователь имеет право удалять отзыв (например, проверка прав доступа)
+    if request.user == review.user:
+        review.delete()
+    return redirect('index')
 
 class CustomLoginView(LoginView):
     template_name = 'admin/custom_login.html'

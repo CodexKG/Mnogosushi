@@ -140,7 +140,7 @@
                                         </path>
                                     </svg>
                                 </span>
-                                Избранное
+                                Корзина
                             </button>
                             {% endif %}
                             <button class="nav-link" id="v-pills-settings-tab1" data-bs-toggle="pill"
@@ -757,16 +757,15 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init aos-animate"
-                                        data-aos="fade-up">
+                                    {% for cart in carts %}
+                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init aos-animate" data-aos="fade-up">
                                         <div class="popular-item-box">
                                             <div class="popular-item-box-img">
-                                                <img src="./assets/images/thumb/popular-3.png" alt="thumb">
                                                 <div class="popular-item-box-img-overlay">
                                                     <div class="icon">
                                                         <span>
                                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                xmlns="">
                                                                 <path
                                                                     d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z"
                                                                     fill="#FFB23E"></path>
@@ -782,7 +781,7 @@
 
                                             <div class="popular-inner-box">
                                                 <div class="popular-item-box-text">
-                                                    <h3>Fish Tacos Chipotle Crema</h3>
+                                                    <h3>{{ cart.product }}</h3>
                                                 </div>
 
                                                 <div class="popular-inner-item">
@@ -800,573 +799,18 @@
                                                     </div>
 
                                                     <div class="text">
-                                                        <h5>4 Paces Chicken</h5>
+                                                        <h5>Количество продукта: {{ cart.quantity }}</h5>
                                                     </div>
                                                 </div>
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>Spicy Sauce</h5>
-                                                    </div>
-                                                </div>
-
                                                 <div class="popular-inner-item-btm">
                                                     <div class="text">
-                                                        <h3>$30.00</h3>
-                                                    </div>
-
-                                                    <div class="popular-inner-item-btn">
-                                                        <a href="shopping-cart.html" class="main-btn-five">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round"></path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init aos-animate"
-                                        data-aos="fade-up">
-                                        <div class="popular-item-box">
-                                            <div class="popular-item-box-img">
-                                                <img src="./assets/images/thumb/popular-4.png" alt="thumb">
-                                                <div class="popular-item-box-img-overlay">
-                                                    <div class="icon">
-                                                        <span>
-                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z"
-                                                                    fill="#FFB23E"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="text">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="popular-inner-box">
-                                                <div class="popular-item-box-text">
-                                                    <h3>BBQ Pulled Pork Sandwich</h3>
-                                                </div>
-
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>4 Paces Chicken</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>Spicy Sauce</h5>
-                                                    </div>
-                                                </div>
-
-                                                <div class="popular-inner-item-btm">
-                                                    <div class="text">
-                                                        <h3>$30.00</h3>
-                                                    </div>
-
-                                                    <div class="popular-inner-item-btn">
-                                                        <a href="shopping-cart.html" class="main-btn-five">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round"></path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init aos-animate"
-                                        data-aos="fade-up">
-                                        <div class="popular-item-box">
-                                            <div class="popular-item-box-img">
-                                                <img src="./assets/images/thumb/popular-3.png" alt="thumb">
-                                                <div class="popular-item-box-img-overlay">
-                                                    <div class="icon">
-                                                        <span>
-                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z"
-                                                                    fill="#FFB23E"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="text">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="popular-inner-box">
-                                                <div class="popular-item-box-text">
-                                                    <h3>Fish Tacos Chipotle Crema</h3>
-                                                </div>
-
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>4 Paces Chicken</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>Spicy Sauce</h5>
-                                                    </div>
-                                                </div>
-
-                                                <div class="popular-inner-item-btm">
-                                                    <div class="text">
-                                                        <h3>$30.00</h3>
-                                                    </div>
-
-                                                    <div class="popular-inner-item-btn">
-                                                        <a href="shopping-cart.html" class="main-btn-five">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round"></path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init aos-animate"
-                                        data-aos="fade-up">
-                                        <div class="popular-item-box">
-                                            <div class="popular-item-box-img">
-                                                <img src="./assets/images/thumb/popular-4.png" alt="thumb">
-                                                <div class="popular-item-box-img-overlay">
-                                                    <div class="icon">
-                                                        <span>
-                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z"
-                                                                    fill="#FFB23E"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="text">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="popular-inner-box">
-                                                <div class="popular-item-box-text">
-                                                    <h3>BBQ Pulled Pork Sandwich</h3>
-                                                </div>
-
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>4 Paces Chicken</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>Spicy Sauce</h5>
-                                                    </div>
-                                                </div>
-
-                                                <div class="popular-inner-item-btm">
-                                                    <div class="text">
-                                                        <h3>$30.00</h3>
-                                                    </div>
-
-                                                    <div class="popular-inner-item-btn">
-                                                        <a href="shopping-cart.html" class="main-btn-five">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round"></path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init" data-aos="fade-up">
-                                        <div class="popular-item-box">
-                                            <div class="popular-item-box-img">
-                                                <img src="./assets/images/thumb/popular-3.png" alt="thumb">
-                                                <div class="popular-item-box-img-overlay">
-                                                    <div class="icon">
-                                                        <span>
-                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z"
-                                                                    fill="#FFB23E"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="text">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="popular-inner-box">
-                                                <div class="popular-item-box-text">
-                                                    <h3>Fish Tacos Chipotle Crema</h3>
-                                                </div>
-
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>4 Paces Chicken</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>Spicy Sauce</h5>
-                                                    </div>
-                                                </div>
-
-                                                <div class="popular-inner-item-btm">
-                                                    <div class="text">
-                                                        <h3>$30.00</h3>
-                                                    </div>
-
-                                                    <div class="popular-inner-item-btn">
-                                                        <a href="shopping-cart.html" class="main-btn-five">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round"></path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            Add to Cart
-                                                        </a>
+                                                        <h3>Итоговая сумма: {{ cart.total }}сом</h3>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-12 popular-item-mt-30px aos-init" data-aos="fade-up">
-                                        <div class="popular-item-box">
-                                            <div class="popular-item-box-img">
-                                                <img src="./assets/images/thumb/popular-4.png" alt="thumb">
-                                                <div class="popular-item-box-img-overlay">
-                                                    <div class="icon">
-                                                        <span>
-                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M8.361 2.72748C9.03157 1.3148 10.9691 1.3148 11.6396 2.72748L12.7986 5.16895C13.0649 5.72993 13.5796 6.11875 14.175 6.20871L16.7664 6.60021C18.2659 6.82675 18.8646 8.74259 17.7796 9.84221L15.9044 11.7426C15.4736 12.1793 15.277 12.8084 15.3787 13.425L15.8213 16.1084C16.0775 17.6611 14.51 18.8452 13.1689 18.1121L10.851 16.8451C10.3184 16.554 9.68221 16.554 9.14964 16.8451L6.8318 18.1121C5.49065 18.8452 3.92318 17.6611 4.17931 16.1084L4.62198 13.425C4.72369 12.8084 4.52709 12.1793 4.09623 11.7426L2.22105 9.84221C1.13605 8.74259 1.73477 6.82675 3.23421 6.60021L5.82564 6.20871C6.42107 6.11875 6.9358 5.72993 7.20208 5.16895L8.361 2.72748Z"
-                                                                    fill="#FFB23E"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="text">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="popular-inner-box">
-                                                <div class="popular-item-box-text">
-                                                    <h3>BBQ Pulled Pork Sandwich</h3>
-                                                </div>
-
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>4 Paces Chicken</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="popular-inner-item">
-                                                    <div class="icon">
-                                                        <span><svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_304_21999)">
-                                                                    <path
-                                                                        d="M6.66699 10.0013L8.77923 11.9023C9.13881 12.2259 9.69748 12.1764 9.99449 11.7945L13.3337 7.5013M10.0003 18.3346C14.6027 18.3346 18.3337 14.6037 18.3337 10.0013C18.3337 5.39893 14.6027 1.66797 10.0003 1.66797C5.39795 1.66797 1.66699 5.39893 1.66699 10.0013C1.66699 14.6037 5.39795 18.3346 10.0003 18.3346Z"
-                                                                        stroke="#FE724C" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </g>
-                                                            </svg></span>
-                                                    </div>
-
-                                                    <div class="text">
-                                                        <h5>Spicy Sauce</h5>
-                                                    </div>
-                                                </div>
-
-                                                <div class="popular-inner-item-btm">
-                                                    <div class="text">
-                                                        <h3>$30.00</h3>
-                                                    </div>
-
-                                                    <div class="popular-inner-item-btn">
-                                                        <a href="shopping-cart.html" class="main-btn-five">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round"></path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-settings1" role="tabpanel"
@@ -1384,25 +828,25 @@
                                             <h3>Review List</h3>
                                         </div>
 
-
-                                        <div class="review-list-main-box-item aos-init aos-animate" data-aos="fade-up">
+                                        {% for review in reviews %}
+                                        <div class="review-list-main-box-item aos-init aos-animate" data-aos="fade-up"> 
                                             <div class="review-list-main-box-item-text">
-                                                <h5>Eggplant Baked with Cheese</h5>
-                                                <p>“There are many variations of passages of Lorem Ipsum available,to
-                                                    majority have
-                                                    into the find end to suffered.”</p>
+                                                <!-- <h5>Eggplant Baked with Cheese</h5> -->
+                                                <p>{{ review.text }}</p>
                                             </div>
 
                                             <div class="review-list-main-box-inner">
                                                 <div class="review-list-main-box-inner-item">
                                                     <div class="review-list-main-box-inner-item-img">
-                                                        <img src="./assets/images/small/review.png" alt="img">
+                                                        {% if review.user.profile_image %}
+                                                    <img src="{{ review.user.profile_image.url }}" width="10%" alt="{{ review.user.username }}">
+                                                    {% endif %}
                                                     </div>
 
                                                     <div class="review-list-main-box-inner-item-text">
 
-                                                        <h5>Jerome Bell</h5>
-                                                        <p>Dog Trainer</p>
+                                                        <h4>{{ review.user }}</h4>
+                                                    <p>На сайте с: {{ review.user.date_joined }}</p>
 
                                                     </div>
                                                 </div>
@@ -1412,125 +856,164 @@
                                                     <a href="#">
                                                         <div class="icon">
                                                             <span>
-                                                                <svg width="116" height="20" viewBox="0 0 116 20"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                {% if review.stars == 1 %}
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
                                                                     <path
                                                                         d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
+                                                                        fill="#FFC403" />
                                                                     <path
                                                                         d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M34.0311 0C33.6036 0 33.1761 0.2305 32.9549 0.695408L30.5062 5.86799L25.0275 6.69623C24.045 6.84469 23.6513 8.10658 24.3638 8.82933L28.3275 12.8533L27.39 18.5377C27.2212 19.5574 28.2525 20.3348 29.1299 19.8543L34.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M33.9689 0C34.3964 0 34.8239 0.2305 35.0451 0.695408L37.4938 5.86799L42.9725 6.69623C43.955 6.84469 44.3487 8.10658 43.6362 8.82933L39.6725 12.8533L40.61 18.5377C40.7788 19.5574 39.7475 20.3348 38.8701 19.8543L33.9689 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M58.0311 0C57.6036 0 57.1761 0.2305 56.9549 0.695408L54.5062 5.86799L49.0275 6.69623C48.045 6.84469 47.6513 8.10658 48.3638 8.82933L52.3275 12.8533L51.39 18.5377C51.2212 19.5574 52.2525 20.3348 53.1299 19.8543L58.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M57.9689 0C58.3964 0 58.8239 0.2305 59.0451 0.695408L61.4938 5.86799L66.9725 6.69623C67.955 6.84469 68.3487 8.10658 67.6362 8.82933L63.6725 12.8533L64.61 18.5377C64.7788 19.5574 63.7475 20.3348 62.8701 19.8543L57.9689 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M82.0311 0C81.6036 0 81.1761 0.2305 80.9549 0.695408L78.5062 5.86799L73.0275 6.69623C72.045 6.84469 71.6513 8.10658 72.3638 8.82933L76.3275 12.8533L75.39 18.5377C75.2212 19.5574 76.2525 20.3348 77.1299 19.8543L82.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M81.9689 0C82.3964 0 82.8239 0.2305 83.0451 0.695408L85.4938 5.86799L90.9725 6.69623C91.955 6.84469 92.3487 8.10658 91.6362 8.82933L87.6725 12.8533L88.61 18.5377C88.7788 19.5574 87.7475 20.3348 86.8701 19.8543L81.9689 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M106.031 0C105.604 0 105.176 0.2305 104.955 0.695408L102.506 5.86799L97.0275 6.69623C96.045 6.84469 95.6513 8.10658 96.3638 8.82933L100.327 12.8533L99.39 18.5377C99.2212 19.5574 100.252 20.3348 101.13 19.8543L106.031 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M105.969 0C106.396 0 106.824 0.2305 107.045 0.695408L109.494 5.86799L114.972 6.69623C115.955 6.84469 116.349 8.10658 115.636 8.82933L111.673 12.8533L112.61 18.5377C112.779 19.5574 111.748 20.3348 110.87 19.8543L105.969 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
+                                                                        fill="#FFC403" />
                                                                 </svg>
+                                                                {% elif review.stars == 2 %}
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                {% elif review.stars == 3 %}
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                {% elif review.stars == 4 %}
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                {% elif review.stars == 5 %}
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                <svg class="star-icon" width="22" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                    <path
+                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
+                                                                        fill="#FFC403" />
+                                                                </svg>
+                                                                {% endif %}
                                                             </span>
                                                         </div>
                                                     </a>
 
                                                     <div class="text">
-                                                        <a href="#">2 days ago</a>
+                                                        <a href="">{{ review.created }}</a>
+
                                                     </div>
+                                                    <a href="{% url 'delete_review' review.id %}">Удалить отзыв</a>
 
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="review-list-main-box-item aos-init aos-animate" data-aos="fade-up"
-                                            data-aos-delay="50">
-                                            <div class="review-list-main-box-item-text">
-                                                <h5>Eggplant Baked with Cheese</h5>
-                                                <p>“There are many variations of passages of Lorem Ipsum available,to
-                                                    majority have
-                                                    into the find end to suffered.”</p>
-                                            </div>
-
-                                            <div class="review-list-main-box-inner">
-                                                <div class="review-list-main-box-inner-item">
-                                                    <div class="review-list-main-box-inner-item-img">
-                                                        <img src="./assets/images/small/review.png" alt="img">
-                                                    </div>
-
-                                                    <div class="review-list-main-box-inner-item-text">
-
-                                                        <h5>Jerome Bell</h5>
-                                                        <p>Dog Trainer</p>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="review-list-main-box-inner-item-right">
-
-                                                    <a href="#">
-                                                        <div class="icon">
-                                                            <span>
-                                                                <svg width="116" height="20" viewBox="0 0 116 20"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M10.0311 0C9.60363 0 9.17613 0.2305 8.95488 0.695408L6.50617 5.86799L1.0275 6.69623C0.0450172 6.84469 -0.348727 8.10658 0.363762 8.82933L4.32745 12.8533L3.38997 18.5377C3.22122 19.5574 4.25245 20.3348 5.12994 19.8543L10.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M9.96888 0C10.3964 0 10.8239 0.2305 11.0451 0.695408L13.4938 5.86799L18.9725 6.69623C19.955 6.84469 20.3487 8.10658 19.6362 8.82933L15.6725 12.8533L16.61 18.5377C16.7788 19.5574 15.7475 20.3348 14.8701 19.8543L9.96888 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M34.0311 0C33.6036 0 33.1761 0.2305 32.9549 0.695408L30.5062 5.86799L25.0275 6.69623C24.045 6.84469 23.6513 8.10658 24.3638 8.82933L28.3275 12.8533L27.39 18.5377C27.2212 19.5574 28.2525 20.3348 29.1299 19.8543L34.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M33.9689 0C34.3964 0 34.8239 0.2305 35.0451 0.695408L37.4938 5.86799L42.9725 6.69623C43.955 6.84469 44.3487 8.10658 43.6362 8.82933L39.6725 12.8533L40.61 18.5377C40.7788 19.5574 39.7475 20.3348 38.8701 19.8543L33.9689 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M58.0311 0C57.6036 0 57.1761 0.2305 56.9549 0.695408L54.5062 5.86799L49.0275 6.69623C48.045 6.84469 47.6513 8.10658 48.3638 8.82933L52.3275 12.8533L51.39 18.5377C51.2212 19.5574 52.2525 20.3348 53.1299 19.8543L58.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M57.9689 0C58.3964 0 58.8239 0.2305 59.0451 0.695408L61.4938 5.86799L66.9725 6.69623C67.955 6.84469 68.3487 8.10658 67.6362 8.82933L63.6725 12.8533L64.61 18.5377C64.7788 19.5574 63.7475 20.3348 62.8701 19.8543L57.9689 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M82.0311 0C81.6036 0 81.1761 0.2305 80.9549 0.695408L78.5062 5.86799L73.0275 6.69623C72.045 6.84469 71.6513 8.10658 72.3638 8.82933L76.3275 12.8533L75.39 18.5377C75.2212 19.5574 76.2525 20.3348 77.1299 19.8543L82.0311 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M81.9689 0C82.3964 0 82.8239 0.2305 83.0451 0.695408L85.4938 5.86799L90.9725 6.69623C91.955 6.84469 92.3487 8.10658 91.6362 8.82933L87.6725 12.8533L88.61 18.5377C88.7788 19.5574 87.7475 20.3348 86.8701 19.8543L81.9689 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M106.031 0C105.604 0 105.176 0.2305 104.955 0.695408L102.506 5.86799L97.0275 6.69623C96.045 6.84469 95.6513 8.10658 96.3638 8.82933L100.327 12.8533L99.39 18.5377C99.2212 19.5574 100.252 20.3348 101.13 19.8543L106.031 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                    <path
-                                                                        d="M105.969 0C106.396 0 106.824 0.2305 107.045 0.695408L109.494 5.86799L114.972 6.69623C115.955 6.84469 116.349 8.10658 115.636 8.82933L111.673 12.8533L112.61 18.5377C112.779 19.5574 111.748 20.3348 110.87 19.8543L105.969 17.1742V0Z"
-                                                                        fill="#FFC403"></path>
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="text">
-                                                        <a href="#">2 days ago</a>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-list-main-box-item aos-init" data-aos="fade-up"
+                                        {% endfor %}
+                              
+                                        <!-- <div class="review-list-main-box-item aos-init" data-aos="fade-up"
                                             data-aos-delay="100">
                                             <div class="review-list-main-box-item-text">
                                                 <h5>Eggplant Baked with Cheese</h5>
@@ -1599,7 +1082,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="review-list-main-box-item-btn">
                                             <a href="#" class="main-btn-four">
