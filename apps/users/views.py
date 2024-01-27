@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from apps.settings.models import Setting
 from apps.users.models import User
 from apps.products.models import ReviewProduct , Product
+from apps.carts.models import CartItem
 # Create your views here.
 def register(request):
     setting = Setting.objects.latest('id')
@@ -58,6 +59,7 @@ def profile(request, username):
     user = User.objects.get(username = username)
     product = Product.objects.all()
     reviews = ReviewProduct.objects.all()
+    carts = CartItem.objects.all()
     # reviews = ReviewProduct.objects.filter(product_id=id).order_by('-created')[:5]
     if request.method == "POST":
         if 'update' in request.POST:
