@@ -1908,8 +1908,28 @@ p {
 }
 
 .banner-two {
+  position: relative; /* Ensure the parent is positioned */
   padding: 263px 0 247px 0;
-  background: url(../assets/images/banner/DALL·E_2024_01_02_20_40_06_Create_a_photorealistic_image_with_a.png) no-repeat center/cover;
+  background: url(../assets/images/banner/banner_2.webp) no-repeat center/cover;
+  height: 100%; /* 50% of the viewport height */
+}
+
+.banner-two::before {
+  content: ''; /* This is necessary for the pseudo-element to work */
+  display: block; /* This will make the pseudo-element behave like a block */
+  position: absolute; /* Position it over the parent */
+  top: 0; /* Align the top edge with the parent */
+  left: 0; /* Align the left edge with the parent */
+  right: 0; /* Align the right edge with the parent */
+  bottom: 0; /* Align the bottom edge with the parent */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 1; /* Ensure it's above the background image */
+}
+
+/* Ensure the content inside .banner-two is above the overlay */
+.banner-two > * {
+  position: relative; 
+  z-index: 2;
 }
 
 .banner-two .banner-two-taitel h1 {
@@ -1942,14 +1962,16 @@ p {
 
 .banner-two .banner-taiteL-btn {
   display: flex;
-  padding: 12px;
+  padding: 12px; /* Уменьшите это значение, если хотите меньше пространства внутри */
   background-color: #fff;
-  width: 612px;
-  border-radius: 10px;
+  width: auto; /* Измените это на 'auto' для автоматического расширения по ширине родительского элемента, или укажите большее значение */
+  border-radius: 15px;
   justify-content: center;
   box-shadow: 0px 30px 30px 0px rgba(90, 90, 90, 0.1);
   gap: 12px;
   margin-top: 72px;
+  margin-left: 0px; /* Добавьте это для автоматического выравнивания слева */
+  margin-right: 230px; /* Добавьте это для автоматического выравнивания справа */
 }
 
 .blog .blog-mt-25px {
@@ -4478,7 +4500,7 @@ p {
 }
 
 .food-details .featured-item .featured-item-text {
-  padding: 24px 20px;
+  padding: 30px 20px;
   box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.06);
   height: 220px;
 }
