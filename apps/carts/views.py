@@ -150,12 +150,19 @@ def clear_cart(request):
 
     return redirect('cart')
 
-def remove_from_cart(request, product_id):
-    session_key = request.session.session_key
-    if session_key:
-        CartItem.objects.filter(cart__session_key=session_key, product__id=product_id).delete()
+def remove_from_cart(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        product_id = data.get('productId')
+        session_key = request.session.session_key
+        success = False
+        if session_key:
+            CartItem.objects.filter(cart__session_key=session_key, product__id=product_id).delete()
+            success = True
 
-    return redirect('cart')
+        return JsonResponse({'success': success})
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def cart_items_count_processor(request):
     session_key = request.session.session_key

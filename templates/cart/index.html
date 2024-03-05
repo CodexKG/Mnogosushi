@@ -275,12 +275,28 @@
                                         });
                                     });
                             
+                                    // Function to handle cart item removal
+                                    function removeFromCart(productId) {
+                                        fetch('/cart/remove_item/', { // Измененный URL
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRFToken': getCookie('csrftoken'),
+                                            },
+                                            body: JSON.stringify({'productId': productId})
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            location.reload(); // Reload the page to update the cart display
+                                        });
+                                    }
+
                                     // Attach event listeners to remove cart item buttons
                                     document.querySelectorAll('.remove-cart-item').forEach(btn => {
                                         btn.addEventListener('click', function(e) {
                                             e.preventDefault();
                                             var productId = this.dataset.productId;
-                                            updateCart(productId, 'remove');
+                                            removeFromCart(productId); // Используем функцию removeFromCart
                                         });
                                     });
                             
