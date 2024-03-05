@@ -231,7 +231,7 @@ async def delivery_finish_order(callback_query: types.CallbackQuery):
 """Функция для отправки биллинга в телеграм группу"""
 async def send_post_billing(id, products, payment_method, payment_code, address, phone, delivery_price, total_price, billing_receipt_type):
     if billing_receipt_type == "Доставка":
-        await bot.send_message(-4013644681, f"""<b>Биллинг #{id}</b>
+        await bot.send_message(-1002021172396, f"""<b>Биллинг #{id}</b>
 <b>Товары:</b> 
 {products}
 <b>Способ оплаты:</b> {payment_method}
