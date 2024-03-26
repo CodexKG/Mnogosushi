@@ -132,6 +132,7 @@
                                                 </div>
 
                                                 <div class="check-btn-two">
+                                                    <input type="hidden" name="delivery_price" value="250">
                                                     <input type="hidden" name="total_price" value="{{ total_price }}">
                                                     <button class="main-btn-four" type="submit" id="submit-button">Оформить</button>
                                                 </div>
@@ -249,6 +250,10 @@
                             </div>
                             <script>
                             document.addEventListener('DOMContentLoaded', function() {
+                                // Declare finalTotalElement in the global scope
+                                var finalTotalElement = document.querySelector('.final-total-price');
+                                var deliveryPriceElement = document.querySelector('input[name="delivery_price"]');
+
                                 // Function to handle cart update
                                 function updateCart(productId, action) {
                                     console.log('Updating product with ID:', productId);
@@ -268,7 +273,6 @@
                                             var quantityDisplayElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity-display`);
                                             var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
                                             var deliveryCostElement = document.querySelector('.delivery-cost');
-                                            var finalTotalElement = document.querySelector('.final-total-price');
 
                                             console.log('Updating elements...');
                                             if (quantityElement && totalElement) {
@@ -284,12 +288,15 @@
 
                                             if (deliveryCostElement) {
                                                 deliveryCostElement.textContent = data.delivery_cost + ' KGS';
+                                                updateDeliveryPrice(data.delivery_cost);
                                             } else {
                                                 console.error('deliveryCostElement not found');
                                             }
 
                                             if (finalTotalElement) {
                                                 finalTotalElement.textContent = (parseFloat(data.final_total_price) + parseFloat(data.delivery_cost)) + ' KGS';
+                                                // Call updateTotalPrice to update the hidden input field
+                                                updateTotalPrice(parseFloat(data.final_total_price) + parseFloat(data.delivery_cost));
                                             } else {
                                                 console.error('finalTotalElement not found');
                                             }
@@ -298,6 +305,20 @@
                                             console.error('Error updating cart:', data.error);
                                         }
                                     });
+                                }
+
+                                // Function to update the total price in the hidden input field
+                                function updateTotalPrice(newTotalPrice) {
+                                    // Update the visual display of the price
+                                    finalTotalElement.textContent = newTotalPrice + ' KGS';
+
+                                    // Update the value in the hidden form field
+                                    document.querySelector('input[name="total_price"]').value = newTotalPrice;
+                                }
+
+                                    // Function to update the delivery price in the hidden input field
+                                function updateDeliveryPrice(newDeliveryPrice) {
+                                    deliveryPriceElement.value = newDeliveryPrice;
                                 }
 
                                 // Attach event listeners to update cart buttons

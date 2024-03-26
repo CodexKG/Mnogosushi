@@ -52,7 +52,7 @@ def create_billing_from_cart(request):
     address = request.POST.get('address')
     phone = request.POST.get('phone')
     payment_method = request.POST.get('payment_method')
-    delivery_price = request.POST.get('delivery_price') or 0
+    delivery_price = request.POST.get('delivery_price') or 0 
 
     with transaction.atomic():
         # Создаем объект Billing

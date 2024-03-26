@@ -55,6 +55,14 @@ class Setting(models.Model):
         verbose_name="WhatsApp",
         blank=True, null=True
     )
+    telegram_group_chat_id = models.IntegerField(
+        verbose_name="ID чата telegram",
+        blank=True, null=True
+    )
+    menu_telegram_group_chat_id = models.IntegerField(
+        verbose_name="ID чата menu telegram",
+        blank=True, null=True
+    )
     city_modal = models.BooleanField(
         verbose_name="Всплывающее окно в главной странице",
         help_text="Если значение True, то выводится окошко для выбора города",
