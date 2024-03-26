@@ -238,7 +238,7 @@
                                             <!-- Cart Item Actions -->
                                             <div class="cart-item-actions">
                                                 <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="decrease">-</a>
-                                                <span class="cart-item-quantity">{{ item.quantity }}</span>
+                                                <span class="cart-item-quantity-display">{{ item.quantity }}</span> <!-- Этот элемент будет отображать количество -->
                                                 <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="increase">+</a>
                                                 <a href="#" class="btn remove-cart-item" data-product-id="{{ item.product.id }}">Удалить</a>
                                             </div>
@@ -248,118 +248,109 @@
                             {% endif %}
                             </div>
                             <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    // Function to handle cart update
-                                    function updateCart(productId, action) {
-                                        console.log('Updating product with ID:', productId);
-                                        fetch('/cart/update_item/', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRFToken': getCookie('csrftoken'),
-                                            },
-                                            body: JSON.stringify({'productId': productId, 'action': action})
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.success) {
-                                                console.log('Received data:', data);
-                                                var quantityElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity`);
-                                                var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
-                                                // Обновляем итоговую цену всей корзины
-                                                var cartTotalElement = document.querySelector('.cart-total-price');
-                                                if (cartTotalElement) {
-                                                    cartTotalElement.textContent = parseFloat(data.cart_total_price).toFixed(2) + ' KGS';
-                                                }
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // Function to handle cart update
+                                function updateCart(productId, action) {
+                                    console.log('Updating product with ID:', productId);
+                                    fetch('/cart/update_item/', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRFToken': getCookie('csrftoken'),
+                                        },
+                                        body: JSON.stringify({'productId': productId, 'action': action})
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            console.log('Received data:', data);
+                                            var quantityElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity`);
+                                            var quantityDisplayElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity-display`);
+                                            var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
+                                            var deliveryCostElement = document.querySelector('.delivery-cost');
+                                            var finalTotalElement = document.querySelector('.final-total-price');
 
-                                                if (quantityElement && totalElement) {
-                                                    quantityElement.textContent = data.quantity;
-                                                    totalElement.textContent = data.total_price;
-                                                } else {
-                                                    console.error(`Element for product ID ${productId} not found`);
+                                            console.log('Updating elements...');
+                                            if (quantityElement && totalElement) {
+                                                quantityElement.textContent = data.quantity;
+                                                if (quantityDisplayElement) {
+                                                    quantityDisplayElement.textContent = data.quantity;
                                                 }
+                                                totalElement.textContent = data.total_price;
+                                                console.log("Cart Work")
                                             } else {
-                                                console.error('Error updating cart:', data.error);
+                                                console.error(`Element for product ID ${productId} not found`);
                                             }
-                                        })
-                                        .then(data => {
-                                            if (data.success) {
-                                                console.log('Received data:', data);
-                                                var quantityElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity`);
-                                                var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
-                                                var cartTotalElement = document.querySelector('.cart-total-price');
-                                                var deliveryCostElement = document.querySelector('.delivery-cost');
-                                                var finalTotalElement = document.querySelector('.final-total-price');
 
-                                                if (quantityElement && totalElement) {
-                                                    quantityElement.textContent = data.quantity;
-                                                    totalElement.textContent = parseInt(data.total_price).toFixed(2) + ' KGS';
-                                                } else {
-                                                    console.error(`Element for product ID ${productId} not found`);
-                                                }
-
-                                                if (cartTotalElement && deliveryCostElement && finalTotalElement) {
-                                                    cartTotalElement.textContent = parseInt(data.cart_total_price).toFixed(2) + ' KGS';
-                                                    deliveryCostElement.textContent = parseInt(data.delivery_cost).toFixed(2) + ' KGS';
-                                                    finalTotalElement.textContent = parseInt(data.final_total_price).toFixed(2) + ' KGS';
-                                                }
+                                            if (deliveryCostElement) {
+                                                deliveryCostElement.textContent = data.delivery_cost + ' KGS';
                                             } else {
-                                                console.error('Error updating cart:', data.error);
+                                                console.error('deliveryCostElement not found');
                                             }
-                                        });
-                                    }
-                            
-                                    // Attach event listeners to update cart buttons
-                                    document.querySelectorAll('.update-cart').forEach(btn => {
-                                        btn.addEventListener('click', function(e) {
-                                            e.preventDefault();
-                                            var productId = this.dataset.productId;
-                                            var action = this.dataset.action;
-                                            updateCart(productId, action);
-                                        });
-                                    });
-                            
-                                    // Function to handle cart item removal
-                                    function removeFromCart(productId) {
-                                        fetch('/cart/remove_item/', { // Измененный URL
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRFToken': getCookie('csrftoken'),
-                                            },
-                                            body: JSON.stringify({'productId': productId})
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            location.reload(); // Reload the page to update the cart display
-                                        });
-                                    }
 
-                                    // Attach event listeners to remove cart item buttons
-                                    document.querySelectorAll('.remove-cart-item').forEach(btn => {
-                                        btn.addEventListener('click', function(e) {
-                                            e.preventDefault();
-                                            var productId = this.dataset.productId;
-                                            removeFromCart(productId); // Используем функцию removeFromCart
-                                        });
+                                            if (finalTotalElement) {
+                                                finalTotalElement.textContent = (parseFloat(data.final_total_price) + parseFloat(data.delivery_cost)) + ' KGS';
+                                            } else {
+                                                console.error('finalTotalElement not found');
+                                            }
+                                            
+                                        } else {
+                                            console.error('Error updating cart:', data.error);
+                                        }
                                     });
-                            
-                                    // Function to get CSRF token
-                                    function getCookie(name) {
-                                        let cookieValue = null;
-                                        if (document.cookie && document.cookie !== '') {
-                                            const cookies = document.cookie.split(';');
-                                            for (let i = 0; i < cookies.length; i++) {
-                                                let cookie = cookies[i].trim();
-                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                    break;
-                                                }
+                                }
+
+                                // Attach event listeners to update cart buttons
+                                document.querySelectorAll('.update-cart').forEach(btn => {
+                                    btn.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        var productId = this.dataset.productId;
+                                        var action = this.dataset.action;
+                                        updateCart(productId, action);
+                                    });
+                                });
+
+                                // Function to handle cart item removal
+                                function removeFromCart(productId) {
+                                    fetch('/cart/remove_item/', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRFToken': getCookie('csrftoken'),
+                                        },
+                                        body: JSON.stringify({'productId': productId})
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        location.reload(); // Reload the page to update the cart display
+                                    });
+                                }
+
+                                // Attach event listeners to remove cart item buttons
+                                document.querySelectorAll('.remove-cart-item').forEach(btn => {
+                                    btn.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        var productId = this.dataset.productId;
+                                        removeFromCart(productId); // Use the removeFromCart function
+                                    });
+                                });
+
+                                // Function to get CSRF token
+                                function getCookie(name) {
+                                    let cookieValue = null;
+                                    if (document.cookie && document.cookie !== '') {
+                                        const cookies = document.cookie.split(';');
+                                        for (let i = 0; i < cookies.length; i++) {
+                                            let cookie = cookies[i].trim();
+                                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                break;
                                             }
                                         }
-                                        return cookieValue;
                                     }
-                                });
+                                    return cookieValue;
+                                }
+                            });
                             </script>
                             
                             <div class="apply-coupon">
@@ -420,28 +411,22 @@
                                 <div class="apply-coupon-box">
                                     <div class="shopping-cart-list">
                                        
-                                        <!-- <div class="shopping-cart-list-text">
-                                            <h4>Доставка</h4>
-                                            {% if free_delivery == True %}
-                                            <a href="#">Бесплатно</a>
-                                            {% else %}
-                                            <a href="#">250 KGS</a>
-                                            {% endif %}
-                                        </div> -->
-
                                         <div class="shopping-cart-list-text">
                                             <h4>Доставка</h4>
-                                            <span class="delivery-cost">{{ delivery_cost }} KGS</span>
+                                            {% if total_price < 1500 %}
+                                            <span class="delivery-cost">250 KGS</span>
+                                            {% else %}
+                                            <span class="delivery-cost">0 KGS</span>
+                                            {% endif %}
                                         </div>
                                         
                                     </div>
                                     <div class="shopping-cart-list shopping-cart-list-btm">
                                         <div class="shopping-cart-list-text">
                                             <h4>Итого</h4>
-                                            <span class="cart-total-price">{{ total_price }} KGS</span>
+                                            <span class="final-total-price">{{ total_price }} KGS</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

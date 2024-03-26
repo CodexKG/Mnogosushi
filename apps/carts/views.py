@@ -145,6 +145,7 @@ def update_cart_item(request):
 
         cartItem.save()
         total_price = cartItem.total_price()  
+        print(f"Total price product", total_price)
 
         # Рассчитываем итоговую цену всей корзины
         cart_items = CartItem.objects.filter(cart=cart).annotate(
@@ -152,22 +153,18 @@ def update_cart_item(request):
         )
         cart_total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
 
-        delivery_cost = 250  # Пример стоимости доставки
-
-        if total_price < 1500:
-            total_price += delivery_cost  # Добавляем стоимость доставки, если сумма заказа меньше 1500 сом
+        # Рассчитываем итоговую сумму с учетом доставки
+        if cart_total_price < 1500:
+            delivery_cost = 250  # Пример стоимости доставки
         else:
             delivery_cost = 0
-            
-        # Рассчитываем итоговую сумму с учетом доставки
-        final_total_price = cart_total_price + delivery_cost
         return JsonResponse({
             'success': True,
             'quantity': cartItem.quantity,
             'total_price': str(total_price),
             'cart_total_price': str(cart_total_price),
             'delivery_cost': str(delivery_cost),
-            'final_total_price': str(final_total_price)
+            'final_total_price': str(cart_total_price)
         })
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Item not found in cart'}, status=404)
