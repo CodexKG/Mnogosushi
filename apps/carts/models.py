@@ -23,6 +23,9 @@ class CartItem(models.Model):
     quantity = models.PositiveIntegerField(default=1, verbose_name="Количество товара")
     total = models.PositiveBigIntegerField(default=0, verbose_name="Итоговая цена товаров")
 
+    def total_price(self):
+        return int(self.product.price )* self.quantity
+
     def __str__(self):
         return f"{self.cart}"
     

@@ -121,8 +121,16 @@ def cart(request):
 def update_cart_item(request):
     try:
         data = json.loads(request.body)
-        productId = data['productId']
-        action = data['action']
+        print(data)
+        # Проверка на пустые данные
+        if not data:
+            return JsonResponse({'error': 'Empty request data'}, status=400)
+
+        productId = data.get('productId')
+        action = data.get('action')
+        # Проверка на отсутствие необходимых ключей в данных
+        if not productId or not action:
+            return JsonResponse({'error': 'Missing required parameters'}, status=400)
 
         cart = Cart.objects.filter(session_key=request.session.session_key).first()
         if not cart:
@@ -136,11 +144,14 @@ def update_cart_item(request):
             cartItem.quantity -= 1
 
         cartItem.save()
-        return JsonResponse({'success': True})
+        total_price = cartItem.total_price()  
+        print(total_price)
+        return JsonResponse({'success': True, 'quantity': cartItem.quantity, 'total_price': str(total_price)})
 
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Item not found in cart'}, status=404)
     except Exception as e:
+        print("Error", e)
         return JsonResponse({'error': str(e)}, status=500)
 
 def clear_cart(request):

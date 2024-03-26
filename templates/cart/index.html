@@ -226,19 +226,19 @@
                             <div class="cart-summary-box-item-top">
                                 {% if cart_items %}
                                 {% for item in cart_items %}
-                                    <div class="cart-summary-box-item">
+                                    <div class="cart-summary-box-item cart-item" data-product-id="{{ item.product.id }}">
                                         <div class="cart-summary-box-inner">
                                             <!-- Cart Item Details -->
                                             <div class="cart-summary-box-text-two">
                                                 <h4>{{ item.product.title }} {{ item.product.price }} KGS</h4>
-                                                <h5><span>Количество:</span> {{ item.quantity }}</h5>
-                                                <p>Итого: {{ item.total_price }} KGS</p>
+                                                <h5><span>Количество:</span> <span class="cart-item-quantity">{{ item.quantity }}</span></h5>
+                                                <p>Итого: <span class="cart-item-total">{{ item.total_price }}</span> KGS</p>
                                             </div>
 
                                             <!-- Cart Item Actions -->
                                             <div class="cart-item-actions">
                                                 <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="decrease">-</a>
-                                                <span>{{ item.quantity }}</span>
+                                                <span class="cart-item-quantity">{{ item.quantity }}</span>
                                                 <a href="#" class="btn update-cart" data-product-id="{{ item.product.id }}" data-action="increase">+</a>
                                                 <a href="#" class="btn remove-cart-item" data-product-id="{{ item.product.id }}">Удалить</a>
                                             </div>
@@ -251,6 +251,7 @@
                                 document.addEventListener('DOMContentLoaded', function() {
                                     // Function to handle cart update
                                     function updateCart(productId, action) {
+                                        console.log('Updating product with ID:', productId);
                                         fetch('/cart/update_item/', {
                                             method: 'POST',
                                             headers: {
@@ -261,7 +262,20 @@
                                         })
                                         .then(response => response.json())
                                         .then(data => {
-                                            location.reload(); // Reload the page to update the cart display
+                                            if (data.success) {
+                                                console.log('Received data:', data);
+                                                var quantityElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity`);
+                                                var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
+
+                                                if (quantityElement && totalElement) {
+                                                    quantityElement.textContent = data.quantity;
+                                                    totalElement.textContent = data.total_price;
+                                                } else {
+                                                    console.error(`Element for product ID ${productId} not found`);
+                                                }
+                                            } else {
+                                                console.error('Error updating cart:', data.error);
+                                            }
                                         });
                                     }
                             
