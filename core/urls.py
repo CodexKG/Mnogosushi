@@ -26,7 +26,7 @@ from apps.settings.views import page_404, page_500
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name="admin"),
+    path('django/admin/', admin.site.urls),
     path('custom/', custom_admin_site.urls),
 
     #include
@@ -37,6 +37,9 @@ urlpatterns = [
     path('menu/', include('apps.tables.urls')),
     path('user/', include('apps.users.urls')),
     path('category/', include('apps.categories.urls')),
+
+    #crm
+    path('admin/', include('apps.crm.urls')),
 
     #users
     path('logout/', LogoutView.as_view(next_page = 'index'), name = "logout"),

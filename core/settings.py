@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.tables',
     'apps.categories',
+    'apps.crm'
 ]
 
 # RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')

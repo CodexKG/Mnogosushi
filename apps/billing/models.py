@@ -36,6 +36,10 @@ class Billing(MPTTModel):
         max_length=20, unique=True,
         verbose_name="Код оплаты биллинга",
     )
+    note = models.TextField(
+        verbose_name="Комментарий к заказу",
+        blank=True, null=True
+    )
     status = models.BooleanField(
         default=False, verbose_name="Статус заказа"
     )

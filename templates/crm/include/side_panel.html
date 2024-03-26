@@ -1,0 +1,127 @@
+{% load static %}
+<div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+    <div class="navbar-vertical-content scrollbar">
+      <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+        
+        <li class="nav-item"><!-- label-->
+          <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+            <div class="col-auto navbar-vertical-label">Управление бизнесом</div>
+            <div class="col ps-0">
+              <hr class="mb-0 navbar-vertical-divider" />
+            </div>
+          </div>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index'  %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-rocket"></span></span><span class="nav-link-text ps-1">Главная</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index'  %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span><span class="nav-link-text ps-1">Отчеты</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index_billings' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-edit"></span></span><span class="nav-link-text ps-1">Биллинги</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-sync-alt"></span></span><span class="nav-link-text ps-1">Продажи</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-code-branch"></span></span><span class="nav-link-text ps-1">Склад</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-check"></span></span><span class="nav-link-text ps-1">Расходы</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-minus"></span></span><span class="nav-link-text ps-1">Долги</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chevron-right"></span></span><span class="nav-link-text ps-1">Остаток</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tags"></span></span><span class="nav-link-text ps-1">Оборот</span></div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Задачи</span></div>
+          </a>
+        </li>
+        <li class="nav-item"><!-- label-->
+          <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+            <div class="col-auto navbar-vertical-label">Ежедневные операции в магазине</div>
+            <div class="col ps-0">
+              <hr class="mb-0 navbar-vertical-divider" />
+            </div>
+          </div><!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon">
+              <span class="fas fa-flag"></span></span><span class="nav-link-text ps-1">Прогноз</span>
+            </div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon">
+              <span class="fas fa-globe"></span></span><span class="nav-link-text ps-1">Управление складом</span>
+            </div>
+          </a>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon">
+              <span class="fas fa-user-plus"></span></span><span class="nav-link-text ps-1">Персонал</span>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item"><!-- label-->
+          <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+            <div class="col-auto navbar-vertical-label">Настройки и обслуживание системы</div>
+            <div class="col ps-0">
+              <hr class="mb-0 navbar-vertical-divider" />
+            </div>
+          </div>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon">
+              <span class="fas fa-globe"></span></span><span class="nav-link-text ps-1">Настройка CRM</span>
+            </div>
+          </a>      
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center"><span class="nav-link-icon">
+              <span class="fas fa-external-link-alt"></span></span><span class="nav-link-text ps-1">Экпорт данных CRM</span>
+            </div>
+          </a>       
+        </li>
+        <li class="nav-item"><!-- label-->
+          <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+            <div class="col-auto navbar-vertical-label">Поддержка</div>
+            <div class="col ps-0">
+              <hr class="mb-0 navbar-vertical-divider" />
+            </div>
+          </div>
+          <!-- parent pages-->
+          <a class="nav-link" href="{% url 'crm_index' %}" role="button">
+            <div class="d-flex align-items-center">
+              <span class="nav-link-icon">
+                <span class="fas fa-rocket"></span></span><span class="nav-link-text ps-1">Написать в поддержку</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div class="settings mb-3">
+        <div class="card shadow-none">
+          <div class="card-body alert mb-0" role="alert">
+            <div class="btn-close-falcon-container"><button class="btn btn-link btn-close-falcon p-0" aria-label="Close" data-bs-dismiss="alert"></button></div>
+            <div class="text-center"><img src="{% static 'crm/assets/img/icons/spot-illustrations/navbar-vertical.png' %}" alt="" width="80" />
+              <p class="fs-11 mt-2">Вам нравится наш CRM? <br />Поставьте нам хорошую оценку с уважением <a href="{% url 'index' %}">Codex</a></p>
+              <div class="d-grid"><a class="btn btn-sm btn-primary" href="https://instagram.com/codex_kg/" target="_blank">Отзыв</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
