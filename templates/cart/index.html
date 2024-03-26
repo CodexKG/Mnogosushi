@@ -266,12 +266,42 @@
                                                 console.log('Received data:', data);
                                                 var quantityElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity`);
                                                 var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
+                                                // Обновляем итоговую цену всей корзины
+                                                var cartTotalElement = document.querySelector('.cart-total-price');
+                                                if (cartTotalElement) {
+                                                    cartTotalElement.textContent = parseFloat(data.cart_total_price).toFixed(2) + ' KGS';
+                                                }
 
                                                 if (quantityElement && totalElement) {
                                                     quantityElement.textContent = data.quantity;
                                                     totalElement.textContent = data.total_price;
                                                 } else {
                                                     console.error(`Element for product ID ${productId} not found`);
+                                                }
+                                            } else {
+                                                console.error('Error updating cart:', data.error);
+                                            }
+                                        })
+                                        .then(data => {
+                                            if (data.success) {
+                                                console.log('Received data:', data);
+                                                var quantityElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-quantity`);
+                                                var totalElement = document.querySelector(`.cart-item[data-product-id="${productId}"] .cart-item-total`);
+                                                var cartTotalElement = document.querySelector('.cart-total-price');
+                                                var deliveryCostElement = document.querySelector('.delivery-cost');
+                                                var finalTotalElement = document.querySelector('.final-total-price');
+
+                                                if (quantityElement && totalElement) {
+                                                    quantityElement.textContent = data.quantity;
+                                                    totalElement.textContent = parseInt(data.total_price).toFixed(2) + ' KGS';
+                                                } else {
+                                                    console.error(`Element for product ID ${productId} not found`);
+                                                }
+
+                                                if (cartTotalElement && deliveryCostElement && finalTotalElement) {
+                                                    cartTotalElement.textContent = parseInt(data.cart_total_price).toFixed(2) + ' KGS';
+                                                    deliveryCostElement.textContent = parseInt(data.delivery_cost).toFixed(2) + ' KGS';
+                                                    finalTotalElement.textContent = parseInt(data.final_total_price).toFixed(2) + ' KGS';
                                                 }
                                             } else {
                                                 console.error('Error updating cart:', data.error);
@@ -331,45 +361,7 @@
                                     }
                                 });
                             </script>
-                            <!-- <style>
-                                .btn {
-                                    background-color: #ee1d23; /* Red background */
-                                    color: white; /* White text */
-                                    padding: 5px 10px; /* Padding around the text */
-                                    text-decoration: none; /* Removes underline from links */
-                                    border: 2px solid white; /* White border */
-                                    border-radius: 10px; /* Rounded corners */
-                                    cursor: pointer; /* Hand cursor on hover */
-                                    font-size: 14px; /* Font size */
-                                    margin: 2px; /* Margin between buttons */
-                                    transition: background-color 0.3s, color 0.3s; /* Smooth transition for color and background */
-                                }
                             
-                                .btn:hover {
-                                    background-color: #d11a20; /* Slightly darker red on hover */
-                                }
-                            
-                                .btn:active {
-                                    background-color: white; /* White background when clicked */
-                                    color: #ee1d23; /* Red text when clicked */
-                                    border-color: #ee1d23; /* Red border when clicked */
-                                }
-                            
-                                .cart-item-actions {
-                                    display: flex; /* Aligns buttons in a row */
-                                    align-items: center; /* Centers buttons vertically */
-                                    justify-content: flex-start; /* Aligns buttons to the start of the flex container */
-                                }
-                            
-                                .cart-summary-box-item {
-                                    margin-bottom: 15px; /* Space between cart items */
-                                }
-                            
-                                .update-cart, .remove-cart-item {
-                                    margin: 0 5px; /* Spacing around buttons */
-                                }
-                            </style> -->
-
                             <div class="apply-coupon">
                                 {% if cart.promo_code == False %}
                                 <div class="apply-coupon-taitel">
@@ -428,36 +420,28 @@
                                 <div class="apply-coupon-box">
                                     <div class="shopping-cart-list">
                                        
-                                        <div class="shopping-cart-list-text">
+                                        <!-- <div class="shopping-cart-list-text">
                                             <h4>Доставка</h4>
                                             {% if free_delivery == True %}
                                             <a href="#">Бесплатно</a>
                                             {% else %}
                                             <a href="#">250 KGS</a>
                                             {% endif %}
+                                        </div> -->
+
+                                        <div class="shopping-cart-list-text">
+                                            <h4>Доставка</h4>
+                                            <span class="delivery-cost">{{ delivery_cost }} KGS</span>
                                         </div>
                                         
                                     </div>
-                                    <div class="shopping-cart-list shopping-cart-list-btm ">
+                                    <div class="shopping-cart-list shopping-cart-list-btm">
                                         <div class="shopping-cart-list-text">
                                             <h4>Итого</h4>
-                                            <a href="#">{{ total_price }} KGS</a>
+                                            <span class="cart-total-price">{{ total_price }} KGS</span>
                                         </div>
                                     </div>
 
-                                    <!-- <div class="shopping-cart-list-btn">
-                                        <a href="#" class="main-btn-six">
-                                            Place Order
-
-                                            <span>
-                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 9L13 5M13 5L9 1M13 5L1 5" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
