@@ -61,7 +61,7 @@ def crm_index(request):
     ).annotate(
         total_sold=Sum('quantity'),
         total_revenue=Sum('price')
-    ).order_by('-total_sold')
+    ).order_by('-total_sold')[:5]
 
     print('Sold products query:', list(sold_products_query))  # Печать для проверки
 
