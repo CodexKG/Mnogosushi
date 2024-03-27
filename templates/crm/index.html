@@ -17,7 +17,7 @@
             <div class="d-flex flex-between-center">
               <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDoubleTop" aria-controls="navbarDoubleTop" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
               <a class="navbar-brand me-1 me-sm-3" href="{% url 'crm_index' %}">
-                <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
+                <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.mobile_logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
               </a>
               <ul class="navbar-nav align-items-center d-none d-lg-block">
                 <li class="nav-item">
@@ -493,7 +493,7 @@
             <div class="toggle-icon-wrapper">
               <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
             </div><a class="navbar-brand" href="{% url 'crm_index' %}">
-              <div class="d-flex align-items-center py-3"><img class="me-2" src="{{ setting.logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
+              <div class="d-flex align-items-center py-3"><img class="me-2" src="{{ setting.mobile_logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
             </a>
           </div>
           <!-- Start Side Panel -->
@@ -504,7 +504,7 @@
         <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand-lg" style="display: none;">
           <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarStandard" aria-controls="navbarStandard" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
           <a class="navbar-brand me-1 me-sm-3" href="{% url 'crm_index' %}">
-            <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
+            <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.mobile_logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
           </a>
           <div class="collapse navbar-collapse scrollbar" id="navbarStandard">
             <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
@@ -872,7 +872,7 @@
           <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand" style="display: none;">
             <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
             <a class="navbar-brand me-1 me-sm-3" href="{% url 'crm_index' %}">
-              <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
+              <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.mobile_logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
             </a>
             <ul class="navbar-nav align-items-center d-none d-lg-block">
               <li class="nav-item">
@@ -1181,7 +1181,7 @@
           <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand-lg" style="display: none;" data-move-target="#navbarVerticalNav" data-navbar-top="combo">
             <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
             <a class="navbar-brand me-1 me-sm-3" href="{% url 'crm_index' %}">
-              <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
+              <div class="d-flex align-items-center"><img class="me-2" src="{{ setting.mobile_logo.url }}" alt="" width="40" /><span class="font-sans-serif text-primary">Codex</span></div>
             </a>
             <div class="collapse navbar-collapse scrollbar" id="navbarStandard">
               <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
@@ -1594,11 +1594,15 @@
                     </div><img class="ms-n4 d-md-none d-lg-block" src="{% static 'crm/assets/img/illustrations/crm-line-chart.png' %}" alt="" width="150" />
                   </div>
                   <div class="col-md-auto p-3">
-                    <form class="row align-items-center g-3">
-                      <div class="col-auto">
-                        <h6 class="text-700 mb-0">Показаны данные для: </h6>
-                      </div>
-                      <div class="col-md-auto position-relative"><input class="form-control form-control-sm datetimepicker ps-4" id="CRMDateRange" type="text" data-options="{&quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;M d&quot;,&quot;disableMobile&quot;:true , &quot;defaultDate&quot;: [&quot;Nov 09&quot;, &quot;Nov 16&quot;] }" /><span class="fas fa-calendar-alt text-primary position-absolute top-50 translate-middle-y ms-2"> </span></div>
+                    <form class="row align-items-center g-3" method="get">
+                        <div class="col-auto">
+                            <h6 class="text-700 mb-0">Показаны данные для: </h6>
+                        </div>
+                        <div class="col-md-auto position-relative">
+                            <input class="form-control form-control-sm datetimepicker ps-4" id="CRMDateRange" type="text" name="CRMDateRange" data-options="{&quot;locale&quot;: &quot;ru&quot;, &quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;M d&quot;,&quot;disableMobile&quot;:true, &quot;defaultDate&quot;: [&quot;{{ default_start_date }}&quot;, &quot;{{ default_end_date }}&quot;] }"/>
+                            <span class="fas fa-calendar-alt text-primary position-absolute top-50 translate-middle-y ms-2"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Показать</button>
                     </form>
                   </div>
                 </div>
@@ -1658,7 +1662,7 @@
                       <div class="d-flex flex-between-center mb-3">
                         <div class="d-flex align-items-center">
                           <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-success-subtle"><span class="fs-11 fas fa-bolt text-success"></span></div>
-                          <h6 class="mb-0">Новые лиды</h6>
+                          <h6 class="mb-0">Новые биллинги</h6>
                         </div>
                         <div class="dropdown font-sans-serif btn-reveal-trigger"><button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-leads" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs-11"></span></button>
                           <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-new-leads"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
@@ -1670,7 +1674,7 @@
                         <div class="d-flex">
                           <p class="font-sans-serif lh-1 mb-1 fs-5 pe-2">16%</p>
                           <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-down text-danger"></span>
-                            <p class="fs-11 mb-0 text-nowrap">1423 vs 256 </p>
+                            <p class="fs-11 mb-0 text-nowrap">{{ total_billings_count }} vs 256 </p>
                           </div>
                         </div>
                         <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[200,150,175,130,150,115,130,100],"color":"#00d27a","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#00d27a3A"},{"offset":1,"color":"#00d27a0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
@@ -1699,7 +1703,7 @@
                       <div class="row g-0 my-2">
                         <div class="col-md-6 col-xxl-12">
                           <div class="border-bottom-xxl border-200 mb-2">
-                            <h2 class="text-primary">300 000 KGS</h2>
+                            <h2 class="text-primary">{{ total_billing_price }} KGS</h2>
                             <p class="fs-11 text-500 fw-semi-bold mb-0"><span class="fas fa-circle text-primary me-2"></span>Закрытая сумма</p>
                             <p class="fs-11 text-500 fw-semi-bold"><span class="fas fa-circle text-warning me-2"></span>Цель по доходу</p>
                           </div>
