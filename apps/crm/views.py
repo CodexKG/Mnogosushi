@@ -8,7 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime, timedelta, date
 import traceback
 
-from apps.billing.models import Billing
+from apps.billing.models import Billing, BillingProduct
 from apps.settings.models import Setting
 
 # Create your views here.
@@ -48,6 +48,37 @@ def crm_index(request):
     # Форматирование дат для отображения
     default_start_date = start_date.strftime('%b %d')
     default_end_date = end_date.strftime('%b %d')
+
+    # Получаем биллинги за выбранный период
+    billing_queryset = Billing.objects.filter(created__date__range=(start_date, end_date))
+    print('Billing queryset:', billing_queryset)
+
+    # Собираем информацию о проданных товарах за выбранный период
+    sold_products_query = BillingProduct.objects.filter(
+        billing__in=billing_queryset
+    ).values(
+        'product__title'  # Замените 'product__title' на 'product__name' или на другое существующее поле
+    ).annotate(
+        total_sold=Sum('quantity'),
+        total_revenue=Sum('price')
+    ).order_by('-total_sold')
+
+    print('Sold products query:', list(sold_products_query))  # Печать для проверки
+
+    # Подсчет общего количества проданных товаров
+    total_sold_items = sold_products_query.aggregate(total=Sum('quantity'))['total'] or 0
+
+    # Преобразование результатов запроса в список для передачи в шаблон
+    sold_products_data = [
+        {
+            'title': product['product__title'],  # Используйте существующее имя поля
+            'total_sold': product['total_sold'],
+            'percentage': (product['total_sold'] / total_sold_items * 100) if total_sold_items else 0
+        }
+        for product in sold_products_query
+    ]
+
+    print('Sold products data:', sold_products_data)  # Печать для проверки
     
     return render(request, 'crm/index.html', locals())
 
