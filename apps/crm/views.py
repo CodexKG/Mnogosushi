@@ -15,32 +15,44 @@ from apps.settings.models import Setting
 @staff_member_required(login_url='/admin/login/')
 def crm_index(request):
     setting = Setting.objects.latest('id')
+    today = datetime.today().date()  # Сегодняшняя дата без времени
+    end_date = today  # Конец интервала — сегодняшний день
+    start_date = today - timedelta(days=6)  # Начало интервала — 7 дней назад от сегодняшнего дня
+
     date_range = request.GET.get('CRMDateRange', '')
-    current_year = date.today().year
     if date_range:
         # Парсим дату с учетом текущего года
-        dates = [datetime.strptime(date + f" {current_year}", '%b %d %Y').date() for date in date_range.split(' to ')]
+        dates = [datetime.strptime(date + f" {today.year}", '%b %d %Y').date() for date in date_range.split(' to ')]
         start_date = dates[0]
-        end_date = dates[-1]  # Берем последнюю дату, вне зависимости от того, одна она или нет
-        billing_queryset = Billing.objects.filter(created__date__range=(start_date, end_date))
-    else:
-        today = datetime.today().date()
-        start_date = today - timedelta(days=today.weekday())
-        end_date = start_date + timedelta(days=6)
-        billing_queryset = Billing.objects.filter(created__date__range=(start_date, end_date))
-        current_start_date = today - timedelta(days=today.weekday())
-        current_end_date = current_start_date + timedelta(days=6)
+        end_date = dates[1] if len(dates) > 1 else end_date
     
-    default_start_date = start_date.strftime('%b %d')
-    default_end_date = end_date.strftime('%b %d')
-    
+    # Проверка, что дата начала не позднее даты окончания
+    if start_date > end_date:
+        start_date, end_date = end_date, start_date
+
+    billing_queryset = Billing.objects.filter(created__date__range=(start_date, end_date))
     total_billing_price = billing_queryset.aggregate(total=Sum('total_price'))['total'] or 0
     total_billings_count = billing_queryset.count()
+
+    # Расчет для предыдущего периода (за 7 дней до выбранного диапазона)
+    previous_start_date = start_date - timedelta(days=7)
+    previous_end_date = start_date - timedelta(days=1)  # День перед началом текущего периода
+
+    # Получаем данные за предыдущий период
+    previous_billing_queryset = Billing.objects.filter(created__date__range=(previous_start_date, previous_end_date))
+    total_billing_price_previous = previous_billing_queryset.aggregate(total=Sum('total_price'))['total'] or 0
+
+    # Расчет процентного изменения
+    percentage_change = (total_billing_price - total_billing_price_previous) / total_billing_price_previous * 100 if total_billing_price_previous else 0
+
+    # Форматирование дат для отображения
+    default_start_date = start_date.strftime('%b %d')
+    default_end_date = end_date.strftime('%b %d')
     
     return render(request, 'crm/index.html', locals())
 
 def crm_login(request):
-    setting = Setting.objects.latest('id')
+    setting = Setting.objects.latest('id')  
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
