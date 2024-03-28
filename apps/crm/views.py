@@ -5,9 +5,10 @@ from django.http import JsonResponse
 from django.contrib import admin
 from django.db.models import Sum
 from django.contrib.admin.views.decorators import staff_member_required
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from django.http import JsonResponse
 from django.urls import reverse
+from apps.crm.forms import BillingForm
 import traceback
 
 from apps.billing.models import Billing, BillingProduct
@@ -101,7 +102,37 @@ def crm_login(request):
 @staff_member_required(login_url='/admin/login/')
 def crm_index_billings(request):
     setting = Setting.objects.latest('id')
-    return render(request, 'crm/billing/index.html', {'setting': setting})
+    return render(request, 'crm/billing/index.html', locals())
+
+@staff_member_required(login_url='admin/login/')
+def crm_add_billings(request):
+    if request.method == 'POST':
+        form = BillingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Добавьте код для перехода на другую страницу или отображения сообщения об успешном добавлении
+            return redirect('crm_index_billings')
+    else:
+        form = BillingForm()
+    
+    setting = Setting.objects.latest('id')
+    return render(request, 'crm/billing/add.html', {'form': form, 'setting': setting})
+
+@staff_member_required(login_url='admin/login/')
+def crm_detail_billings(request, id):
+    setting = Setting.objects.latest('id')
+    billing = Billing.objects.get(id=id)
+    return render(request, 'crm/billing/detail.html', locals())
+
+@staff_member_required(login_url='admin/login/')
+def crm_products(request):
+    setting = Setting.objects.latest('id')
+    return render(request, 'crm/product/index.html', locals())
+
+@staff_member_required(login_url='admin/login/')
+def crm_tasks(request):
+    setting =  Setting.objects.latest('id')
+    return render(request, 'crm/tasks.html', locals())
 
 def get_list_display(request):
     if not request.user.is_authenticated:
@@ -120,7 +151,7 @@ def get_billing_data(request):
         # Определяем поля, которые мы хотим отправить
         fields = ['id', 'total_price', 'address', 'payment_method', 'phone', 'delivery_price', 'billing_receipt_type', 'payment_code', 'created' ,'status']
         # Получаем данные биллингов
-        billings = Billing.objects.all().values(*fields)
+        billings = Billing.objects.all().values(*fields).order_by('-created')
         # Также отправляем список полей для отображения
         return JsonResponse({
             'billings': list(billings),

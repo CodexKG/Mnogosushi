@@ -1,5 +1,5 @@
 {% extends 'crm/include/homepage.html' %}
-{% load static %}
+{% load static custom_filters %}
 {% block content %}
     <!-- ===============================================--><!--    Main Content--><!-- ===============================================-->
     <main class="main" id="top">
@@ -1094,195 +1094,29 @@
                 navbarDoubleTop.remove(navbarDoubleTop);
                 navbarTopCombo.remove(navbarTopCombo);
               }
-              
-              fetch('/admin/get_list_display/')
-                .then(response => response.json())
-                .then(data => {
-                  const tableHeaders = data.list_display;
-                  const thead = document.querySelector('.table thead tr');
-                  thead.innerHTML = ''; // Очищаем текущие заголовки
-                  tableHeaders.forEach(header => {
-                    const th = document.createElement('th');
-                    th.textContent = header;
-                    thead.appendChild(th);
-                  });
-                })
-                .catch(error => console.error('Ошибка:', error));
-                // Add this function at the top of your script to handle CSRF Token retrieval
-                function getCSRFToken() {
-                  const csrfTokenMetaTag = document.querySelector('meta[name="csrf-token"]');
-                  return csrfTokenMetaTag ? csrfTokenMetaTag.content : '';
-                }
-                // Получения данных
-                // Function to fetch and display list display settings
-                function fetchListDisplay() {
-                  fetch('/admin/get_list_display/')
-                    .then(response => {
-                      if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                      }
-                      return response.json();
-                    })
-                    .then(data => {
-                      const tableHeaders = data.list_display;
-                      const thead = document.querySelector('.table thead tr');
-                      thead.innerHTML = ''; // Clear current headers
-                      tableHeaders.forEach(header => {
-                        const th = document.createElement('th');
-                        th.textContent = header;
-                        thead.appendChild(th);
-                      });
-                    })
-                    .catch(error => console.error('Error fetching list display:', error));
-                }
-
-                // Fetch and display list display settings
-                function fetchListDisplay() {
-                  fetch('/admin/get_list_display/')
-                    .then(response => response.json())
-                    .then(data => {
-                      const tableHeaders = data.list_display;
-                      const thead = document.querySelector('.table thead tr');
-                      thead.innerHTML = ''; // Clear current headers
-                      const headerNames = {
-                        'id' : 'ID',
-                        'delivery_date_time': 'Дата и время доставки',
-                        'total_price': 'Итоговая сумма',
-                        'address' : 'Адрес',
-                        'payment_method' : 'Метод оплаты',
-                        'phone' : 'Номер телефона',
-                        'delivery_price' : 'Цена доставки',
-                        'payment_code': 'Код оплаты',
-                        'billing_receipt_type': 'Тип квитанции',
-                        'created' : 'Дата',
-                        'status': 'Статус'
-                        // Add more mappings here if needed
-                      };
-                      tableHeaders.forEach(header => {
-                        const th = document.createElement('th');
-                        th.textContent = headerNames[header] || header; // Translate header or fallback to the key
-                        thead.appendChild(th);
-                      });
-                    })
-                    .catch(error => console.error('Error fetching list display:', error));
-                }
-
-                // Fetch and display billing data
-                function fetchBillingData() {
-                  fetch('/admin/get_billing_data/')
-                    .then(response => {
-                      if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                      }
-                      return response.json();
-                    })
-                    .then(data => {
-                      const fields = data.fields; // Получаем поля из ответа
-                      const fieldNames = data.field_names; // Получаем названия полей
-                      const billings = data.billings; // Получаем данные биллингов
-
-                      const thead = document.querySelector('.table thead tr');
-                      const tableBody = document.querySelector('.table tbody');
-
-                      // Строим заголовки таблицы
-                      thead.innerHTML = '';
-                      fields.forEach(field => {
-                        const th = document.createElement('th');
-                        th.textContent = fieldNames[field]; // Используем название поля из fieldNames
-                        thead.appendChild(th);
-                      });
-
-                      // Строим строки таблицы
-                      tableBody.innerHTML = '';
-                      billings.forEach(billing => {
-                        const tr = document.createElement('tr');
-                        fields.forEach(field => {
-                          const td = document.createElement('td');
-                          td.textContent = billing[field]; // Используем данные из billing по ключу field
-                          tr.appendChild(td);
-                        });
-                        tableBody.appendChild(tr);
-                      });
-                    })
-                    .catch(error => {
-                      console.error('Error fetching billing data:', error);
-                      const tableBody = document.querySelector('.table tbody');
-                      tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-3">An error occurred while loading the data.</td></tr>';
-                    });
-                }
-
-                // Call the functions to fetch data
-                fetchListDisplay();
-                fetchBillingData();
-              </script>
-            <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
-              <div class="card-header">
-                <div class="row flex-between-center">
-                  <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">Биллинги</h5>
-                  </div>
-                  <div class="col-8 col-sm-auto ms-auto text-end ps-0">
-                    <div id="orders-actions">
-                      <button class="btn btn-falcon-default btn-sm" type="button" onclick="window.location.href = '{% url 'crm_add_billings' %}'">
-                        <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
-                        <span class="d-none d-sm-inline-block ms-1">Добавить</span>
-                      </button>
-                      <button class="btn btn-falcon-default btn-sm mx-2" type="button">
-                        <span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span>
-                        <span class="d-none d-sm-inline-block ms-1">Фильтры</span>
-                      </button>
-                      <button class="btn btn-falcon-default btn-sm" type="button">
-                        <span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span>
-                        <span class="d-none d-sm-inline-block ms-1">Экспорт</span>
-                      </button>
+            </script>
+            <div class="row g-0">
+                <div class="col-lg-8 pe-lg-2">
+                  <div class="card mb-3">
+                    <div class="card-header bg-body-tertiary">
+                      <h6 class="mb-0">Добавить биллинг</h6>
+                    </div>
+                    <div class="card-body">
+                      <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                          <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.help_text %}
+                              <div class="form-text">{{ field.help_text }}</div>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                      </form>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <div class="table-responsive scrollbar">
-                  <table class="table table-sm table-striped fs-10 mb-0 overflow-hidden">
-                    <thead class="bg-200">
-                      <tr>
-                        <th>
-                          <div class="form-check fs-9 mb-0 d-flex align-items-center"><input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-orders-body","actions":"orders-bulk-actions","replacedElement":"orders-actions"}' /></div>
-                        </th>
-                        <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="order">Заказ</th>
-                        <th class="text-900 sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date">Дата</th>
-                        <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="address" style="min-width: 12.5rem;">Подробно</th>
-                        <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Статус</th>
-                        <th class="text-900 sort pe-1 align-middle white-space-nowrap text-end" data-sort="amount">Итого</th>
-                        <th class="no-sort"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="list" id="table-orders-body">
-                      <tr class="btn-reveal-trigger">
-                        <td class="align-middle" style="width: 28px;">
-                          <div class="form-check fs-9 mb-0 d-flex align-items-center"><input class="form-check-input" type="checkbox" id="checkbox-0" data-bulk-select-row="data-bulk-select-row" /></div>
-                        </td>
-                        <td class="order py-2 align-middle white-space-nowrap"><a href=""> <strong>#181</strong></a> by <strong>Загрузка...</strong><br /><a href="mailto:ricky@example.com">Загрузка...</a></td>
-                        <td class="date py-2 align-middle">Загрузка...</td>
-                        <td class="address py-2 align-middle white-space-nowrap">Загрузка...<p class="mb-0 text-500">Via Flat Rate</p>
-                        </td>
-                        <td class="status py-2 align-middle text-center fs-9 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-subtle-success">Completed<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
-                        <td class="amount py-2 align-middle text-end fs-9 fw-medium">Загрузка...</td>
-                        <td class="py-2 align-middle white-space-nowrap text-end">
-                          <div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs-10"></span></button>
-                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                              <div class="py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="d-flex align-items-center justify-content-center"><button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-                  <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
                 </div>
               </div>
             </div>
