@@ -28,7 +28,7 @@
                           <h3>Администрирование BigBee</h3>
                         </div>
                       </div>
-                      <form method="POST">
+                      <form method="POST" id="loginForm">
                         {% csrf_token %}
                         <div class="mb-3">
                           <label class="form-label" for="card-email">Имя пользователя</label>
@@ -52,17 +52,33 @@
                           </div>
                         </div>
                         <div class="mb-3">
-                          <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Войти</button>
+                          <button class="btn btn-primary d-block w-100 mt-3" type="button" id="loginButton">Войти</button>
                         </div>
+                        <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
                       </form>
-                      <!-- <div class="position-relative mt-4">
-                        <hr />
-                        <div class="divider-content-center">or log in with</div>
-                      </div> -->
-                      <!-- <div class="row g-2 mt-2">
-                        <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                      </div> -->
+                      <script>
+                        $(document).ready(function() {
+                          $('#loginButton').click(function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                              type: 'POST',
+                              url: '{% url "crm_login" %}',
+                              data: $('#loginForm').serialize(),
+                              success: function(response) {
+                                console.log(response)
+                                if (response.success) {
+                                  window.location.href = response.redirect_url;
+                                } else {
+                                  $('#errorMessage').text(response.error_message).show();
+                                }
+                              },
+                              error: function() {
+                                $('#errorMessage').text('Произошла ошибка на сервере. Попробуйте позже.').show();
+                              }
+                            });
+                          });
+                        });
+                      </script>
                     </div>
                   </div>
                 </div>
@@ -71,7 +87,8 @@
           </div>
         </div>
       </div>
-    </main><!-- ===============================================--><!--    End of Main Content--><!-- ===============================================-->
+    </main>
+    <!-- ===============================================--><!--    End of Main Content--><!-- ===============================================-->
 
     <div class="offcanvas offcanvas-end settings-panel border-0" id="settings-offcanvas" tabindex="-1" aria-labelledby="settings-offcanvas">
       <div class="offcanvas-header settings-panel-header bg-shape">

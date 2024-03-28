@@ -5,7 +5,10 @@ from django.http import JsonResponse
 from django.contrib import admin
 from django.db.models import Sum
 from django.contrib.admin.views.decorators import staff_member_required
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
+from django.http import JsonResponse
+from django.urls import reverse
+from apps.crm.forms import BillingForm
 import traceback
 
 from apps.billing.models import Billing, BillingProduct
@@ -17,7 +20,7 @@ def crm_index(request):
     setting = Setting.objects.latest('id')
     today = datetime.today().date()  # Сегодняшняя дата без времени
     end_date = today  # Конец интервала — сегодняшний день
-    start_date = today - timedelta(days=6)  # Начало интервала — 7 дней назад от сегодняшнего дня
+    start_date = today - timedelta(days=7)  # Начало интервала — 7 дней назад от сегодняшнего дня
 
     date_range = request.GET.get('CRMDateRange', '')
     if date_range:
@@ -67,6 +70,7 @@ def crm_index(request):
 
     # Подсчет общего количества проданных товаров
     total_sold_items = sold_products_query.aggregate(total=Sum('quantity'))['total'] or 0
+    print("Items", total_sold_items)
 
     # Преобразование результатов запроса в список для передачи в шаблон
     sold_products_data = [
@@ -90,15 +94,46 @@ def crm_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('crm_index')
+            return JsonResponse({'success': True, 'redirect_url': reverse('crm_index')})
         else:
-            return redirect('user_not_found')
-    return render(request, 'crm/user/login.html', locals())
+            return JsonResponse({'success': False, 'error_message': 'Неверное имя пользователя или пароль'})
+    return render(request, 'crm/user/login.html', locals()) 
 
 @staff_member_required(login_url='/admin/login/')
 def crm_index_billings(request):
     setting = Setting.objects.latest('id')
-    return render(request, 'crm/billing/index.html', {'setting': setting})
+    return render(request, 'crm/billing/index.html', locals())
+
+@staff_member_required(login_url='admin/login/')
+def crm_add_billings(request):
+    if request.method == 'POST':
+        form = BillingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Добавьте код для перехода на другую страницу или отображения сообщения об успешном добавлении
+            return redirect('crm_index_billings')
+    else:
+        form = BillingForm()
+    
+    setting = Setting.objects.latest('id')
+    return render(request, 'crm/billing/add.html', {'form': form, 'setting': setting})
+
+@staff_member_required(login_url='admin/login/')
+def crm_detail_billings(request, id):
+    setting = Setting.objects.latest('id')
+    billing = Billing.objects.get(id=id)
+    products = BillingProduct.objects.filter(billing_id=id)
+    return render(request, 'crm/billing/detail.html', locals())
+
+@staff_member_required(login_url='admin/login/')
+def crm_products(request):
+    setting = Setting.objects.latest('id')
+    return render(request, 'crm/product/index.html', locals())
+
+@staff_member_required(login_url='admin/login/')
+def crm_tasks(request):
+    setting =  Setting.objects.latest('id')
+    return render(request, 'crm/tasks.html', locals())
 
 def get_list_display(request):
     if not request.user.is_authenticated:
@@ -115,17 +150,18 @@ def get_list_display(request):
 def get_billing_data(request):
     try:
         # Определяем поля, которые мы хотим отправить
-        fields = ['total_price', 'first_name', 'last_name', 'payment_code', 'billing_receipt_type', 'status']
+        fields = ['id', 'total_price', 'address', 'payment_method', 'phone', 'delivery_price', 'billing_receipt_type', 'payment_code', 'created' ,'status']
         # Получаем данные биллингов
-        billings = Billing.objects.all().values(*fields)
+        billings = Billing.objects.all().values(*fields).order_by('-created')
         # Также отправляем список полей для отображения
         return JsonResponse({
             'billings': list(billings),
             'fields': fields,
             'field_names': {  # Передаем переводы полей на фронд
+                'id' : 'ID',
                 'total_price': 'Итоговая цена',
-                'first_name': 'Имя',
-                'last_name': 'Фамилия',
+                'address' : 'Адрес',
+                'payment_method' : 'Метод оплаты',
                 'payment_code': 'Код оплаты',
                 'billing_receipt_type': 'Тип квитанции',
                 'status': 'Статус',
