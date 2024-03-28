@@ -122,6 +122,7 @@ def crm_add_billings(request):
 def crm_detail_billings(request, id):
     setting = Setting.objects.latest('id')
     billing = Billing.objects.get(id=id)
+    products = BillingProduct.objects.filter(billing_id=id)
     return render(request, 'crm/billing/detail.html', locals())
 
 @staff_member_required(login_url='admin/login/')

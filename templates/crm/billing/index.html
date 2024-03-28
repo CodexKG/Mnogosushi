@@ -1094,7 +1094,7 @@
                 navbarDoubleTop.remove(navbarDoubleTop);
                 navbarTopCombo.remove(navbarTopCombo);
               }
-              
+
               fetch('/admin/get_list_display/')
                 .then(response => response.json())
                 .then(data => {
@@ -1198,7 +1198,15 @@
                         const tr = document.createElement('tr');
                         fields.forEach(field => {
                           const td = document.createElement('td');
-                          td.textContent = billing[field]; // Используем данные из billing по ключу field
+                          // Если поле - ID, создаем ссылку на детальный просмотр
+                          if (field === 'id') {
+                            const a = document.createElement('a');
+                            a.href = `/admin/billing/detail/${billing[field]}/`; // Обновите URL-адрес в соответствии с маршрутами вашего приложения
+                            a.textContent = billing[field];
+                            td.appendChild(a);
+                          } else {
+                            td.textContent = billing[field]; // Используем данные из billing по ключу field
+                          }
                           tr.appendChild(td);
                         });
                         tableBody.appendChild(tr);
