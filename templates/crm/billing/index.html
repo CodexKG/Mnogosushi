@@ -1622,12 +1622,16 @@
                       const thead = document.querySelector('.table thead tr');
                       thead.innerHTML = ''; // Clear current headers
                       const headerNames = {
+                        'id' : 'ID',
                         'delivery_date_time': 'Дата и время доставки',
                         'total_price': 'Итоговая сумма',
-                        'first_name': 'Имя',
-                        'last_name': 'Фамилия',
+                        'address' : 'Адрес',
+                        'payment_method' : 'Метод оплаты',
+                        'phone' : 'Номер телефона',
+                        'delivery_price' : 'Цена доставки',
                         'payment_code': 'Код оплаты',
                         'billing_receipt_type': 'Тип квитанции',
+                        'created' : 'Дата',
                         'status': 'Статус'
                         // Add more mappings here if needed
                       };
@@ -1695,18 +1699,20 @@
                     <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">Биллинги</h5>
                   </div>
                   <div class="col-8 col-sm-auto ms-auto text-end ps-0">
-                    <!-- <div id="orders-bulk-actions">
-                      <div class="d-flex">
-                        <select class="form-select form-select-sm" aria-label="Bulk actions" id="bulk-action-selector">
-                          <option value="" selected="">Bulk actions</option>
-                          <option value="Refund">Refund</option>
-                          <option value="Delete">Delete</option>
-                          <option value="Archive">Archive</option>
-                        </select>
-                        <button class="btn btn-falcon-default btn-sm ms-2" type="button" onclick="performBulkAction()">Apply</button>
-                      </div>
-                    </div> -->
-                    <div id="orders-actions"><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Добавить</span></button><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Фильтры</span></button><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Экспорт</span></button></div>
+                    <div id="orders-actions">
+                      <button class="btn btn-falcon-default btn-sm" type="button">
+                        <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
+                        <span class="d-none d-sm-inline-block ms-1">Добавить</span>
+                      </button>
+                      <button class="btn btn-falcon-default btn-sm mx-2" type="button">
+                        <span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span>
+                        <span class="d-none d-sm-inline-block ms-1">Фильтры</span>
+                      </button>
+                      <button class="btn btn-falcon-default btn-sm" type="button">
+                        <span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span>
+                        <span class="d-none d-sm-inline-block ms-1">Экспорт</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1731,12 +1737,12 @@
                         <td class="align-middle" style="width: 28px;">
                           <div class="form-check fs-9 mb-0 d-flex align-items-center"><input class="form-check-input" type="checkbox" id="checkbox-0" data-bulk-select-row="data-bulk-select-row" /></div>
                         </td>
-                        <td class="order py-2 align-middle white-space-nowrap"><a href=""> <strong>#181</strong></a> by <strong>Ricky Antony</strong><br /><a href="mailto:ricky@example.com">ricky@example.com</a></td>
-                        <td class="date py-2 align-middle">20/04/2019</td>
-                        <td class="address py-2 align-middle white-space-nowrap">Ricky Antony, 2392 Main Avenue, Penasauka, New Jersey 02149<p class="mb-0 text-500">Via Flat Rate</p>
+                        <td class="order py-2 align-middle white-space-nowrap"><a href=""> <strong>#181</strong></a> by <strong>Загрузка...</strong><br /><a href="mailto:ricky@example.com">Загрузка...</a></td>
+                        <td class="date py-2 align-middle">Загрузка...</td>
+                        <td class="address py-2 align-middle white-space-nowrap">Загрузка...<p class="mb-0 text-500">Via Flat Rate</p>
                         </td>
                         <td class="status py-2 align-middle text-center fs-9 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-subtle-success">Completed<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
-                        <td class="amount py-2 align-middle text-end fs-9 fw-medium">9000 KGS</td>
+                        <td class="amount py-2 align-middle text-end fs-9 fw-medium">Загрузка...</td>
                         <td class="py-2 align-middle white-space-nowrap text-end">
                           <div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs-10"></span></button>
                             <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">

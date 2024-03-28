@@ -118,7 +118,7 @@ def get_list_display(request):
 def get_billing_data(request):
     try:
         # Определяем поля, которые мы хотим отправить
-        fields = ['total_price', 'first_name', 'last_name', 'payment_code', 'billing_receipt_type', 'status']
+        fields = ['id', 'total_price', 'address', 'payment_method', 'phone', 'delivery_price', 'billing_receipt_type', 'payment_code', 'created' ,'status']
         # Получаем данные биллингов
         billings = Billing.objects.all().values(*fields)
         # Также отправляем список полей для отображения
@@ -126,9 +126,10 @@ def get_billing_data(request):
             'billings': list(billings),
             'fields': fields,
             'field_names': {  # Передаем переводы полей на фронд
+                'id' : 'ID',
                 'total_price': 'Итоговая цена',
-                'first_name': 'Имя',
-                'last_name': 'Фамилия',
+                'address' : 'Адрес',
+                'payment_method' : 'Метод оплаты',
                 'payment_code': 'Код оплаты',
                 'billing_receipt_type': 'Тип квитанции',
                 'status': 'Статус',
