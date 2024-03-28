@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.db.models import Sum
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime, timedelta, date
+from django.http import JsonResponse
+from django.urls import reverse
 import traceback
 
 from apps.billing.models import Billing, BillingProduct
@@ -17,7 +19,7 @@ def crm_index(request):
     setting = Setting.objects.latest('id')
     today = datetime.today().date()  # Сегодняшняя дата без времени
     end_date = today  # Конец интервала — сегодняшний день
-    start_date = today - timedelta(days=6)  # Начало интервала — 7 дней назад от сегодняшнего дня
+    start_date = today - timedelta(days=7)  # Начало интервала — 7 дней назад от сегодняшнего дня
 
     date_range = request.GET.get('CRMDateRange', '')
     if date_range:
@@ -67,6 +69,7 @@ def crm_index(request):
 
     # Подсчет общего количества проданных товаров
     total_sold_items = sold_products_query.aggregate(total=Sum('quantity'))['total'] or 0
+    print("Items", total_sold_items)
 
     # Преобразование результатов запроса в список для передачи в шаблон
     sold_products_data = [
@@ -90,10 +93,10 @@ def crm_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('crm_index')
+            return JsonResponse({'success': True, 'redirect_url': reverse('crm_index')})
         else:
-            return redirect('user_not_found')
-    return render(request, 'crm/user/login.html', locals())
+            return JsonResponse({'success': False, 'error_message': 'Неверное имя пользователя или пароль'})
+    return render(request, 'crm/user/login.html', locals()) 
 
 @staff_member_required(login_url='/admin/login/')
 def crm_index_billings(request):
